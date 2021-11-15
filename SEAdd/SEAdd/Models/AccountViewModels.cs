@@ -65,6 +65,16 @@ namespace SEAdd.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
+        [Required]
+        [RegularExpression("^[0-9]{5}-[0-9]{7}-[0-9]$", ErrorMessage = "CNIC must follow the XXXXX-XXXXXXX-X format!")]
+        [StringLength(15)]
+        public string Cnic { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

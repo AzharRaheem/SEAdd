@@ -1,0 +1,69 @@
+body, html {
+    width: 100%;
+    height:100%;
+    font-family: 'Roboto';
+    margin: 0px;
+    background-image: url('/Images/title-Image-scaled.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+ }
+.background {
+    width: 100%;
+ }
+.transbox {
+    box-shadow: 0 0 10px #000;
+    width: 50%;
+    height: auto; 
+    margin: 0 auto;
+    margin-top:12%;
+    padding: 20px;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 15px;
+    opacity: 0.5;
+    color: white;
+ } 
+ @media only screen and (max-width:1100px){
+  .transbox {
+    box-shadow: 0 0 10px #000;
+    width: 80%;
+    height: auto; 
+    margin: 0 auto;
+    margin-top:23%;
+    padding: 10px;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 15px;
+    opacity: 0.6;
+    color: white;
+  } 
+ } 
+.transbox>h1{
+    z-index: 999;
+    text-align: center;
+    font-weight: bolder;
+ }
+.transbox>p{
+    text-align: justify;
+    font-size: 18px;
+    z-index:999;      
+ }
+.btn{
+    font-size: 18px;
+    height: auto;
+    border-radius: 15px 15px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 8px 0px;
+    border: none;
+    color: white;
+    font-weight: bold;
+ }
+ #ApplyNowBtn{
+    font-weight: bold;
+    z-index: 999;
+ }
+ #ApplyNowBtn:hover{
+    background-color:#253b80 !important;
+ }
