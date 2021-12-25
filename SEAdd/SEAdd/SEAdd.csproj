@@ -45,12 +45,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -209,28 +212,64 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BoardController.cs" />
+    <Compile Include="Controllers\CustomErrorController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\FeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\QotaController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="CustomValidations\CheckValidDOB.cs" />
+    <Compile Include="CustomValidations\GetLists.cs" />
+    <Compile Include="CustomValidations\UniqueBank.cs" />
+    <Compile Include="CustomValidations\UniqueBoarrd.cs" />
+    <Compile Include="CustomValidations\UniqueCampus.cs" />
+    <Compile Include="CustomValidations\UniqueCnic.cs" />
+    <Compile Include="CustomValidations\UniqueDepartment.cs" />
+    <Compile Include="CustomValidations\UniqueProgram.cs" />
+    <Compile Include="CustomValidations\UniqueQota.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202111120641069_initializeDb.cs" />
-    <Compile Include="Migrations\202111120641069_initializeDb.designer.cs">
-      <DependentUpon>202111120641069_initializeDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202111121721321_DataAnnotationRegistrationModelAdded.cs" />
-    <Compile Include="Migrations\202111121721321_DataAnnotationRegistrationModelAdded.designer.cs">
-      <DependentUpon>202111121721321_DataAnnotationRegistrationModelAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202112241612038_initializeDb.cs" />
+    <Compile Include="Migrations\202112241612038_initializeDb.Designer.cs">
+      <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DomainModels\Applicant.cs" />
+    <Compile Include="Models\DomainModels\Bank.cs" />
+    <Compile Include="Models\DomainModels\Board.cs" />
+    <Compile Include="Models\DomainModels\Campus.cs" />
+    <Compile Include="Models\DomainModels\Department.cs" />
+    <Compile Include="Models\DomainModels\Fee.cs" />
+    <Compile Include="Models\DomainModels\Program.cs" />
+    <Compile Include="Models\DomainModels\Qota.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
+    <Compile Include="Models\ViewModels\BankFeeVM.cs" />
+    <Compile Include="Models\ViewModels\StudentApplicationVM.cs" />
+    <Compile Include="Models\ViewModels\UserRoleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\Challan.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Challan.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\application.png" />
+    <Content Include="assets\images\firefighter.png" />
+    <Content Include="assets\images\man.png" />
+    <Content Include="assets\images\userProfileAvatar.PNG" />
+    <Content Include="assets\js\datatables.init.js" />
+    <Content Include="Content\bootstrap-custom.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -247,26 +286,20 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\login.css" />
-    <Content Include="Content\registrationForm.css" />
+    <Content Include="Content\loginForm.css" />
+    <Content Include="Content\notFound.css" />
+    <Content Include="Content\register.css" />
+    <Content Include="Content\forgotPassword.css" />
+    <Content Include="Content\resetPasswordForm.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\welcome.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\title-Image-scaled.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -295,10 +328,16 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -306,6 +345,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sweetalert.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -344,24 +384,61 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
-    <Content Include="Views\Student\Welcome.cshtml" />
+    <Content Include="Views\Account\EmailConfirmation.cshtml" />
+    <Content Include="Views\Account\EmailConfirmationToLogin.cshtml" />
+    <Content Include="Views\CustomError\NotFound.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Qota\AddNewQota.cshtml" />
+    <Content Include="Views\Qota\Index.cshtml" />
+    <Content Include="Views\Qota\EditQota.cshtml" />
+    <Content Include="Views\Board\AddNewBoard.cshtml" />
+    <Content Include="Views\Board\Index.cshtml" />
+    <Content Include="Views\Board\EditBoard.cshtml" />
+    <Content Include="Views\Program\Index.cshtml" />
+    <Content Include="Views\Program\AddNewProgram.cshtml" />
+    <Content Include="Views\Program\EditProgram.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\AddNewDepartment.cshtml" />
+    <Content Include="Views\Department\EditDepartment.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
+    <Content Include="Views\Dashboard\AdminDashboard.cshtml" />
+    <Content Include="Views\Dashboard\UserDashboard.cshtml" />
+    <Content Include="Views\Fee\ManageFee.cshtml" />
+    <Content Include="Views\Fee\Index.cshtml" />
+    <Content Include="Views\Fee\ManageBank.cshtml" />
+    <Content Include="Views\Fee\AddNewBank.cshtml" />
+    <Content Include="Views\Fee\EditBank.cshtml" />
+    <Content Include="Views\Student\EligibilityCriteria.cshtml" />
+    <Content Include="Views\Account\UpdateUserProfile.cshtml" />
+    <Content Include="Views\Account\AddNewUser.cshtml" />
+    <Content Include="Views\Account\AllUsers.cshtml" />
+    <Content Include="Views\Shared\_AllUsers.cshtml" />
+    <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
+    <Content Include="Views\Student\StudentRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\css\" />
+    <Folder Include="assets\icons\" />
+    <Folder Include="assets\plugins\datatables\" />
+    <Folder Include="fonts\Roboto\" />
     <Folder Include="Views\StudentRegistration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202111120641069_initializeDb.resx">
-      <DependentUpon>202111120641069_initializeDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112241612038_initializeDb.resx">
+      <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202111121721321_DataAnnotationRegistrationModelAdded.resx">
-      <DependentUpon>202111121721321_DataAnnotationRegistrationModelAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\Challan.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Challan.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

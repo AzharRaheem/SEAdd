@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using SEAdd.Models.DomainModels;
 
 namespace SEAdd.Models
 {
@@ -19,6 +20,10 @@ namespace SEAdd.Models
         [Required]
         [StringLength(15)]
         public string Cnic { get; set; }
+        public string profileImgUrl { get; set; }
+        public string fatherName { get; set; }
+        public string address { get; set; }
+        public bool? gender { get; set; } //True for Male
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -34,6 +39,14 @@ namespace SEAdd.Models
             : base("SEAddDBConn", throwIfV1Schema: false)
         {
         }
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<Fee> Fees { get; set; }
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<Qota> Qotas { get; set; }
+        public DbSet<Program> Programs { get; set; }
+        public DbSet<Campus> Campuses { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
 
         public static ApplicationDbContext Create()
         {

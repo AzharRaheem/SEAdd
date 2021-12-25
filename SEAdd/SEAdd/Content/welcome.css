@@ -60,10 +60,10 @@ body, html {
     color: white;
     font-weight: bold;
  }
- #ApplyNowBtn{
+ #ApplyNowBtn ,#HowToApplyBtn{
     font-weight: bold;
     z-index: 999;
  }
- #ApplyNowBtn:hover{
+ #ApplyNowBtn:hover ,#ApplyNowBtn:hover{
     background-color:#253b80 !important;
  }

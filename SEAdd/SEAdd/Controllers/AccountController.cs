@@ -10,17 +10,25 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SEAdd.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
+using SEAdd.CustomValidations;
+using SEAdd.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace SEAdd.Controllers
 {
     [Authorize]
+    [HandleError]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
+        private ApplicationDbContext db;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -73,22 +81,25 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
                     var roles = await UserManager.GetRolesAsync(user.Id);
+                    Session["UserId"] = user.Id;//Store logged User Id...
+                    Session["UserProfileImage"] = user.profileImgUrl; //Store logged User Image...
                     if (roles.Contains("User"))
                     {
-                        return RedirectToAction("Welcome", "Student");
+                        Session["UserRole"] = "User"; //Store User Role...
+                        return RedirectToAction("UserDashboard", "Dashboard");
                     }
                     else
                     {
-                        return RedirectToAction("About", "Home");
+                        Session["UserRole"] = "Admin"; //Store User Role...
+                        return RedirectToAction("AdminDashboard", "Dashboard");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -99,6 +110,80 @@ namespace SEAdd.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+        //Get Logged User Profile -Code...
+        [AllowAnonymous]
+        public ActionResult UpdateUserProfile(string id)
+        {
+            ApplicationUser user = UserManager.FindById(id);
+            UpdateUserProfileViewModel model = new UpdateUserProfileViewModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                fatherName = user.fatherName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                profileImgUrl = user.profileImgUrl,
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateUserProfile(UpdateUserProfileViewModel model , HttpPostedFileBase file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync((string)Session["UserId"]);
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.fatherName = model.fatherName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                if(file != null && file.ContentLength > 0)
+                {
+                    string ImageUrl = GetImageUrl(file);
+                    user.profileImgUrl = ImageUrl;
+                }
+                var result = await UserManager.UpdateAsync(user);
+                var roles = await UserManager.GetRolesAsync(user.Id);
+                if (result.Succeeded)
+                {
+                    Session["UserProfileImage"] = user.profileImgUrl;//Store User Updated Image...
+                    if (roles.Contains("User"))
+                    {
+                        return RedirectToAction("UserDashboard", "Dashboard");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AdminDashboard", "Dashboard");
+                    }
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+        }
+        [NonAction]
+        private string GetImageUrl(HttpPostedFileBase file)
+        {
+            string filePath = null;
+            string folderPath = Server.MapPath("~/Images/");
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+            if(file != null && file.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                var fileExtension = fileName.Split('.')[1];
+                Guid UniqueName = Guid.NewGuid();
+                var imageName = UniqueName + "." + fileExtension;
+                filePath = "~/Images/" + imageName;
+                file.SaveAs(Server.MapPath(filePath));
+            }
+            return filePath;
         }
 
         //
@@ -157,7 +242,7 @@ namespace SEAdd.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model , string role)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -166,8 +251,10 @@ namespace SEAdd.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName , 
                     Cnic = model.Cnic,
+                    profileImgUrl = model.profileImgUrl ,
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email , 
+                    gender = model.Gender
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -176,18 +263,18 @@ namespace SEAdd.Controllers
                     var roleManager = new RoleManager<IdentityRole>(roleStore);
                     await roleManager.CreateAsync(new IdentityRole
                     {
-                        Name = role
+                        Name = model.role
                     });
-                    await UserManager.AddToRoleAsync(user.Id, role);
+                    await UserManager.AddToRoleAsync(user.Id, model.role);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("EmailConfirmationToLogin", "Account");
                 }
                 AddErrors(result);
             }
@@ -195,7 +282,124 @@ namespace SEAdd.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        //Get All Users
+        public ActionResult AllUsers()
+        {
+            var applicationUsers = db.Users.ToList();
+            List<UserProfileVM> users = new List<UserProfileVM>();
+            foreach (var user in applicationUsers)
+            {
+                UserProfileVM userProfile = new UserProfileVM();
+                userProfile.id = user.Id;
+                userProfile.firstName = user.FirstName;
+                userProfile.lastName = user.LastName;
+                userProfile.fatherName = user.fatherName;
+                userProfile.cnic = user.Cnic;
+                userProfile.email = user.Email;
+                userProfile.address = user.address;
+                userProfile.phoneNumber = user.PhoneNumber;
+                userProfile.profileImgUrl = user.profileImgUrl;
+                userProfile.gender = user.gender.ToString();
+                var roles = UserManager.GetRoles(user.Id);
+                if (roles.Contains("User"))
+                {
+                    userProfile.role = "User";
+                }
+                else
+                {
+                    userProfile.role = "Admin";
+                }
+                users.Add(userProfile);
+            }
+            return View(users);
+        }
+        //Get // Account / New User
+        [HttpGet]
+        public ActionResult AddNewUser()
+        {
+            UserRoleVM model = new UserRoleVM()
+            {
+                newUser = new NewUserViewModel() , 
+                Gender = GetLists.GetGenderList() , 
+                roles = db.Roles.ToList()
+            } ;
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddNewUser(UserRoleVM model , HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                bool Gender = true; // For Male 
+                if(model.newUser.gender != "Male")
+                {
+                    Gender = false; //For Female
+                }
+                var user = new ApplicationUser
+                {
+                    FirstName = model.newUser.FirstName,
+                    LastName = model.newUser.LastName,
+                    Cnic = model.newUser.Cnic,
+                    profileImgUrl = GetImageUrl(file),
+                    UserName = model.newUser.Email,
+                    Email = model.newUser.Email , 
+                    PhoneNumber = model.newUser.PhoneNumber ,
+                    gender = Gender ,
+                    address = model.newUser.Address , 
+                    fatherName = model.newUser.fatherName
+                };
+                var result = await UserManager.CreateAsync(user, model.newUser.Password);
+                if (result.Succeeded)
+                {
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole
+                    {
+                        Name = model.newUser.role
+                    });
+                    await UserManager.AddToRoleAsync(user.Id, model.newUser.role);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("AllUsers", "Account");
+                }
+                AddErrors(result);
+            }
+            UserRoleVM userModel = new UserRoleVM()
+            {
+                newUser = model.newUser ,
+                Gender = GetLists.GetGenderList(),
+                roles = db.Roles.ToList()
+            };
+
+            // If we got this far, something failed, redisplay form
+            return View(userModel);
+        }
+        [HttpGet]
+        public ActionResult EditUser(string id)
+        {
+            var user = UserManager.FindById(id);
+            return View(user);
+        }
+        //Delete a User
+        public async Task<ActionResult> DeleteAUser(string id)
+        {
+            if(id != null)
+            {
+                var user = await UserManager.FindByIdAsync(id);
+                var result = await UserManager.DeleteAsync(user);
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("AllUsers", "Account");
+                }
+            }
+            return View();
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -208,7 +412,12 @@ namespace SEAdd.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
+        //Email Confirmation to Login
+        [AllowAnonymous]
+        public ActionResult EmailConfirmationToLogin()
+        {
+            return View();
+        }
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -226,7 +435,7 @@ namespace SEAdd.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -235,10 +444,10 @@ namespace SEAdd.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -272,7 +481,7 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -416,7 +625,7 @@ namespace SEAdd.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -441,6 +650,10 @@ namespace SEAdd.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+                if(db != null)
+                {
+                    db.Dispose();
                 }
             }
 

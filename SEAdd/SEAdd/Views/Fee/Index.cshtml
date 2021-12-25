@@ -1,0 +1,61 @@
+﻿@model SEAdd.Models.DomainModels.Fee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Fee</a></li>
+    </ol>
+</div>
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Fee</h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="display dataTable table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Main Form Fee</th>
+                            <th>Entry Test Fee</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>@Model.formFee</td>
+                                <td>@Model.entryTestFee</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "ManageFee", new { id = @Model.id }, new { @class = "btn btn-sm btn-success" })
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+    </script>
+}
+

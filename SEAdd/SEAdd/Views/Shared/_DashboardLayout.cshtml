@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Online Admission Portal</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <link href="~/assets/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/plugins/metismenu/css/metisMenu.min.css">
+</head>
+<body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Chat box start
+        ***********************************-->
+        <!--**********************************
+            Chat box End
+        ***********************************-->
+        @{
+            string userId = (string)Session["UserId"];
+        }
+        @if (User.IsInRole("Admin")) //Admin Area...
+        {
+            <!--**********************************
+                Nav header start
+            ***********************************-->
+            <div class="nav-header">
+                <a href="~/Dashboard/AdminDashboard" class="brand-logo">
+                    <img src="~/assets/images/logo.png" width="70" height="70">
+                    <div class="brand-title">
+                        <h2 class="">SEAdd  <span>-</span></h2>
+                        <span class="brand-sub-title">Software Engineering</span>
+                    </div>
+                </a>
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="line"></span><span class="line"></span><span class="line"></span>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+                Nav header end
+            ***********************************-->
+            <!--**********************************
+                Header start
+            ***********************************-->
+            <div class="header border-bottom">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                                <div class="dashboard_bar">
+                                    Dashboard
+                                </div>
+                            </div>
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown  header-profile">
+                                    <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                        @if (Session["UserProfileImage"] != null)
+                                        {
+                                            <img src="@Url.Content((string)Session["UserProfileImage"])" width="56" alt="User Image">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
+                                        }
+                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
+                                            <span class="ms-2"><i class="fa fa-user" style="font-size:14px;color:#886CC0;"></i> Profile </span>
+                                        </a>
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item ai-icon">
+                                                <span class="ms-2"><i class="fa fa-power-off" style="font-size:14px;color:red;"></i> Logout </span>
+                                            </a>
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!--**********************************
+                Header end ti-comment-alt
+            ***********************************-->
+            <!--**********************************
+                Sidebar start
+            ***********************************-->
+            <div class="dlabnav">
+                <div class="dlabnav-scroll">
+                    <ul class="metismenu" id="menu">
+                        <li>
+                            <a href="~/Dashboard/AdminDashboard" aria-expanded="false">
+                                <i class="fas fa-home"></i>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-clipboard-list" style="font-size:21px;"></i>
+                                <span class="nav-text">Manage</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Boards</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Board/Index">View All Boards</a></li>
+                                        <li><a href="~/Board/AddNewBoard">Add New Board</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Quotas</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Qota/Index">View All Quotas</a></li>
+                                        <li><a href="~/Qota/AddNewQota">Add New Quota</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Programs</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Program/Index">View All Programs</a></li>
+                                        <li><a href="~/Program/AddNewProgram">Add New Program</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Departments</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Department/Index">View All Departments</a></li>
+                                        <li><a href="~/Department/AddNewDepartment">Add New Department</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-book-reader"></i>
+                                <span class="nav-text">Applicants</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View All Applicants</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="nav-text">Notifications</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View All Notifications</a></li>
+                                <li><a href="app-calender.html">Add New Notifications</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-calendar"></i>
+                                <span class="nav-text">Admissions</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View Entry Test</a></li>
+                                <li><a href="app-calender.html">Create a Test</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-keyboard"></i>
+                                <span class="nav-text">Entry Test</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View Entry Test</a></li>
+                                <li><a href="app-calender.html">Create a Test</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="nav-text">Merit Lists</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">Generate Merit List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-money-bill-alt"></i>
+                                <span class="nav-text">Fee</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Fee/Index">Manage Fee</a></li>
+                                <li><a href="~/Fee/ManageBank">Manage Bank</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Account/AllUsers" class="" aria-expanded="false">
+                                <i class="fas fa-users"></i>
+                                <span class="nav-text">Users</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="col-md-10 mx-auto" />
+                    <div class="text-center">
+                        <span>&copy; 2021 -All right reserved.</span>
+                    </div>
+                </div>
+            </div>
+        }
+        @if(User.IsInRole("User")) //User Area...
+        {
+            <!--**********************************
+                Nav header start
+            ***********************************-->
+            <div class="nav-header">
+                <a href="~/Dashboard/UserDashboard" class="brand-logo">
+                    <img src="~/assets/images/logo.png" width="70" height="70">
+                    <div class="brand-title">
+                        <h2 class="">SEAdd  <span>-</span></h2>
+                        <span class="brand-sub-title">Software Engineering</span>
+                    </div>
+                </a>
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="line"></span><span class="line"></span><span class="line"></span>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+                Nav header end
+            ***********************************-->
+            <!--**********************************
+                Header start
+            ***********************************-->
+            <div class="header border-bottom">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                                <div class="dashboard_bar">
+                                    Dashboard
+                                </div>
+                            </div>
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown  header-profile">
+                                    <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                        @if (Session["UserProfileImage"] != null)
+                                        {
+                                            <img src="@Url.Content((string)Session["UserProfileImage"])" width="56" alt="User Image">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
+                                        }
+                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
+                                            <span class="ms-2"><i class="fa fa-user" style="font-size:14px;color:#886CC0;"></i> Profile </span>
+                                        </a>
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item ai-icon">
+                                                <span class="ms-2"><i class="fa fa-power-off" style="font-size:14px;color:red;"></i> Logout </span>
+                                            </a>
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!--**********************************
+                Header end ti-comment-alt
+            ***********************************-->
+            <!--**********************************
+                Sidebar start
+            ***********************************-->
+            <div class="dlabnav">
+                <div class="dlabnav-scroll">
+                    <ul class="metismenu" id="menu">
+                        <li>
+                            <a href="~/Dashboard/UserDashboard" class="" aria-expanded="false">
+                                <i class="fas fa-home"></i>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-calendar"></i>
+                                <span class="nav-text">Admissions</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Student/EligibilityCriteria">Eligibility Criteria</a></li>
+                                <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="nav-text">Notifications</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View All Notifications</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Student/PrintChallan" target="_blank" aria-expanded="false">
+                                <i class="fas fa-file"></i>
+                                <span class="nav-text">Print Challan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="nav-text">Merit Lists</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">View List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="widget-basic.html" class="" aria-expanded="false">
+                                <i class="fas fa-keyboard"></i>
+                                <span class="nav-text">Entry Test</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="col-md-10 mx-auto" />
+                    <div class="text-center">
+                        <span>&copy; 2021 -All right reserved.</span>
+                    </div>
+                </div>
+            </div>
+        }
+       
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <!-- row -->
+                @RenderBody()
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Engr. Awais Rathore</a> &amp; <a href="#" target="_blank">Azhar Raheem</a> -2021</p>
+                <p class="text-center">Department of <span class="text-primary">Software Engineering</span>.</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <!-- Required vendors -->
+    <script src="~/assets/plugins/global/global.min.js"></script>
+    <script src="~/assets/plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <!-- Apex Chart -->
+    <!-- <script src="assets/plugins/apexchart/apexchart.js"></script> -->
+    <!-- Chart piety plugin files -->
+    <script src="~/assets/plugins/peity/jquery.peity.min.js"></script>
+    <!-- Dashboard 1 -->
+    <script src="~/assets/js/dashboard-1.js"></script>
+    <script src="~/assets/plugins/owl-carousel/owl.carousel.js"></script>
+    <script src="~/assets/js/custom.min.js"></script>
+    <script src="~/assets/js/dlabnav-init.js"></script>
+    <script src="~/assets/js/styleSwitcher.js"></script>
+    <script src="~/Scripts/sweetalert.js"></script>
+    <script>
+		function cardsCenter()
+		{
+			/*  testimonial one function by = owl.carousel.js */
+			jQuery('.card-slider').owlCarousel({
+				loop:true,
+				margin:0,
+				nav:true,
+				//center:true,
+				slideSpeed: 3000,
+				paginationSpeed: 3000,
+				dots: true,
+				navText: ['<i class="fas fa-arrow-left"></i>', '<i class="fas fa-arrow-right"></i>'],
+				responsive:{
+					0:{
+						items:1
+					},
+					576:{
+						items:1
+					},
+					800:{
+						items:1
+					},
+					991:{
+						items:1
+					},
+					1200:{
+						items:1
+					},
+					1600:{
+						items:1
+					}
+				}
+			})
+		}
+		jQuery(window).on('load',function(){
+			setTimeout(function(){
+				cardsCenter();
+			}, 1000);
+		});
+    </script>
+</body>
+</html>
+

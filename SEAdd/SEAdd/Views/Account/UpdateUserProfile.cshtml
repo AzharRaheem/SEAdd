@@ -1,0 +1,116 @@
+﻿@model SEAdd.Models.UpdateUserProfileViewModel
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">User</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@using (Html.BeginForm("UpdateUserProfile", "Account", FormMethod.Post , new { enctype = "multipart/form-data" }))
+{
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Edit Profile</h3>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.fatherName)
+                    @Html.TextBoxFor(m => m.fatherName, new { @class = "form-control", placeholder = "Enter Father Name" })
+                    @Html.ValidationMessageFor(m => m.fatherName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter First Name" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhoneNumber)
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter Mobile Number" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Profile Image")
+                    @Html.TextBox("file", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                   @if (Model.profileImgUrl != null)
+                   {
+                    <img src="@Url.Content(Model.profileImgUrl)" width="100" height="100" class="img-thumbnail" />
+                   }
+                   else
+                   {
+                    <img src="@null" width="100" height="100" class="img-thumbnail" />
+                   }
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="float-end">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="~/Dashboard/AdminDashboard" class="btn btn-sm btn-success">CANCEL</a>
+
+                        }
+                        @if (User.IsInRole("User"))
+                        {
+                            <a href="~/Dashboard/UserDashboard" class="btn btn-sm btn-success">CANCEL</a>
+                        }
+                        <input type="submit" value="UPDATE" name="save" class="btn btn-sm btn-primary" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+}
+
+

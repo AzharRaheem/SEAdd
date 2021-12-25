@@ -1,0 +1,53 @@
+﻿@model SEAdd.Models.DomainModels.Bank
+@{
+    ViewBag.Title = "EditBank";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Banks</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@using (Html.BeginForm("EditBank", "Fee", FormMethod.Post))
+{
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Update Bank</h3>
+            </div>
+            <div class="col-sm-6">
+                <span><a href="~/Fee/ManageBank" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.name)
+                    @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Enter Bank Name" })
+                    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.accountNo)
+                    @Html.TextBoxFor(m => m.accountNo, new { @class = "form-control", placeholder = "123XXXXXXXXXX" })
+                    @Html.ValidationMessageFor(m => m.accountNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-6 ">
+                <div class="form-group">
+                    <input type="submit" value="UPDATE" name="save" class="btn btn-sm btn-success col-md-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

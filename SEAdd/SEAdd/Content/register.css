@@ -1,0 +1,60 @@
+﻿html,body { height: 100%; }
+
+body{
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	background-color: lightgrey !important;
+    font-family: 'Roboto';
+}
+
+form{
+	padding-top: 10px;
+	font-size: 14px;
+	margin-top: 30px;
+}
+
+.card-title{ font-weight:500; }
+
+.btn{
+	font-size: 20px;
+	margin-top:20px;
+    height:45px !important;
+    background-color:rgb(136, 108, 192) !important;
+    outline:none !important;
+    width:80% !important;
+    border:none !important;
+}
+.btn:hover {
+    background-color:#9a82c9 !important;
+}
+.login-form{ 
+	width:450px;
+	margin:20px;
+}
+.form-control{
+    height:45px !important;
+}
+.sign-up{
+	text-align:center;
+	padding:20px 0 0;
+}
+
+span{
+	font-size:14px;
+}
+
+#loginLink{
+    text-decoration:none;
+    color:#253B80 ;
+    font-weight:bold;
+}
+#loginLink:hover{
+    text-decoration:underline;
+}
