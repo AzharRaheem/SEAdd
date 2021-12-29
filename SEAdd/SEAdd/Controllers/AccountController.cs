@@ -89,11 +89,21 @@ namespace SEAdd.Controllers
                 case SignInStatus.Success:
                     ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
                     var roles = await UserManager.GetRolesAsync(user.Id);
+                    var applicant = db.Applicants.Where(u => u.userId == user.Id).FirstOrDefault();
+                    if(applicant != null)
+                    {
+                        Session["UserAlreadyExist"] = true;
+                    }
+                    else
+                    {
+                        Session["UserAlreadyExist"] = false;
+                    }
                     Session["UserId"] = user.Id;//Store logged User Id...
                     Session["UserProfileImage"] = user.profileImgUrl; //Store logged User Image...
                     if (roles.Contains("User"))
                     {
                         Session["UserRole"] = "User"; //Store User Role...
+                        Session["User"] = user;
                         return RedirectToAction("UserDashboard", "Dashboard");
                     }
                     else

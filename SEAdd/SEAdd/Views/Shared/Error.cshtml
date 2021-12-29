@@ -1,8 +1,40 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Online Admission Portal</title>
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+</head>
+<body class="vh-100">
+    <div class="authincation h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-5">
+                    <div class="form-input-content text-center error-page">
+                        <h1 class="error-text fw-bold">Oops</h1>
+                        <h4><i class="fa fa-times-circle text-danger"></i> Sorry!</h4>
+                        <p>An error occured while processing your request.</p>
+                        <div>
+                            <a class="btn btn-sm btn-primary" href="#">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>An Error occured while processing your request...</h2>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="~/assets/plugins/global/global.min.js"></script>
+    <script src="~/assets/js/custom.min.js"></script>
+    <script src="~/assets/js/dlabnav-init.js"></script>
+    <script src="~/assets/js/styleSwitcher.js"></script>
+</body>
+</html>

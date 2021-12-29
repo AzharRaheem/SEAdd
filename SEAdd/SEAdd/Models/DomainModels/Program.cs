@@ -14,7 +14,13 @@ namespace SEAdd.Models.DomainModels
         [Required]
         [StringLength(50)]
         [UniqueProgram(ErrorMessage ="Program already exist.")]
+        [RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid program name.")]
         [Display(Name ="Program Name")]
         public string ProgramName { get; set; }
+
+
+
+
+        public ICollection<Applicant> Applicants { get; set; }
     }
 }

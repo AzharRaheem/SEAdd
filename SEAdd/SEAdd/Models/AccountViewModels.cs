@@ -66,10 +66,10 @@ namespace SEAdd.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(50)]
+        [StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string FirstName { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression("^[0-9]{5}-[0-9]{7}-[0-9]$", ErrorMessage = "CNIC must follow the XXXXX-XXXXXXX-X format!")]
@@ -101,13 +101,13 @@ namespace SEAdd.Models
     {
         [Required]
         [StringLength(50)]
-        [Display(Name ="First Name")]
+        [Display(Name ="First Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string FirstName { get; set; }
         [Required]
         [StringLength(50)]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string LastName { get; set; }
-        [Display(Name ="Father Name")]
+        [Display(Name ="Father Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage = "Please enter valid name like \'John , John Smith'")]
         public string fatherName { get; set; }
         [Required]
         [EmailAddress]
@@ -124,14 +124,15 @@ namespace SEAdd.Models
     {
         [Required]
         [StringLength(50)]
-        [Display(Name ="First Name")]
+        [Display(Name ="First Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
         [Required]
         [Display(Name = "Father Name")]
+        [StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John , John Smith\'")]
         public string fatherName { get; set; }
         [Required]
         [RegularExpression("^[0-9]{5}-[0-9]{7}-[0-9]$", ErrorMessage = "CNIC must follow the XXXXX-XXXXXXX-X format!")]
@@ -170,10 +171,10 @@ namespace SEAdd.Models
     public class UpdateAdminUserViewModel //This Model is used to Update the User Detail from Admin Area
     {
         [Required]
-        [StringLength(50)]
+        [StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string FirstName { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression("^[0-9]{5}-[0-9]{7}-[0-9]$", ErrorMessage = "CNIC must follow the XXXXX-XXXXXXX-X format!")]

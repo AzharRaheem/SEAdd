@@ -29159,3 +29159,11 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
       color: #fff; }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.input-validation-error{
+    border:1px solid red;
+}
+.input-validation-error:focus{
+    border:1px solid red;
+}

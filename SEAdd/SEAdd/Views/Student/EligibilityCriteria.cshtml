@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "EligibilityCriteria";
+    ViewBag.Title = "Eligibility Criteria";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 @section styles{
@@ -66,7 +66,15 @@
         </li>
     </ul>
     <div class="text-center">
-        <a href="~/Student/StudentRegistration" class="btn btn-outline-primary btn-sm fw-bold">Apply Online</a>
+        @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
+        {
+            <a href="~/Student/StudentRegistration" class="btn btn-outline-primary btn-sm fw-bold">Apply Online</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-outline-primary btn-sm fw-bold" onclick="UserAlreadyExist()">Apply Online</a>
+        }
+
     </div>
     <div>
         <hr />

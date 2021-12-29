@@ -17,11 +17,11 @@ namespace SEAdd.CustomValidations
         }
         public static List<string> GetFScProgramsList()
         {
-            return new List<string>() { "Pre-Engineering" , "ICS" , "DAE" };
+            return new List<string>() { "Pre-Engineering" , "ICS - PHY,Maths,Computer" , "DAE - 3years" };
         }
         public static List<string> GetGradesList()
         {
-            return new List<string>() { "A+", "A" , "B+", "B" , "C+", "C" , "D+" , "D" , "E" , "F"};
+            return new List<string>() { "A+", "A" , "B+", "B" , "C+", "C" , "D+" , "D"};
         }
         public static List<string> GetDivisionsList()
         {

@@ -14,6 +14,7 @@ namespace SEAdd.Models.DomainModels
         [Required]
         [Display(Name ="Bank Name")]
         [UniqueBank(ErrorMessage ="Bank name already exist.")]
+        [RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$", ErrorMessage = "Please enter valid bank name.")]
         public string name { get; set; }
         [Required]
         [StringLength(14)]

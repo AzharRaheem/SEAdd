@@ -13,10 +13,10 @@ namespace SEAdd.CustomValidations
             DateTime today = DateTime.Today.Date;
             DateTime dob = (DateTime)value;
             TimeSpan timeSpan = today.Subtract(dob.Date);
-            var days = timeSpan.Days;
-            var years = days / 365;
-            return (years >= 18) ? true : false;
-
+            var totalDays = timeSpan.TotalDays;
+            var months = totalDays / 30;
+            var years = months / 12;
+            return (years > 15) ? true : false;
         }
     }
 }

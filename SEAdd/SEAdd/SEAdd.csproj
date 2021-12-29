@@ -223,7 +223,10 @@
     <Compile Include="Controllers\QotaController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="CustomValidations\CheckValidDOB.cs" />
+    <Compile Include="CustomValidations\CheckValidObtainedMarks.cs" />
     <Compile Include="CustomValidations\GetLists.cs" />
+    <Compile Include="CustomValidations\GetTotalMarks.cs" />
+    <Compile Include="CustomValidations\Marks.cs" />
     <Compile Include="CustomValidations\UniqueBank.cs" />
     <Compile Include="CustomValidations\UniqueBoarrd.cs" />
     <Compile Include="CustomValidations\UniqueCampus.cs" />
@@ -237,6 +240,18 @@
     <Compile Include="Migrations\202112241612038_initializeDb.cs" />
     <Compile Include="Migrations\202112241612038_initializeDb.Designer.cs">
       <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.cs" />
+    <Compile Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.Designer.cs">
+      <DependentUpon>202112250646434_ApplicantDataAnnotationAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112261703545_PercentagePropertyAdded.cs" />
+    <Compile Include="Migrations\202112261703545_PercentagePropertyAdded.Designer.cs">
+      <DependentUpon>202112261703545_PercentagePropertyAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112281526190_StringLenghtValidationAdded.cs" />
+    <Compile Include="Migrations\202112281526190_StringLenghtValidationAdded.Designer.cs">
+      <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -387,7 +402,6 @@
     <Content Include="Views\Account\EmailConfirmation.cshtml" />
     <Content Include="Views\Account\EmailConfirmationToLogin.cshtml" />
     <Content Include="Views\CustomError\NotFound.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Qota\AddNewQota.cshtml" />
     <Content Include="Views\Qota\Index.cshtml" />
     <Content Include="Views\Qota\EditQota.cshtml" />
@@ -415,6 +429,7 @@
     <Content Include="Views\Shared\_AllUsers.cshtml" />
     <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
     <Content Include="Views\Student\StudentRegistration.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -431,6 +446,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112241612038_initializeDb.resx">
       <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.resx">
+      <DependentUpon>202112250646434_ApplicantDataAnnotationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112261703545_PercentagePropertyAdded.resx">
+      <DependentUpon>202112261703545_PercentagePropertyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112281526190_StringLenghtValidationAdded.resx">
+      <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

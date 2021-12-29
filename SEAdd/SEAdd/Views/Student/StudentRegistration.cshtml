@@ -1,6 +1,6 @@
 ﻿@model SEAdd.Models.ViewModels.StudentApplicationVM
 @{
-    ViewBag.Title = "StudentRegistration";
+    ViewBag.Title = "Application Form";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
@@ -10,14 +10,15 @@
             <div class="text-center">
                 <img src="~/assets/images/logo.png" class="img-thumbnail" alt="Department logo" width="100" height="100" style="border: none;">
             </div>
-            <h2 style="font-weight:bold;"> Apply For Admission </h2>
-            <p style="font-size:14px;">Fill complete form and then Submit.</p>
+            <h2 style="font-weight:bold;"> Software Engineering </h2>
+            <p style="font-size:14px;">Fill the form to Apply for Addmission.</p>
         </div>
     </div>
 </div>
 @using (Html.BeginForm("StudentRegistration" , "Student" , FormMethod.Post , new { enctype = "multipart/form-data" }))
 {
     <div class="container p-2">
+        @Html.ValidationSummary(true , "Please fix these errors." , new { @class="text-danger text-center"})
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Personal Information</h2>
         <!-- Personal Form Fields -->
         <div class="row mb-2">
@@ -132,7 +133,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.Label("Profile Image")
-                    @Html.TextBox("profileImg", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
+                    @Html.TextBox("profileImg", "", new { @class = "form-control pt-3", type = "file", required = "", accept = ".jpeg , .jpg , .png" })
                 </div>
             </div>
             <div class="col-sm-4">
@@ -149,7 +150,7 @@
         <hr />
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Previous Qualification</h2>
         <!-- Previous Qualification Fields -->
-        <h2 class="h3 text-center bg-light p-1 text-white">Metric Details</h2>
+        <h2 class="h3 text-center bg-light p-1 text-white col-sm-10 mx-auto">Metric Details</h2>
         <div class="row mb-2">
             <div class="col-sm-3">
                 <div class="form-group">
@@ -214,25 +215,25 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     @Html.Label("Metric Result Card")
-                    @Html.TextBox("metricMarksSheet", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png , .pdf" })
+                    @Html.TextBox("metricMarksSheet", "", new { @class = "form-control pt-3", type = "file",required = "" , accept = ".jpeg , .jpg , .png , .pdf" })
                 </div>
             </div>
         </div>
-        <hr />
-          <h2 class="h3 text-center bg-light p-1 text-white">Intermediate Details</h2>
+          <h2 class="h3 text-center bg-light p-1 text-white col-sm-10 mx-auto">Intermediate/DAE Details</h2>
             <div class="row mb-2">
                 <div class="col-sm-3">
                     <div class="form-group">
                         @Html.LabelFor(m => m.applicant.FScTotalMarks)
-                        @Html.TextBoxFor(m => m.applicant.FScTotalMarks, new { @class = "form-control", placeholder = "0000", type = "number"})
+                        @Html.TextBoxFor(m => m.applicant.FScTotalMarks, new { @class = "form-control" , type = "number"})
                         @Html.ValidationMessageFor(m => m.applicant.FScTotalMarks, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         @Html.LabelFor(m => m.applicant.FScObtainedMarks)
-                        @Html.TextBoxFor(m => m.applicant.FScObtainedMarks, new { @class = "form-control", placeholder = "0000", type = "number", min = 0, max = 1100 })
+                        @Html.TextBoxFor(m => m.applicant.FScObtainedMarks, new { @class = "form-control" , type = "number" , value=0})
                         @Html.ValidationMessageFor(m => m.applicant.FScObtainedMarks, "", new { @class = "text-danger" })
+                        <p id="fscObtainedMarksErrorMsg" class="text-danger"></p>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -240,6 +241,7 @@
                         @Html.LabelFor(m => m.applicant.FScProgram)
                         @Html.DropDownListFor(m => m.applicant.FScProgram, new SelectList(Model.FScProgramsList), "-Select Program-", new { @class = "default-select wide form-control" })
                         @Html.ValidationMessageFor(m => m.applicant.FScProgram, "", new { @class = "text-danger" })
+                        <p id="ICSErrorMsg"></p>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -284,7 +286,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.Label("FSc/DAE Result Card")
-                        @Html.TextBox("fscMarksSheetDiploma", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png , .pdf" })
+                        @Html.TextBox("fscMarksSheetDiploma", "", new { @class = "form-control pt-3", type = "file", required = "", accept = ".jpeg , .jpg , .png , .pdf" })
                     </div>
                 </div>
             </div>
@@ -323,12 +325,43 @@
                 </div>
             </div>
         </div>
-        <div>
+        @*<div>
             <hr />
-        </div>
+        </div>*@
         <div class="text-center">
-            <input type="submit" class="btn btn-outline-primary p-2 px-3 fw-bold" value="Submit Application" />
+            <input type="submit" class="btn btn-outline-primary p-2 px-3 fw-bold mt-4" value="Submit Application" />
         </div>
        
     </div>
 }
+
+
+@section Scripts{
+    <script>
+
+        $("#applicant_FScObtainedMarks").focusout(function () {
+            $("#fscObtainedMarksErrorMsg").hide();
+            $("#fscObtainedMarksErrorMsg").text('');
+            var fsc_TotalMarks = parseFloat($("#applicant_FScTotalMarks").val());
+            var fsc_ObtainedMarks = parseFloat($("#applicant_FScObtainedMarks").val());
+            if (fsc_TotalMarks < fsc_ObtainedMarks) {
+                $("#fscObtainedMarksErrorMsg").text("Obtained marks must be less than or equal to total marks.");
+                $("#fscObtainedMarksErrorMsg").show();
+            }
+            else {
+                $("#fscObtainedMarksErrorMsg").hide();
+                $("#fscObtainedMarksErrorMsg").text('');
+                var percentage = parseFloat((fsc_ObtainedMarks / fsc_TotalMarks) * 100);
+                if (percentage < 60) {
+                    $("#fscObtainedMarksErrorMsg").text("You must have at least 60% marks to apply.");
+                    $("#fscObtainedMarksErrorMsg").show();
+                }
+                else {
+                    $("#fscObtainedMarksErrorMsg").hide();
+                    $("#fscObtainedMarksErrorMsg").text('');
+                }
+            }
+        });
+    </script>
+    
+    }

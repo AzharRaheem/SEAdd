@@ -322,7 +322,14 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="~/Student/EligibilityCriteria">Eligibility Criteria</a></li>
-                                <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                                @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
+                                {
+                                    <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="#" onclick="UserAlreadyExist()">Apply Online</a></li>
+                                }
                             </ul>
                         </li>
                         <li>
@@ -457,6 +464,15 @@
 				cardsCenter();
 			}, 1000);
 		});
+
+		function UserAlreadyExist() {
+		    swal({
+		        title: "Sorry!",
+		        text: "Your Application for Admission is already Submitted.",
+		        icon: "error",
+		        button: "OK",
+		    });
+		}
     </script>
 </body>
 </html>

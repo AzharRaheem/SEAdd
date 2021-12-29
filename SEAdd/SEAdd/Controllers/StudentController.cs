@@ -32,25 +32,53 @@ namespace SEAdd.Controllers
         }
         public ActionResult StudentRegistration()
         {
-            StudentApplicationVM vm = new StudentApplicationVM() {
-            applicant=new Applicant() ,
-            Boards = db.Boards.ToList() , 
-            Campuses = db.Campuses.ToList() , 
-            Programs = db.Programs.ToList() , 
-            Departments = db.Departments.ToList() , 
-            Quotas = db.Qotas.ToList() , 
-            GenderList = GetLists.GetGenderList() , 
-            GradesList = GetLists.GetGradesList() , 
-            DivisionsList = GetLists.GetDivisionsList() , 
-            MetricProgramsList = GetLists.GetMetricProgramsList() , 
-            FScProgramsList = GetLists.GetFScProgramsList()
-            };
-            return View(vm);
+            string userId = Convert.ToString(Session["UserId"]);
+            Applicant applicantDetails = db.Applicants.Where(u => u.userId == userId).FirstOrDefault();
+            if(applicantDetails != null)
+            {
+                applicantDetails.BirthDate = applicantDetails.BirthDate.Date;
+                StudentApplicationVM vm = new StudentApplicationVM()
+                {
+                    applicant = applicantDetails,
+                    Boards = db.Boards.ToList(),
+                    Campuses = db.Campuses.ToList(),
+                    Programs = db.Programs.ToList(),
+                    Departments = db.Departments.ToList(),
+                    Quotas = db.Qotas.ToList(),
+                    GenderList = GetLists.GetGenderList(),
+                    GradesList = GetLists.GetGradesList(),
+                    DivisionsList = GetLists.GetDivisionsList(),
+                    MetricProgramsList = GetLists.GetMetricProgramsList(),
+                    FScProgramsList = GetLists.GetFScProgramsList()
+                };
+                return View(vm);
+            }
+            else
+            {
+                var LoggedUser = Session["User"] as ApplicationUser;
+                StudentApplicationVM vm = new StudentApplicationVM()
+                {
+                    applicant = new Applicant() { FirstName = LoggedUser.FirstName , LastName = LoggedUser.LastName ,Email = LoggedUser.Email , CNIC = LoggedUser.Cnic },
+                    Boards = db.Boards.ToList(),
+                    Campuses = db.Campuses.ToList(),
+                    Programs = db.Programs.ToList(),
+                    Departments = db.Departments.ToList(),
+                    Quotas = db.Qotas.ToList(),
+                    GenderList = GetLists.GetGenderList(),
+                    GradesList = GetLists.GetGradesList(),
+                    DivisionsList = GetLists.GetDivisionsList(),
+                    MetricProgramsList = GetLists.GetMetricProgramsList(),
+                    FScProgramsList = GetLists.GetFScProgramsList()
+                };
+                return View(vm);
+            }
         }
         [HttpPost]
         public ActionResult StudentRegistration(StudentApplicationVM vm , HttpPostedFileBase profileImg , HttpPostedFileBase metricMarksSheet , HttpPostedFileBase fscMarksSheetDiploma)
         {
-            if(!ModelState.IsValid)
+            vm.applicant.MetricPercentage = (vm.applicant.MetricObtainedMarks / vm.applicant.MetricTotalMarks) * 100;
+            vm.applicant.FScPercentage = (vm.applicant.FScObtainedMarks / vm.applicant.FScTotalMarks) * 100;
+            if (!ModelState.IsValid)
             {
                 StudentApplicationVM applicant = new StudentApplicationVM()
                 {
@@ -68,8 +96,13 @@ namespace SEAdd.Controllers
                 };
                 return View(applicant);
             }
-
-            return null;
+            vm.applicant.userId = Session["UserId"].ToString();
+            vm.applicant.profileImgUrl = GetFileUrl(profileImg);
+            vm.applicant.MetricMarksSheetUrl = GetFileUrl(metricMarksSheet);
+            vm.applicant.FScMarksSheetUrl = GetFileUrl(fscMarksSheetDiploma);
+            db.Applicants.Add(vm.applicant);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public ActionResult PrintChallan()
         {
@@ -84,7 +117,24 @@ namespace SEAdd.Controllers
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "Challan_SoftwareEngineering.pdf");
         }
-
+        [NonAction]
+        private string GetFileUrl(HttpPostedFileBase file)
+        {
+            string filePath = null;
+            string folderPath = Server.MapPath("~/Images/");
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                var fileExtension = fileName.Split('.')[1];
+                Guid UniqueName = Guid.NewGuid();
+                var imageName = UniqueName + "." + fileExtension;
+                filePath = "~/Images/" + imageName;
+                file.SaveAs(Server.MapPath(filePath));
+            }
+            return filePath;
+        }
 
         protected override void Dispose(bool disposing)
         {

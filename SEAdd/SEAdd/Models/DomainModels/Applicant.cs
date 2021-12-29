@@ -14,16 +14,16 @@ namespace SEAdd.Models.DomainModels
         [Key]
         public int Id { get; set; }
         public string userId { get; set; } //This is logged user id....
-        [Display(Name ="First Name")][Required]
+        [Display(Name ="First Name")][Required][StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string FirstName { get; set; }
-        [Display(Name = "Last Name")][Required]
+        [Display(Name = "Last Name")][Required][StringLength(50)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
         public string LastName { get; set; }
-        [Display(Name = "Father's Name")][Required]
+        [Display(Name = "Father's Name")][Required][StringLength(70)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage = "Please enter valid name like \'John , John Smith\'")]
         public string FatherName { get; set; }
         [Display(Name = "Email")][EmailAddress]
         public string Email { get; set; }
         [Display(Name = "Birth Date")][Required]
-        [CheckValidDOB(ErrorMessage ="Please Enter a Valid DOB.")]
+        [CheckValidDOB(ErrorMessage ="You must be atleast 18 years old.")]
         public DateTime BirthDate { get; set; }
         [Display(Name = "Gender")][Required]
         public string Gender { get; set; }
@@ -49,12 +49,12 @@ namespace SEAdd.Models.DomainModels
         public string profileImgUrl { get; set; }
         //Previous Qualification Details
                //Metric Details
-        [Display(Name ="Metric Total Marks")][Required]
+        [Display(Name ="Total Marks")][Required]
         [Range(1100, 1100, ErrorMessage = "Total marks must be 1100.")]
         public double MetricTotalMarks { get; set; }
-        [Display(Name ="Metric Obtained Marks")][Required]
+        [Display(Name ="Obtained Marks")][Required]
         public double MetricObtainedMarks { get; set; }
-        [Display(Name = "Metric Program")][Required]
+        [Display(Name = "Program")][Required]
         public string MetricProgram { get; set; }
         [Display(Name = "Board")][Required]
         public string MetricBoard { get; set; }
@@ -62,18 +62,20 @@ namespace SEAdd.Models.DomainModels
         public string MetricGrade { get; set; }
         [Display(Name = "Division")][Required]
         public string MetricDivision { get; set; }
-        [Display(Name = "Year of Passing")][Required]
+        public double MetricPercentage { get; set; }
+        [Display(Name = "Year of Passing")][Required][Range(1999,2022 , ErrorMessage ="Please enter a valid year.")]
         public string MetricYearOfPassing { get; set; }
-        [Display(Name = "Roll Number")][Required]
+        [Display(Name = "Roll Number")][Required][Range(1, 10000000, ErrorMessage = "Please enter a valid Roll Number.")]
         public string MetricRollNumber { get; set; }
         public string MetricMarksSheetUrl { get; set; }
         //FSC Details
-        [Display(Name = "FSc Total Marks")][Required]
-        [Range(1100, 1100 , ErrorMessage ="Total marks must be 1100.")]
+        [Display(Name = "Total Marks")][Required][GetTotalMarks]
+        //[Range(1100, 1100 , ErrorMessage ="Total marks must be 1100.")]
         public double FScTotalMarks { get; set; }
-        [Display(Name = "FSc Obtained Marks")][Required]
+        [Display(Name = "Obtained Marks")][Required]/*[Range(660 , 1100 , ErrorMessage = "You must have at least 60% marks to apply.")]*/
+        [CheckValidObtainedMarks(ErrorMessage ="Obtained marks must be less than total marks.")]
         public double FScObtainedMarks { get; set; }
-        [Display(Name = "FSc Program")][Required]
+        [Display(Name = "Program")][Required]
         public string FScProgram { get; set; }
         [Display(Name = "Board")][Required]
         public string FScBoard { get; set; }
@@ -81,9 +83,11 @@ namespace SEAdd.Models.DomainModels
         public string FScGrade { get; set; }
         [Display(Name = "Division")][Required]
         public string FScDivision { get; set; }
-        [Display(Name = "Year of Passing")][Required]
+        [Range(60 , 100)]
+        public double FScPercentage { get; set; }
+        [Display(Name = "Year of Passing")][Required][Range(1999 , 2022 , ErrorMessage ="Please enter a valid year.")]
         public string FScYearOfPassing { get; set; }
-        [Display(Name = "Roll Number")][Required]
+        [Display(Name = "Roll Number")][Required][Range(1, 10000000, ErrorMessage = "Please enter a valid Roll Number.")]
         public string FScRollNumber { get; set; }
         public string FScMarksSheetUrl { get; set; }
         //Program Selection Details
