@@ -159,7 +159,7 @@ namespace SEAdd.Models
         [RegularExpression("^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$", ErrorMessage = "Enter Correct Mobile Number (0300-0000000")]
         public string PhoneNumber { get; set; }
         public string profileImgUrl { get; set; }
-        [Required]
+        [Required][RegularExpression("^[#.0-9a-zA-Z\\s,-]+$" , ErrorMessage ="Please enter a valid address.")]
         public string Address { get; set; }
         [Required]
         [Display(Name ="Gender")]
@@ -186,7 +186,7 @@ namespace SEAdd.Models
         public string Email { get; set; }
        
         public string profileImgUrl { get; set; }
-        [Required]
+        [Required][RegularExpression("^[#.0-9a-zA-Z\\s,-]+$" , ErrorMessage ="Please enter a valid address.")]
         public string Address { get; set; }
         [Required]
         public bool gender { get; set; }

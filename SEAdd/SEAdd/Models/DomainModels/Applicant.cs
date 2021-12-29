@@ -36,9 +36,9 @@ namespace SEAdd.Models.DomainModels
         [Display(Name = "Guardian Contact")]
         [RegularExpression("^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$", ErrorMessage = "Enter Correct Mobile Number (03000000000)")]
         public string GuardianContact { get; set; }
-        [Display(Name = "Permanent Address")][Required]
+        [Display(Name = "Permanent Address")][Required][RegularExpression("^[#.0-9a-zA-Z\\s,-]+$" , ErrorMessage ="Please enter a valid address.")]
         public string PermanentAddress { get; set; }
-        [Display(Name = "Postal Address")][Required]
+        [Display(Name = "Postal Address")][Required][RegularExpression("^[#.0-9a-zA-Z\\s,-]+$" , ErrorMessage ="Please enter a valid address.")]
         public string PostalAddress { get; set; }
         [Display(Name = "State / Province")][Required]
         public string StateProvince { get; set; }
