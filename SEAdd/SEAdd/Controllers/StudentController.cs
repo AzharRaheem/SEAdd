@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace SEAdd.Controllers
 {
     [HandleError]
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User , Admin")]
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -25,6 +25,11 @@ namespace SEAdd.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult ViewAllApplicants()
+        {
+            List<Applicant> applicants = db.Applicants.ToList();
+            return View(applicants);
         }
         public ActionResult EligibilityCriteria()
         {

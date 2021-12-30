@@ -1,6 +1,7 @@
 ﻿using SEAdd.CustomValidations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace SEAdd.Models.DomainModels
         [Display(Name ="Personal Contact")][Required]
         [RegularExpression("^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$", ErrorMessage = "Enter Correct Mobile Number (03000000000)")]
         public string PersonalContact { get; set; }
-        [Display(Name = "Guardian Contact")]
+        [Display(Name = "Guardian Contact")][Required]
         [RegularExpression("^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$", ErrorMessage = "Enter Correct Mobile Number (03000000000)")]
         public string GuardianContact { get; set; }
         [Display(Name = "Permanent Address")][Required][RegularExpression("^[#.0-9a-zA-Z\\s,-]+$" , ErrorMessage ="Please enter a valid address.")]
@@ -70,9 +71,8 @@ namespace SEAdd.Models.DomainModels
         public string MetricMarksSheetUrl { get; set; }
         //FSC Details
         [Display(Name = "Total Marks")][Required][GetTotalMarks]
-        //[Range(1100, 1100 , ErrorMessage ="Total marks must be 1100.")]
         public double FScTotalMarks { get; set; }
-        [Display(Name = "Obtained Marks")][Required]/*[Range(660 , 1100 , ErrorMessage = "You must have at least 60% marks to apply.")]*/
+        [Display(Name = "Obtained Marks")][Required]
         [CheckValidObtainedMarks(ErrorMessage ="Obtained marks must be less than total marks.")]
         public double FScObtainedMarks { get; set; }
         [Display(Name = "Program")][Required]
@@ -83,7 +83,6 @@ namespace SEAdd.Models.DomainModels
         public string FScGrade { get; set; }
         [Display(Name = "Division")][Required]
         public string FScDivision { get; set; }
-        [Range(60 , 100)]
         public double FScPercentage { get; set; }
         [Display(Name = "Year of Passing")][Required][Range(1999 , 2022 , ErrorMessage ="Please enter a valid year.")]
         public string FScYearOfPassing { get; set; }
@@ -107,5 +106,7 @@ namespace SEAdd.Models.DomainModels
         [Display(Name = "Quota")][Required]
         [ForeignKey("Qota")]
         public int QotaId { get; set; }
+        [DefaultValue(false)]
+        public bool isApproved { get; set; }
     }
 }

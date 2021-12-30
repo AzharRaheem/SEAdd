@@ -18,7 +18,6 @@
 @using (Html.BeginForm("StudentRegistration" , "Student" , FormMethod.Post , new { enctype = "multipart/form-data" }))
 {
     <div class="container p-2">
-        @Html.ValidationSummary(true , "Please fix these errors." , new { @class="text-danger text-center"})
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Personal Information</h2>
         <!-- Personal Form Fields -->
         <div class="row mb-2">
@@ -338,7 +337,6 @@
 
 @section Scripts{
     <script>
-
         $("#applicant_FScObtainedMarks").focusout(function () {
             $("#fscObtainedMarksErrorMsg").hide();
             $("#fscObtainedMarksErrorMsg").text('');
@@ -363,5 +361,4 @@
             }
         });
     </script>
-    
     }

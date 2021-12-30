@@ -253,6 +253,14 @@
     <Compile Include="Migrations\202112281526190_StringLenghtValidationAdded.Designer.cs">
       <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112291715240_MobileNumberValidationAdded.cs" />
+    <Compile Include="Migrations\202112291715240_MobileNumberValidationAdded.Designer.cs">
+      <DependentUpon>202112291715240_MobileNumberValidationAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112301532496_isApprovedPropertyAdded.cs" />
+    <Compile Include="Migrations\202112301532496_isApprovedPropertyAdded.Designer.cs">
+      <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\Applicant.cs" />
@@ -430,6 +438,7 @@
     <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
     <Content Include="Views\Student\StudentRegistration.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\ViewAllApplicants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -455,6 +464,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112281526190_StringLenghtValidationAdded.resx">
       <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112291715240_MobileNumberValidationAdded.resx">
+      <DependentUpon>202112291715240_MobileNumberValidationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301532496_isApprovedPropertyAdded.resx">
+      <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
