@@ -17,7 +17,7 @@
 <div class="col-md=12 mt-4 mx-4">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Boards</h4>
+            <h4 class="card-title">Applicants</h4>
             <a href="~/Board/AddNewBoard" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
         </div>
         <div class="clearfix"></div>
@@ -44,7 +44,7 @@
                                 <td>@item.Email</td>
                                 <td>@item.CNIC</td>
                                 <td>
-                                    @Html.ActionLink("View Full Detail", "ViewAllDetail", new { id = @item.Id }, new { @class = "btn btn-sm btn-success" })
+                                    @Html.ActionLink("View Full Detail", "GetApplicantDetail", new { id = @item.Id }, new { @class = "btn btn-sm btn-success" })
                                 </td>
                             </tr>
                         }

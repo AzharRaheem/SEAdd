@@ -22,17 +22,17 @@ namespace SEAdd.Controllers
         // GET: Fee
         public ActionResult Index()
        {
-            var model = db.Fees.Where(f=>f.id == 1).FirstOrDefault();
+            var model = db.Fees.ToList();
+            var count = db.Fees.Count();
+            ViewBag.FeeCount = count;
             return View(model);
         }
-        public ActionResult ManageFee()
+        public ActionResult DeleteFeeDetail(int id)
         {
-            BankFeeVM model = new BankFeeVM()
-            {
-                FeeDetails = db.Fees.Where(f => f.id == 1).FirstOrDefault() ,
-                banks = db.Banks.ToList()
-            };
-            return View(model);
+            var model = db.Fees.Where(f => f.id == id).FirstOrDefault();
+            db.Fees.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public ActionResult ManageBank()
         {
@@ -87,18 +87,54 @@ namespace SEAdd.Controllers
             }
             return RedirectToAction("ManageBank");
         }
+        public ActionResult AddFee()
+        {
+            BankFeeVM model = new BankFeeVM()
+            {
+                FeeDetails = new Fee(),
+                banks = db.Banks.ToList()
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddFee(BankFeeVM model)
+        {
+            if(!ModelState.IsValid)
+            {
+                BankFeeVM vm = new BankFeeVM()
+                {
+                    FeeDetails = model.FeeDetails,
+                    banks = db.Banks.ToList()
+                };
+                return View(vm);
+            }
+            db.Fees.Add(model.FeeDetails);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult UpdateFeeDetails(int id)
+        {
+            BankFeeVM vm = new BankFeeVM()
+            {
+                FeeDetails = db.Fees.Where(f => f.id == id).FirstOrDefault(),
+                banks = db.Banks.ToList()
+            };
+            return View(vm);
+        }
         [HttpPost]
         public ActionResult UpdateFeeDetails(BankFeeVM model)
         {
             if(!ModelState.IsValid)
             {
+                BankFeeVM vm = new BankFeeVM()
+                {
+                    FeeDetails = model.FeeDetails,
+                    banks = db.Banks.ToList()
+                };
                 return View(model);
             }
-            else
-            {
-                db.Entry(model).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(model.FeeDetails).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)

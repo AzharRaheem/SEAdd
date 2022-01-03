@@ -31,6 +31,22 @@ namespace SEAdd.Controllers
             List<Applicant> applicants = db.Applicants.ToList();
             return View(applicants);
         }
+        public ActionResult GetApplicantDetail(int id)
+        {
+            var applicant = db.Applicants.Where(a => a.Id == id).FirstOrDefault();
+            return View(applicant);
+        }
+        public ActionResult DeleteApplicant(int id)
+        {
+            var applicant = db.Applicants.Where(a => a.Id == id).FirstOrDefault();
+            if(applicant != null)
+            {
+                db.Applicants.Remove(applicant);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ViewAllApplicants");
+            
+        }
         public ActionResult EligibilityCriteria()
         {
             return View();
@@ -38,45 +54,22 @@ namespace SEAdd.Controllers
         public ActionResult StudentRegistration()
         {
             string userId = Convert.ToString(Session["UserId"]);
-            Applicant applicantDetails = db.Applicants.Where(u => u.userId == userId).FirstOrDefault();
-            if(applicantDetails != null)
+            var LoggedUser = Session["User"] as ApplicationUser;
+            StudentApplicationVM vm = new StudentApplicationVM()
             {
-                applicantDetails.BirthDate = applicantDetails.BirthDate.Date;
-                StudentApplicationVM vm = new StudentApplicationVM()
-                {
-                    applicant = applicantDetails,
-                    Boards = db.Boards.ToList(),
-                    Campuses = db.Campuses.ToList(),
-                    Programs = db.Programs.ToList(),
-                    Departments = db.Departments.ToList(),
-                    Quotas = db.Qotas.ToList(),
-                    GenderList = GetLists.GetGenderList(),
-                    GradesList = GetLists.GetGradesList(),
-                    DivisionsList = GetLists.GetDivisionsList(),
-                    MetricProgramsList = GetLists.GetMetricProgramsList(),
-                    FScProgramsList = GetLists.GetFScProgramsList()
-                };
-                return View(vm);
-            }
-            else
-            {
-                var LoggedUser = Session["User"] as ApplicationUser;
-                StudentApplicationVM vm = new StudentApplicationVM()
-                {
-                    applicant = new Applicant() { FirstName = LoggedUser.FirstName , LastName = LoggedUser.LastName ,Email = LoggedUser.Email , CNIC = LoggedUser.Cnic },
-                    Boards = db.Boards.ToList(),
-                    Campuses = db.Campuses.ToList(),
-                    Programs = db.Programs.ToList(),
-                    Departments = db.Departments.ToList(),
-                    Quotas = db.Qotas.ToList(),
-                    GenderList = GetLists.GetGenderList(),
-                    GradesList = GetLists.GetGradesList(),
-                    DivisionsList = GetLists.GetDivisionsList(),
-                    MetricProgramsList = GetLists.GetMetricProgramsList(),
-                    FScProgramsList = GetLists.GetFScProgramsList()
-                };
-                return View(vm);
-            }
+                applicant = new Applicant() { FirstName = LoggedUser.FirstName, LastName = LoggedUser.LastName, Email = LoggedUser.Email, CNIC = LoggedUser.Cnic },
+                Boards = db.Boards.ToList(),
+                Campuses = db.Campuses.ToList(),
+                Programs = db.Programs.ToList(),
+                Departments = db.Departments.ToList(),
+                Quotas = db.Qotas.ToList(),
+                GenderList = GetLists.GetGenderList(),
+                GradesList = GetLists.GetGradesList(),
+                DivisionsList = GetLists.GetDivisionsList(),
+                MetricProgramsList = GetLists.GetMetricProgramsList(),
+                FScProgramsList = GetLists.GetFScProgramsList()
+            };
+            return View(vm);
         }
         [HttpPost]
         public ActionResult StudentRegistration(StudentApplicationVM vm , HttpPostedFileBase profileImg , HttpPostedFileBase metricMarksSheet , HttpPostedFileBase fscMarksSheetDiploma)

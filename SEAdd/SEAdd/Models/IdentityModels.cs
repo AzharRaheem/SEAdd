@@ -47,6 +47,7 @@ namespace SEAdd.Models
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<AdmissionDate> AdmissionDate { get; set; }
 
         public static ApplicationDbContext Create()
         {

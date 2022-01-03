@@ -40,7 +40,6 @@
                                 <td>
                                     @Html.ActionLink("Edit", "EditBoard", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
                                     <!-- Modal Start -->
-                                    <!-- Modal Start -->
                                     <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
@@ -52,7 +51,7 @@
                                                     <h4>Are you sure you want to delete this item?</h4>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">Close</button>
                                                     <a id="deleteBtn" class="btn btn-danger">Delete</a>
                                                 </div>
                                             </div>
@@ -72,9 +71,6 @@
 
 @section Scripts{
     <script>
-
-        
-
         $('#example5').DataTable(
 	    {
 	        searching: true,

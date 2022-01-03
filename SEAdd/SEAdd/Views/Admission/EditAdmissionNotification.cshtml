@@ -1,0 +1,76 @@
+﻿@model SEAdd.Models.DomainModels.AdmissionDate
+
+@{
+    ViewBag.Title = "EditAdmissionNotification";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Admission</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@using (Html.BeginForm("EditAdmissionNotification", "Admission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <<div class="container p-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Admission Date Notification</h3>
+            </div>
+            <div class="col-sm-6">
+                <span><a href="~/Admission/Index" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title)
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Enter Notification Title" })
+                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StartDate)
+                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EndDate)
+                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                   @Html.Label("Upload Notification")
+                   @Html.TextBox("file", "", new { @class = "form-control pt-3", required = "", type = "file", accept = ".jpeg , .jpg , .png , .pdf" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="float-end"><input type="submit" value="PUBLISH" name="edit" class="btn btn-sm btn-success mt-4" /></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

@@ -90,19 +90,19 @@ namespace SEAdd.Models.DomainModels
         public string FScRollNumber { get; set; }
         public string FScMarksSheetUrl { get; set; }
         //Program Selection Details
-        public Campus Campus { get; set; }
+        public virtual Campus Campus { get; set; }
         [Display(Name ="Course")][Required]
         [ForeignKey("Campus")]
-        public int CampusId { get; set; }
-        public Department Department { get; set; }
+        public  int CampusId { get; set; }
+        public virtual Department Department { get; set; }
         [Display(Name = "Department")][Required]
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
-        public Program Program { get; set; }
+        public virtual Program Program { get; set; }
         [Display(Name = "Program")][Required]
         [ForeignKey("Program")]
         public int ProgramId { get; set; }
-        public Qota Qota { get; set; }
+        public virtual Qota Qota { get; set; }
         [Display(Name = "Quota")][Required]
         [ForeignKey("Qota")]
         public int QotaId { get; set; }

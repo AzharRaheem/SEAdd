@@ -18,6 +18,6 @@ namespace SEAdd.Models.DomainModels
         public string name { get; set; }
 
 
-        public ICollection<Applicant> Applicants { get; set; }
+        public virtual ICollection<Applicant> Applicants { get; set; }
     }
 }

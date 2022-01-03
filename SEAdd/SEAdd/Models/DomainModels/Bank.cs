@@ -21,6 +21,6 @@ namespace SEAdd.Models.DomainModels
         [Display(Name ="Account No.")]
         public string accountNo { get; set; }
 
-        public ICollection<Fee> Fees { get; set; }
+        public virtual ICollection<Fee> Fees { get; set; }
     }
 }

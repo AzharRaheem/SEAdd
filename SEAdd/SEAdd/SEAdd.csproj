@@ -212,6 +212,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdmissionController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\CustomErrorController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -261,8 +262,37 @@
     <Compile Include="Migrations\202112301532496_isApprovedPropertyAdded.Designer.cs">
       <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201011557346_ApplicantModelUpdated.cs" />
+    <Compile Include="Migrations\202201011557346_ApplicantModelUpdated.Designer.cs">
+      <DependentUpon>202201011557346_ApplicantModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201011735139_FeeModelUpdated.cs" />
+    <Compile Include="Migrations\202201011735139_FeeModelUpdated.Designer.cs">
+      <DependentUpon>202201011735139_FeeModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201031524024_AdmissionDateModelAdded.cs" />
+    <Compile Include="Migrations\202201031524024_AdmissionDateModelAdded.Designer.cs">
+      <DependentUpon>202201031524024_AdmissionDateModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201031719382_AdmissionDateModelUpdated.cs" />
+    <Compile Include="Migrations\202201031719382_AdmissionDateModelUpdated.Designer.cs">
+      <DependentUpon>202201031719382_AdmissionDateModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.cs" />
+    <Compile Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.Designer.cs">
+      <DependentUpon>202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs" />
+    <Compile Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.Designer.cs">
+      <DependentUpon>202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201031752387_NotificationDatePropertyAdded.cs" />
+    <Compile Include="Migrations\202201031752387_NotificationDatePropertyAdded.Designer.cs">
+      <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DomainModels\AdmissionDate.cs" />
     <Compile Include="Models\DomainModels\Applicant.cs" />
     <Compile Include="Models\DomainModels\Bank.cs" />
     <Compile Include="Models\DomainModels\Board.cs" />
@@ -274,6 +304,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantProgramVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
     <Compile Include="Models\ViewModels\StudentApplicationVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
@@ -290,6 +321,7 @@
     <Content Include="assets\images\application.png" />
     <Content Include="assets\images\firefighter.png" />
     <Content Include="assets\images\man.png" />
+    <Content Include="assets\images\notificationBullets.gif" />
     <Content Include="assets\images\userProfileAvatar.PNG" />
     <Content Include="assets\js\datatables.init.js" />
     <Content Include="Content\bootstrap-custom.css" />
@@ -425,7 +457,6 @@
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\Dashboard\AdminDashboard.cshtml" />
     <Content Include="Views\Dashboard\UserDashboard.cshtml" />
-    <Content Include="Views\Fee\ManageFee.cshtml" />
     <Content Include="Views\Fee\Index.cshtml" />
     <Content Include="Views\Fee\ManageBank.cshtml" />
     <Content Include="Views\Fee\AddNewBank.cshtml" />
@@ -439,6 +470,12 @@
     <Content Include="Views\Student\StudentRegistration.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\ViewAllApplicants.cshtml" />
+    <Content Include="Views\Student\GetApplicantDetail.cshtml" />
+    <Content Include="Views\Fee\AddFee.cshtml" />
+    <Content Include="Views\Fee\UpdateFeeDetails.cshtml" />
+    <Content Include="Views\Admission\AddNewDate.cshtml" />
+    <Content Include="Views\Admission\Index.cshtml" />
+    <Content Include="Views\Admission\EditAdmissionNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -470,6 +507,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112301532496_isApprovedPropertyAdded.resx">
       <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201011557346_ApplicantModelUpdated.resx">
+      <DependentUpon>202201011557346_ApplicantModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201011735139_FeeModelUpdated.resx">
+      <DependentUpon>202201011735139_FeeModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201031524024_AdmissionDateModelAdded.resx">
+      <DependentUpon>202201031524024_AdmissionDateModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201031719382_AdmissionDateModelUpdated.resx">
+      <DependentUpon>202201031719382_AdmissionDateModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.resx">
+      <DependentUpon>202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.resx">
+      <DependentUpon>202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201031752387_NotificationDatePropertyAdded.resx">
+      <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
