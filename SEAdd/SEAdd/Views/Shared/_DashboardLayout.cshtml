@@ -324,7 +324,14 @@
                                 <li><a href="~/Student/EligibilityCriteria">Eligibility Criteria</a></li>
                                 @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
                                 {
-                                    <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                                    if (!Convert.ToBoolean(Session["AdmissionDateExpire"]))
+                                    {
+                                        <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#" onclick="AdmissionExpire()">Apply Online</a></li>
+                                    }
                                 }
                                 else
                                 {
@@ -469,6 +476,14 @@
 		    swal({
 		        title: "Sorry!",
 		        text: "Your Application for Admission is already Submitted.",
+		        icon: "error",
+		        button: "OK",
+		    });
+		}
+		function AdmissionExpire() {
+		    swal({
+		        title: "Sorry!",
+		        text: "Admission for BS-Program has been closed.",
 		        icon: "error",
 		        button: "OK",
 		    });

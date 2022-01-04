@@ -14,6 +14,7 @@ using System.IO;
 using SEAdd.CustomValidations;
 using SEAdd.Models.ViewModels;
 using System.Collections.Generic;
+using SEAdd.Models.DomainModels;
 
 namespace SEAdd.Controllers
 {
@@ -104,6 +105,22 @@ namespace SEAdd.Controllers
                     {
                         Session["UserRole"] = "User"; //Store User Role...
                         Session["User"] = user;
+                        AdmissionDate admissionDate = db.AdmissionDate.OrderByDescending(d => d.Id).FirstOrDefault();
+                        if(admissionDate != null)
+                        {
+                            if (admissionDate.EndDate.Date >= DateTime.Today.Date)
+                            {
+                                Session["AdmissionDateExpire"] = false;
+                            }
+                            else
+                            {
+                                Session["AdmissionDateExpire"] = true;
+                            }
+                        }
+                        else
+                        {
+                            Session["AdmissionDateExpire"] = false;
+                        }
                         return RedirectToAction("UserDashboard", "Dashboard");
                     }
                     else
