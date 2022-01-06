@@ -73,7 +73,7 @@
         <td><strong>Campus : </strong>@Model.Campus.name</td>
     </tr>
 </table>
-<div style="text-align:right; padding-top:10px;">
+<div style="padding-top:10px;">
     <!-- Modal Start -->
     <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -93,8 +93,19 @@
         </div>
     </div>
     <!-- Modal End -->
-    <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@Model.Id>DELETE</a> 
-    <a href="#" class="btn btn-sm btn-success">APPROVE</a>
+    <div class="float-end">
+        <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@Model.Id>DELETE</a>
+        @if (!Model.isApproved)
+        {
+            @Html.ActionLink("APPROVE" , "ApproveApplicant" , "Student" , new { id=Model.Id} , new {@class="btn btn-sm btn-success"})
+            @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
+        }
+        else
+        {
+            <a onclick="AlreadyApproved()" class="btn btn-sm btn-success">APPROVED</a>
+        }
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 
@@ -105,5 +116,14 @@
             var id = $(this).attr("IdValue");
             $("#deleteBtn").attr("href", "/Student/DeleteApplicant/" + id);
         });
+
+        function AlreadyApproved() {
+            swal({
+                title: "Approved!",
+                text: "This application is already approved.",
+                icon: "success",
+                button: "OK",
+            });
+        }
     </script>
 }

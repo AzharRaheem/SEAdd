@@ -1,0 +1,50 @@
+﻿@model  List<SEAdd.Models.DomainModels.Applicant>
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Applicants</h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="display dataTable table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Father's Name</th>
+                            <th>Email</th>
+                            <th>CNIC</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.FatherName</td>
+                                <td>@item.Email</td>
+                                <td>@item.CNIC</td>
+                                <td>
+                                    @Html.ActionLink("Review", "GetApplicantDetail","Student" , new { id = @item.Id }, new { @class = "btn btn-sm btn-success" })
+                                    @if (!item.isApproved)
+                                    {
+                                        <a onclick="ReviewApplication()" class="btn btn-sm btn-primary">Approve</a>
+                                        @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
+                                    }
+                                    else
+                                    {
+                                        <a onclick="AlreadyApproved()" class="btn btn-sm btn-primary">APPROVED</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

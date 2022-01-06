@@ -220,6 +220,7 @@
     <Compile Include="Controllers\FeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\QotaController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -290,6 +291,10 @@
     <Compile Include="Migrations\202201031752387_NotificationDatePropertyAdded.Designer.cs">
       <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201061625087_NotificationModelAdded.cs" />
+    <Compile Include="Migrations\202201061625087_NotificationModelAdded.Designer.cs">
+      <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
@@ -299,6 +304,7 @@
     <Compile Include="Models\DomainModels\Campus.cs" />
     <Compile Include="Models\DomainModels\Department.cs" />
     <Compile Include="Models\DomainModels\Fee.cs" />
+    <Compile Include="Models\DomainModels\Notification.cs" />
     <Compile Include="Models\DomainModels\Program.cs" />
     <Compile Include="Models\DomainModels\Qota.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -321,6 +327,7 @@
     <Content Include="assets\images\application.png" />
     <Content Include="assets\images\firefighter.png" />
     <Content Include="assets\images\man.png" />
+    <Content Include="assets\images\newNotification.gif" />
     <Content Include="assets\images\notificationBullets.gif" />
     <Content Include="assets\images\userProfileAvatar.PNG" />
     <Content Include="assets\js\datatables.init.js" />
@@ -476,6 +483,11 @@
     <Content Include="Views\Admission\AddNewDate.cshtml" />
     <Content Include="Views\Admission\Index.cshtml" />
     <Content Include="Views\Admission\EditAdmissionNotification.cshtml" />
+    <Content Include="Views\Shared\_AllApplicants.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Notification\AddNotification.cshtml" />
+    <Content Include="Views\Notification\EditNotification.cshtml" />
+    <Content Include="Views\Shared\_AllNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -528,6 +540,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201031752387_NotificationDatePropertyAdded.resx">
       <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201061625087_NotificationModelAdded.resx">
+      <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

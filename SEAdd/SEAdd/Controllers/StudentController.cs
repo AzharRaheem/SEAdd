@@ -45,7 +45,17 @@ namespace SEAdd.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("ViewAllApplicants");
-            
+        }
+        public ActionResult ApproveApplicant(int id)
+        {
+            var applicant = db.Applicants.Where(a => a.Id == id).FirstOrDefault();
+            if (applicant != null)
+            {
+                applicant.isApproved = true;
+                db.Entry(applicant).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("ViewAllApplicants");
         }
         public ActionResult EligibilityCriteria()
         {

@@ -14,43 +14,41 @@
 <!-- Button trigger modal -->
 <!-- Modal -->
 <!-- This is a Model for Delete Dialog Box(End) -->
-<div class="col-md=12 mt-4 mx-4">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Applicants</h4>
-            <a href="~/Board/AddNewBoard" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
-        </div>
-        <div class="clearfix"></div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="example5" class="display dataTable table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Father's Name</th>
-                            <th>Email</th>
-                            <th>CNIC</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.FirstName</td>
-                                <td>@item.LastName</td>
-                                <td>@item.FatherName</td>
-                                <td>@item.Email</td>
-                                <td>@item.CNIC</td>
-                                <td>
-                                    @Html.ActionLink("View Full Detail", "GetApplicantDetail", new { id = @item.Id }, new { @class = "btn btn-sm btn-success" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_AllApplicants" , Model)
+
+
+
+@section Scripts{
+    <script>
+        function AlreadyApproved() {
+            swal({
+                title: "Approved!",
+                text: "This application is already approved.",
+                icon: "success",
+                button: "OK",
+            });
+        }
+        function ReviewApplication() {
+            swal({
+                title: "Sorry!",
+                text: "Kindly review the application first.",
+                icon: "warning",
+                button: "OK",
+            });
+        }
+        $('#example5').DataTable(
+           {
+               searching: true,
+               paging: true,
+               select: true,
+               info: true,
+               lengthChange: true,
+               language: {
+                   paginate: {
+                       next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                       previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                   }
+               }
+           });
+    </script>
+}

@@ -1,0 +1,40 @@
+﻿@model List<SEAdd.Models.DomainModels.Notification>
+@{
+    ViewBag.Title = "All Notifications";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Notifications</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@Html.Partial("_AllNotifications" , Model)
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+        $(".deleteLink").click(function () {
+            var id = $(this).attr("IdValue");
+            $("#deleteBtn").attr("href", "/Notification/DeleteNotification/" + id);
+        });
+    </script>
+}
+
+
+
+
+

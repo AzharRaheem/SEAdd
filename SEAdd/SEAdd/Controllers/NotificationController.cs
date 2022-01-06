@@ -9,67 +9,69 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
-    [Authorize(Roles ="Admin")]
-    public class AdmissionController : Controller
+    [HandleError]
+    [Authorize]
+    public class NotificationController : Controller
     {
-        private readonly ApplicationDbContext db;
-        public AdmissionController()
+        ApplicationDbContext db;
+        public NotificationController()
         {
             db = new ApplicationDbContext();
         }
-        // GET: Admission
+        // GET: Notification
+        [Authorize(Roles ="Admin , User")]
         public ActionResult Index()
         {
-            var allRecords = db.AdmissionDate.ToList();
-            return View(allRecords);
+            var Notifications = db.Notifications.ToList();
+            return View(Notifications);
         }
-        public ActionResult AddNewDate()
+        [Authorize(Roles ="Admin")]
+        public ActionResult AddNotification()
         {
-            AdmissionDate model = new AdmissionDate();
+            var model = new Notification();
             return View(model);
         }
         [HttpPost]
-        public ActionResult AddNewDate(AdmissionDate model , HttpPostedFileBase file)
+        public ActionResult AddNotification(Notification model , HttpPostedFileBase NotificationFile)
         {
-            model.NotificationDate = DateTime.Today.Date;
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
-            model.NotificationFileUrl = GetFileUrl(file);
-            db.AdmissionDate.Add(model);
+            model.NotificationDate = DateTime.Today.Date;
+            model.NotificationFileUrl = GetFileUrl(NotificationFile);
+            db.Notifications.Add(model);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult DeleteNotificationDate(int id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditNotification(int id)
         {
-            var record = db.AdmissionDate.Where(d => d.Id == id).FirstOrDefault();
-            if(record != null)
-            {
-                db.AdmissionDate.Remove(record);
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-        public ActionResult EditAdmissionNotification(int id)
-        {
-            var record = db.AdmissionDate.Where(d => d.Id == id).FirstOrDefault();
-            return View(record);
+            var model = db.Notifications.Where(n => n.Id == id).FirstOrDefault();
+            return View(model);
         }
         [HttpPost]
-        public ActionResult EditAdmissionNotification(AdmissionDate model , HttpPostedFileBase file)
+        public ActionResult EditNotification(Notification model , HttpPostedFileBase NotificationFile)
         {
-            model.NotificationDate = DateTime.Today.Date;
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
-            if (file != null)
-            {
-                model.NotificationFileUrl = GetFileUrl(file);
-            }
+            model.NotificationDate = DateTime.Today.Date;
+            model.NotificationFileUrl = GetFileUrl(NotificationFile);
             db.Entry(model).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteNotification(int id)
+        {
+            var model = db.Notifications.Where(n => n.Id == id).FirstOrDefault();
+            if(model != null)
+            {
+                db.Notifications.Remove(model);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
         [NonAction]
