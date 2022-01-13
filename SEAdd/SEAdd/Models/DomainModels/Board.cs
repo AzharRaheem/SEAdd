@@ -14,7 +14,6 @@ namespace SEAdd.Models.DomainModels
         public int id { get; set; }
         [Display(Name ="Board Name")]
         [Required][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid board name.")]
-        [UniqueBoarrd(ErrorMessage ="Board already exist.")]
         public string name { get; set; }
     }
 }

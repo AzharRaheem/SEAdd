@@ -36,6 +36,12 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
+            var alreadyExist = db.Programs.Where(p => p.ProgramName == model.ProgramName).FirstOrDefault();
+            if (alreadyExist != null)
+            {
+                ViewBag.ErrorMsg = "Program already exist.";
+                return View(model);
+            }
             db.Programs.Add(model);
             db.SaveChanges();
             return RedirectToAction("Index");

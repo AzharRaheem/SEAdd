@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdmissionController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
+    <Compile Include="Controllers\CampusController.cs" />
     <Compile Include="Controllers\CustomErrorController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -230,12 +231,7 @@
     <Compile Include="CustomValidations\GetTotalMarks.cs" />
     <Compile Include="CustomValidations\Marks.cs" />
     <Compile Include="CustomValidations\UniqueBank.cs" />
-    <Compile Include="CustomValidations\UniqueBoarrd.cs" />
-    <Compile Include="CustomValidations\UniqueCampus.cs" />
     <Compile Include="CustomValidations\UniqueCnic.cs" />
-    <Compile Include="CustomValidations\UniqueDepartment.cs" />
-    <Compile Include="CustomValidations\UniqueProgram.cs" />
-    <Compile Include="CustomValidations\UniqueQota.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,6 +291,14 @@
     <Compile Include="Migrations\202201061625087_NotificationModelAdded.Designer.cs">
       <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201101614585_ProgramModelUpdated.cs" />
+    <Compile Include="Migrations\202201101614585_ProgramModelUpdated.Designer.cs">
+      <DependentUpon>202201101614585_ProgramModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201111602168_CampusModelUpdated.cs" />
+    <Compile Include="Migrations\202201111602168_CampusModelUpdated.Designer.cs">
+      <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
@@ -310,7 +314,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
-    <Compile Include="Models\ViewModels\ApplicantProgramVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
     <Compile Include="Models\ViewModels\StudentApplicationVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
@@ -488,6 +491,9 @@
     <Content Include="Views\Notification\AddNotification.cshtml" />
     <Content Include="Views\Notification\EditNotification.cshtml" />
     <Content Include="Views\Shared\_AllNotifications.cshtml" />
+    <Content Include="Views\Campus\Index.cshtml" />
+    <Content Include="Views\Campus\AddNewCampus.cshtml" />
+    <Content Include="Views\Campus\EditCampus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -543,6 +549,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201061625087_NotificationModelAdded.resx">
       <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201101614585_ProgramModelUpdated.resx">
+      <DependentUpon>202201101614585_ProgramModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201111602168_CampusModelUpdated.resx">
+      <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

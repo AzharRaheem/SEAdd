@@ -110,6 +110,7 @@ namespace SEAdd.Controllers
             vm.applicant.FScMarksSheetUrl = GetFileUrl(fscMarksSheetDiploma);
             db.Applicants.Add(vm.applicant);
             db.SaveChanges();
+            Session["UserAlreadyExist"] = true;
             return RedirectToAction("Index");
         }
         public ActionResult PrintChallan()
@@ -143,7 +144,6 @@ namespace SEAdd.Controllers
             }
             return filePath;
         }
-
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

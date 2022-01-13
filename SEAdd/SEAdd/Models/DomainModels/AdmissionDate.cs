@@ -11,7 +11,7 @@ namespace SEAdd.Models.DomainModels
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(500)][RegularExpression("^[a-zA-Z0-9]+$" , ErrorMessage ="Title only contains letters and numbers.")]
+        [StringLength(500)][RegularExpression("^[A-Za-z0-9]+((\\s)?([A-Za-z0-9])+)*$", ErrorMessage ="Title only contains letters and numbers.")]
         public string Title { get; set; }
         public DateTime NotificationDate { get; set; }
         [Required][Display(Name ="Start Date")]

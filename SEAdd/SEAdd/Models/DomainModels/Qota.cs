@@ -14,7 +14,7 @@ namespace SEAdd.Models.DomainModels
         public int id { get; set; }
         [Required]
         [Display(Name = "Qota Name")]
-        [UniqueQota(ErrorMessage = "Already exist.")]
+        //[UniqueQota(ErrorMessage = "Already exist.")]
         [RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$", ErrorMessage = "Please enter valid quota name.")]
         public string name { get; set; }
         [Required]

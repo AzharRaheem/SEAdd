@@ -91,7 +91,7 @@ namespace SEAdd.Models.DomainModels
         public string FScMarksSheetUrl { get; set; }
         //Program Selection Details
         public virtual Campus Campus { get; set; }
-        [Display(Name ="Course")][Required]
+        [Display(Name ="Campus")][Required]
         [ForeignKey("Campus")]
         public  int CampusId { get; set; }
         public virtual Department Department { get; set; }

@@ -13,10 +13,10 @@ namespace SEAdd.Models.DomainModels
         public int id { get; set; }
         [Required]
         [StringLength(100)][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid campus name.")]
-        [UniqueCampus(ErrorMessage = "Campus already exist.")]
         [Display(Name = "Campus Name")]
         public string name { get; set; }
-
+        [Required][Display(Name="Location")][StringLength(30)]
+        public string Location { get; set; }
 
         public virtual ICollection<Applicant> Applicants { get; set; }
     }

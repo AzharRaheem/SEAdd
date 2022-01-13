@@ -12,6 +12,9 @@
 @using (Html.BeginForm("AddNewBoard", "Board", FormMethod.Post))
 {
     <div class="container p-4">
+        <div class="row text-center" id="AlreadyExistErrorMsg">
+            <h4 class="text-danger">@ViewBag.ErrorMsg</h4>
+        </div>
         <div class="row">
             <div class="col-sm-6">
                 <h3>New Board</h3>
@@ -44,4 +47,10 @@
         </div>
     </div>
 }
-
+@section Scripts{
+    <script>
+           $("#name").focusout(function () {
+               $("#AlreadyExistErrorMsg").hide();
+           })
+    </script>
+}

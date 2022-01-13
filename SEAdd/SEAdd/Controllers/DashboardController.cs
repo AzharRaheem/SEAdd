@@ -26,7 +26,8 @@ namespace SEAdd.Controllers
                 usersCount = db.Users.Count() , 
                 departmentCount = db.Departments.Count() , 
                 approvedApplicationsCount = db.Applicants.Where(a => a.isApproved == true).Count() , 
-                Applicants = db.Applicants.ToList()
+                Applicants = db.Applicants.ToList() , 
+                notificationsCount = db.Notifications.Count()
             };
             return View(vm);
         }

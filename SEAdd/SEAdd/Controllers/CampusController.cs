@@ -9,28 +9,26 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
-    [HandleError]
-    [Authorize(Roles = "Admin")]
-    public class QotaController : Controller
+    public class CampusController : Controller
     {
         private readonly ApplicationDbContext db;
-        public QotaController()
+        public CampusController()
         {
             db = new ApplicationDbContext();
         }
-        // GET: Qota
+        // GET: Campus
         public ActionResult Index()
         {
-            var qotas = db.Qotas.ToList();
-            return View(qotas);
+            var campuses = db.Campuses.ToList();
+            return View(campuses);
         }
-        public ActionResult AddNewQota()
+        public ActionResult AddNewCampus()
         {
-            Qota qota = new Qota();
-            return View(qota);
+            Campus model = new Campus();
+            return View(model);
         }
         [HttpPost]
-        public ActionResult AddNewQota(Qota model)
+        public ActionResult AddNewCampus(Campus model)
         {
             if (!ModelState.IsValid)
             {
@@ -38,24 +36,23 @@ namespace SEAdd.Controllers
             }
             else
             {
-                var alreadyExist = db.Qotas.Where(q => q.name == model.name).FirstOrDefault();
-                if(alreadyExist != null)
+                var alreadyExist = db.Campuses.Where(c => c.name == model.name).FirstOrDefault();
+                if (alreadyExist != null)
                 {
-                    ViewBag.ErrorMsg = "Quota already exist.";
+                    ViewBag.ErrorMsg = "Campus already exist.";
                     return View(model);
                 }
-                db.Qotas.Add(model);
+                db.Campuses.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
         }
-        public ActionResult EditQota(int id)
+        public ActionResult EditCampus(int id)
         {
-            var qota = db.Qotas.Where(q => q.id == id).FirstOrDefault();
-            if(qota != null)
+            var model = db.Campuses.Where(c => c.id == id).FirstOrDefault();
+            if (model != null)
             {
-                return View(qota);
+                return View(model);
             }
             else
             {
@@ -63,7 +60,7 @@ namespace SEAdd.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditQota(Qota model)
+        public ActionResult EditCampus(Campus model)
         {
             if (!ModelState.IsValid)
             {
@@ -76,12 +73,12 @@ namespace SEAdd.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public ActionResult DeleteQota(int id)
+        public ActionResult DeleteCampus(int id)
         {
-            var qota = db.Qotas.Where(q => q.id == id).FirstOrDefault();
-            if(qota != null)
+            var model = db.Campuses.Where(c => c.id == id).FirstOrDefault();
+            if (model != null)
             {
-                db.Qotas.Remove(qota);
+                db.Campuses.Remove(model);
                 db.SaveChanges();
             }
             return RedirectToAction("Index");

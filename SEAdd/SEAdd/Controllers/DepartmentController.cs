@@ -36,6 +36,12 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
+            var alreadyExist = db.Departments.Where(d => d.name == model.name).FirstOrDefault();
+            if (alreadyExist != null)
+            {
+                ViewBag.ErrorMsg = "Department already exist.";
+                return View(model);
+            }
             db.Departments.Add(model);
             db.SaveChanges();
             return RedirectToAction("Index");

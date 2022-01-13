@@ -1,30 +1,30 @@
-﻿@model SEAdd.Models.DomainModels.Qota
+﻿@model SEAdd.Models.DomainModels.Campus
 @{
-    ViewBag.Title = "AddNewQuota";
+    ViewBag.Title = "AddNewCampus";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
 <div class="row page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="javascript:void(0)">Quotas</a></li>
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Campuses</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
     </ol>
 </div>
-@using (Html.BeginForm("AddNewQota" , "Qota" , FormMethod.Post))
+@using (Html.BeginForm("AddNewCampus", "Campus", FormMethod.Post))
 {
     <div class="container p-4">
         <div class="row text-center" id="AlreadyExistErrorMsg">
-           <h4 class="text-danger">@ViewBag.ErrorMsg</h4> 
+            <h4 class="text-danger">@ViewBag.ErrorMsg</h4>
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <h3>New Quota</h3>
+                <h3>New Campus</h3>
             </div>
             <div class="col-sm-6">
-                <span><a href="~/Qota/Index" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
+                <span><a href="~/Campus/Index" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
             </div>
             <div class="clearfix"></div>
-         </div>
+        </div>
         <hr />
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -36,26 +36,28 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.numberOfSeats)
-                    @Html.TextBoxFor(m => m.numberOfSeats, new { @class = "form-control", placeholder = "00", type = "number" , min=1 , max=40})
-                    @Html.ValidationMessageFor(m => m.numberOfSeats, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.Location)
+                    @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "Enter Location"})
+                    @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-sm-6 ">
+            <div class="col-sm-12 ">
                 <div class="form-group">
-                    <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-primary col-md-2" />
+                    <div class="float-end">
+                        <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-primary" />
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 }
-
 @section Scripts{
-       <script>
+    <script>
            $("#name").focusout(function () {
                $("#AlreadyExistErrorMsg").hide();
            })
-       </script>
- }
+    </script>
+}

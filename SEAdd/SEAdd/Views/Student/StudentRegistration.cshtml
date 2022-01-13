@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<div class="row justify-content-center" style="margin-bottom:-40px;">
-    <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0">
+<div class="row justify-content-center" style="margin-bottom:-45px;">
+    <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-4 text-center p-0">
         <div class="card px-0 pt-2 pb-0 bg-light">
             <div class="text-center">
                 <img src="~/assets/images/logo.png" class="img-thumbnail" alt="Department logo" width="100" height="100" style="border: none;">
@@ -14,6 +14,11 @@
             <p style="font-size:14px;">Fill the form to Apply for Addmission.</p>
         </div>
     </div>
+</div>
+<div class="container" style="margin-bottom:-40px;">
+    <h3 class="text-primary"><strong>Note :</strong></h3>
+    <p style="font-size:16px;">The candidates are advised to avoid any misrepresentation of facts , random copies of metric and intermediate or certificate in DAE ,
+     as doing so may lead to the cancellation of their candidature / admission at any stage.</p>
 </div>
 @using (Html.BeginForm("StudentRegistration" , "Student" , FormMethod.Post , new { enctype = "multipart/form-data" }))
 {
@@ -149,7 +154,7 @@
         <hr />
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Previous Qualification</h2>
         <!-- Previous Qualification Fields -->
-        <h2 class="h3 text-center bg-light p-1 text-white col-sm-10 mx-auto">Metric Details</h2>
+        <h2 class="h3 text-center bg-light p-1 text-white rounded col-sm-10 mx-auto">Metric Details</h2>
         <div class="row mb-2">
             <div class="col-sm-3">
                 <div class="form-group">
@@ -218,7 +223,7 @@
                 </div>
             </div>
         </div>
-          <h2 class="h3 text-center bg-light p-1 text-white col-sm-10 mx-auto">Intermediate/DAE Details</h2>
+          <h2 class="h3 text-center bg-light p-1 text-white col-sm-10 mx-auto rounded">Intermediate/DAE Details</h2>
             <div class="row mb-2">
                 <div class="col-sm-3">
                     <div class="form-group">
