@@ -1,0 +1,107 @@
+﻿@model SEAdd.Models.ViewModels.FilterApplicantVM
+@{
+    ViewBag.Title = "FilterApplicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "ajaxDiv",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "LoadRecordLoader"
+    };
+}
+<div class="container row">
+    <div class="col-md-6">
+            <h3 style="display:inline-block; margin-left:27px;" class="fw-bold">Apply Filters</h3> <img src="~/assets/images/filter.png" width="30" height="30" />
+    </div>
+</div>
+<div class="container row">
+    <div class="col-md-12">
+        <div class="text-center" id="LoadRecordLoader" style="display:none;">
+            <img src="~/assets/images/ajaxpreloader.gif" width="50" height="50" />
+        </div>
+    </div>
+</div>
+    @using (Ajax.BeginForm("FilterApplicants" , "Student" , ajaxOptions))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.departmentName) <img src="~/assets/images/selective.png" width="20" height="20"/>
+                        @Html.DropDownListFor(m => m.departmentName, new SelectList(Model.departments, "name", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.year) <img src="~/assets/images/filterbyyear.png" width="20" height="20" />
+                        @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year" })
+                        @Html.ValidationMessageFor(m => m.year, "" ,new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                       @Html.LabelFor(m => m.otherAttributes)
+                       @Html.TextBoxFor(m => m.otherAttributes, new { @class = "form-control", placeholder = "Enter Attribute" })
+                       @Html.ValidationMessageFor(m => m.otherAttributes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2 text-center mt-2">
+                    <button type="submit" class="btn btn-sm btn-primary float-end">Apply Filter</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    }
+<hr />
+<div class="container">
+    @Ajax.ActionLink("Get Approved Applicants" , "GetApprovedApplicants", "Student" , ajaxOptions , new {@class="btn btn-sm btn-success" })
+    @Ajax.ActionLink("Get UnApproved Applicants", "GetUnApprovedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-info" })
+    @Ajax.ActionLink("Today's Applications ", "GetTodaysApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-primary" })
+    @Ajax.ActionLink("This Month's Applications", "GetThisMonthsApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-info" })
+    @Ajax.ActionLink("Get Local Applicants", "GetLocalApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-success" })
+    @Ajax.ActionLink("Chella Campus Applicants", "GetApprovedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-info" })
+    @Ajax.ActionLink("Get Approved Applicants", "GetApprovedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-success" })
+</div>
+<div class="col-md=12 mt-4 mx-4" id="ajaxDiv">
+    
+</div>
+
+
+@section Scripts{
+    <script>
+        function AlreadyApproved() {
+            swal({
+                title: "Approved!",
+                text: "This application is already approved.",
+                icon: "success",
+                button: "OK",
+            });
+        }
+        function ReviewApplication() {
+            swal({
+                title: "Sorry!",
+                text: "Kindly review the application first.",
+                icon: "warning",
+                button: "OK",
+            });
+        }
+        $('#example5').DataTable(
+          {
+              searching: true,
+              paging: true,
+              select: true,
+              info: true,
+              lengthChange: true,
+              language: {
+                  paginate: {
+                      next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                      previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                  }
+              }
+          });
+    </script>
+    }

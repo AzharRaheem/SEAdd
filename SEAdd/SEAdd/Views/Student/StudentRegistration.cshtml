@@ -219,7 +219,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     @Html.Label("Metric Result Card")
-                    @Html.TextBox("metricMarksSheet", "", new { @class = "form-control pt-3", type = "file",required = "" , accept = ".jpeg , .jpg , .png , .pdf" })
+                    @Html.TextBox("metricMarksSheet", "", new { @class = "form-control pt-3", type = "file",required = "" , accept = "image/*,.pdf" })
                 </div>
             </div>
         </div>
@@ -291,7 +291,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.Label("FSc/DAE Result Card")
-                        @Html.TextBox("fscMarksSheetDiploma", "", new { @class = "form-control pt-3", type = "file", required = "", accept = ".jpeg , .jpg , .png , .pdf" })
+                        @Html.TextBox("fscMarksSheetDiploma", "", new { @class = "form-control pt-3", type = "file", required = "", accept = "image/*,.pdf" })
                     </div>
                 </div>
             </div>

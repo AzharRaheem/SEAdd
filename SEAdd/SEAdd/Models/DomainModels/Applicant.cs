@@ -108,5 +108,6 @@ namespace SEAdd.Models.DomainModels
         public int QotaId { get; set; }
         [DefaultValue(false)]
         public bool isApproved { get; set; }
+        public DateTime applyDate { get; set; }
     }
 }

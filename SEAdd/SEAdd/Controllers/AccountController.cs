@@ -82,6 +82,15 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
+            //This code is used to check either user confirmed his/her email address that's sent on his/her email address.
+            #region CheckEitherUserConfirmedEmail
+            var userId = UserManager.FindByEmail(model.Email).Id;
+            if (!UserManager.IsEmailConfirmed(userId))
+            {
+                ModelState.AddModelError("", "Email not confirmed yet.");
+                return View(model);
+            }
+            #endregion
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);

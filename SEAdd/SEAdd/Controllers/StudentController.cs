@@ -55,7 +55,7 @@ namespace SEAdd.Controllers
                 db.Entry(applicant).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("ViewAllApplicants");
+            return RedirectToAction("CurrentYearApplicants");
         }
         public ActionResult EligibilityCriteria()
         {
@@ -108,10 +108,11 @@ namespace SEAdd.Controllers
             vm.applicant.profileImgUrl = GetFileUrl(profileImg);
             vm.applicant.MetricMarksSheetUrl = GetFileUrl(metricMarksSheet);
             vm.applicant.FScMarksSheetUrl = GetFileUrl(fscMarksSheetDiploma);
+            vm.applicant.applyDate = DateTime.Today.Date;
             db.Applicants.Add(vm.applicant);
             db.SaveChanges();
             Session["UserAlreadyExist"] = true;
-            return RedirectToAction("Index");
+            return RedirectToAction("UserDashboard" , "Dashboard");
         }
         public ActionResult PrintChallan()
         {
@@ -144,6 +145,107 @@ namespace SEAdd.Controllers
             }
             return filePath;
         }
+        #region FilterPageActions
+        public ActionResult FilterApplicants()
+        {
+            FilterApplicantVM vm = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.ToList() , 
+                departments = db.Departments.ToList() , 
+                year = DateTime.Today.Year,
+                departmentName = null , 
+                otherAttributes = null
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult FilterApplicants(FilterApplicantVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                FilterApplicantVM VmModel = new FilterApplicantVM()
+                {
+                    Applicants = null,
+                    departments = db.Departments.ToList(),
+                    year = vm.year,
+                    departmentName = null,
+                    otherAttributes = null
+                };
+                return View(VmModel);
+            }
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.Department.name == vm.departmentName && a.applyDate.Year == vm.year && (a.FirstName.ToLower().Contains(vm.otherAttributes.ToLower()) || (a.FirstName+" "+a.LastName).ToLower().Contains(vm.otherAttributes.ToLower()) ||
+                a.LastName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.FatherName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Email.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Gender.ToLower().Contains(vm.otherAttributes.ToLower()) ||
+                a.StateProvince.ToLower().Contains(vm.otherAttributes.ToLower()) || a.City.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Campus.name.ToLower().Contains(vm.otherAttributes.ToLower()) || a.FScBoard.ToLower().Contains(vm.otherAttributes.ToLower()) ||
+                a.Program.ProgramName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Department.name.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Qota.name.ToLower().Contains(vm.otherAttributes.ToLower()))).ToList(),
+                departments = db.Departments.ToList(),
+                year = vm.year,
+                departmentName = vm.departmentName
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult CurrentYearApplicants()
+        {
+            var model = db.Applicants.Where(a => a.applyDate.Year == DateTime.Now.Year).ToList();
+            return View(model);
+        }
+        public ActionResult GetApprovedApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.isApproved == true).ToList() ,
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult GetUnApprovedApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.isApproved == false).ToList(),
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult GetTodaysApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.applyDate == DateTime.Today.Date).ToList(),
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult GetThisMonthsApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.applyDate.Month == DateTime.Today.Month).ToList(),
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult GetLocalApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.City.ToLower() == "muzaffarabad").ToList(),
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        #endregion
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

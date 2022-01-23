@@ -1,0 +1,56 @@
+﻿@model  SEAdd.Models.ViewModels.FilterApplicantVM
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Applicants</h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><strong>First Name</strong></th>
+                            <th><strong>Last Name</strong></th>
+                            <th><strong>Father's Name</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Campus</strong></th>
+                            <th><strong>Department</strong></th>
+                            <th><strong>Year</strong></th>
+                            <th><strong>Actions</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Applicants)
+                        {
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input" id="customCheckBox2"></td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.FatherName</td>
+                                <td>@item.Email</td>
+                                <td>@item.Campus.name</td>
+                                <td>@item.Department.name</td>
+                                <td>@item.applyDate.Year</td>
+                                <td>
+                                   @Html.ActionLink("Review", "GetApplicantDetail", "Student", new { id = @item.Id } , new { @class = "btn btn-sm btn-success mb-1" , target="_blank" })
+                                   @if (!item.isApproved)
+                                   {
+                                        <a onclick="ReviewApplication()" class="btn btn-sm btn-primary">Approve</a>
+                                        @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
+                                   }
+                                   else
+                                   {
+                                        <a onclick="AlreadyApproved()" class="btn btn-sm btn-primary">Approved</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

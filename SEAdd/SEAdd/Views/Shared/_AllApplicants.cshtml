@@ -4,6 +4,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Applicants</h4>
+            <a href="~/Student/FilterApplicants" class="btn btn-sm btn-primary float-end m-1"><img src="~/assets/images/filter.png" width="20" height="20" /> Filter Records</a>
         </div>
         <div class="clearfix"></div>
         <div class="card-body">
@@ -15,7 +16,9 @@
                             <th>Last Name</th>
                             <th>Father's Name</th>
                             <th>Email</th>
-                            <th>CNIC</th>
+                            <th>Campus</th>
+                            <th>Department</th>
+                            <th>Year</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -27,18 +30,30 @@
                                 <td>@item.LastName</td>
                                 <td>@item.FatherName</td>
                                 <td>@item.Email</td>
-                                <td>@item.CNIC</td>
+                                <td>@item.Campus.name</td>
+                                <td>@item.Department.name</td>
+                                <td>@item.applyDate.Year</td>
                                 <td>
-                                    @Html.ActionLink("Review", "GetApplicantDetail","Student" , new { id = @item.Id }, new { @class = "btn btn-sm btn-success" })
-                                    @if (!item.isApproved)
-                                    {
-                                        <a onclick="ReviewApplication()" class="btn btn-sm btn-primary">Approve</a>
-                                        @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
-                                    }
-                                    else
-                                    {
-                                        <a onclick="AlreadyApproved()" class="btn btn-sm btn-primary">APPROVED</a>
-                                    }
+                                    <!-- Modal Start -->
+                                    <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title" id="exampleModalLabel">Confirm</h3>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Are you sure you want to delete this item?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                                                    <a id="deleteBtn" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal End -->
+                                    <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@item.Id>Delete</a> 
                                 </td>
                             </tr>
                         }

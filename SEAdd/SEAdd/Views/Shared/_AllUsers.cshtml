@@ -85,7 +85,10 @@
                                         </div>
                                     </div>
                                     <!-- Modal End -->
-                                    <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@item.id.ToString()>Delete</a> 
+                                    @if (item.id != Convert.ToString(Session["UserId"]))
+                                    {
+                                        <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@item.id.ToString()>Delete</a>
+                                    }
                                 </td>
                             </tr>
                         }

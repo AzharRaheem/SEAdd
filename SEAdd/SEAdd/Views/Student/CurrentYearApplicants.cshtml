@@ -1,21 +1,16 @@
-﻿@model  List<SEAdd.Models.DomainModels.Applicant>
+﻿@model List<SEAdd.Models.DomainModels.Applicant>
 @{
-    ViewBag.Title = "All Applicants";
+    ViewBag.Title = "New Applicants";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+
 <div class="row page-titles">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="javascript:void(0)">Applicants</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
     </ol>
 </div>
-<!-- This is a Model for Delete Dialog Box(Start) -->
-<!-- Button trigger modal -->
-<!-- Modal -->
-<!-- This is a Model for Delete Dialog Box(End) -->
-<div id="ApprovedApplicantsAjax">
-    @Html.Partial("_AllApplicants", Model)
-</div>
+@Html.Partial("_ViewNewApplicants", Model)
 
 @section Scripts{
     <script>
@@ -49,9 +44,5 @@
                    }
                }
            });
-        $(".deleteLink").click(function () {
-            var id = $(this).attr("IdValue");
-            $("#deleteBtn").attr("href", "/Student/DeleteApplicant/" + id);
-        });
     </script>
 }

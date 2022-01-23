@@ -299,6 +299,10 @@
     <Compile Include="Migrations\202201111602168_CampusModelUpdated.Designer.cs">
       <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201201531516_applyDatePropAdded.cs" />
+    <Compile Include="Migrations\202201201531516_applyDatePropAdded.Designer.cs">
+      <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
@@ -315,7 +319,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
+    <Compile Include="Models\ViewModels\FilterApplicantVM.cs" />
     <Compile Include="Models\ViewModels\StudentApplicationVM.cs" />
+    <Compile Include="Models\ViewModels\UserDashboardVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\Challan.cs">
@@ -327,11 +333,17 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\ajaxpreloader.gif" />
     <Content Include="assets\images\application.png" />
+    <Content Include="assets\images\calander.png" />
+    <Content Include="assets\images\filter.png" />
+    <Content Include="assets\images\filterbyyear.png" />
     <Content Include="assets\images\firefighter.png" />
     <Content Include="assets\images\man.png" />
     <Content Include="assets\images\newNotification.gif" />
     <Content Include="assets\images\notificationBullets.gif" />
+    <Content Include="assets\images\applicationStatus.png" />
+    <Content Include="assets\images\selective.png" />
     <Content Include="assets\images\userProfileAvatar.PNG" />
     <Content Include="assets\js\datatables.init.js" />
     <Content Include="Content\bootstrap-custom.css" />
@@ -494,6 +506,10 @@
     <Content Include="Views\Campus\Index.cshtml" />
     <Content Include="Views\Campus\AddNewCampus.cshtml" />
     <Content Include="Views\Campus\EditCampus.cshtml" />
+    <Content Include="Views\Student\FilterApplicants.cshtml" />
+    <Content Include="Views\Shared\_ViewFilteredApplicants.cshtml" />
+    <Content Include="Views\Student\CurrentYearApplicants.cshtml" />
+    <Content Include="Views\Shared\_ViewNewApplicants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -555,6 +571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201111602168_CampusModelUpdated.resx">
       <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201201531516_applyDatePropAdded.resx">
+      <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

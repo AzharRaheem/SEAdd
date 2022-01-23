@@ -2,6 +2,13 @@
 @{
     ViewBag.Title = "Applicant Detail";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "",
+        InsertionMode = InsertionMode.Replace , 
+        OnSuccess = "ApprovedSuccessfully"
+    };
 }
 
 <table class="table table-bordered table-responsive">
@@ -97,7 +104,7 @@
         <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@Model.Id>DELETE</a>
         @if (!Model.isApproved)
         {
-            @Html.ActionLink("APPROVE" , "ApproveApplicant" , "Student" , new { id=Model.Id} , new {@class="btn btn-sm btn-success"})
+            @Ajax.ActionLink("APPROVE" , "ApproveApplicant" , "Student" , new { id = Model.Id } , ajaxOptions, new {@class="btn btn-sm btn-success" , id="ApproveBtn"})
             @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
         }
         else
@@ -124,6 +131,15 @@
                 icon: "success",
                 button: "OK",
             });
+        }
+        function ApprovedSuccessfully() {
+            swal({
+                title: "Approved!",
+                text: "Application Approved Successfully.",
+                icon: "success",
+                button: "OK",
+            });
+            $("#ApproveBtn").text("APPROVED");
         }
     </script>
 }
