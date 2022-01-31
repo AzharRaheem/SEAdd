@@ -82,7 +82,7 @@
 </table>
 <div style="padding-top:10px;">
     <!-- Modal Start -->
-    <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!-- This Modal is used for Delete Button -->
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,17 +99,62 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="rejectModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!-- This Modal is used for Reject Button -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary rounded">
+                    <h3 class="modal-title text-white" id="exampleModalLabel">Confirm</h3>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to reject this Application?</h4>
+                    <textarea class="form-control" rows="6"name="rejectionMsg" placeholder="Type Rejection Message here" id="MessageForApplicant"></textarea>
+                    <span class="text-danger" id="RejectionMsgError"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">Close</button>
+                    <a id="rejectBtn" class="btn btn-danger">Reject</a>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade" id="apprveModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!-- This Modal is used for Approve Button -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary rounded">
+                    <h3 class="modal-title text-white" id="exampleModalLabel">Confirm</h3>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" id="approveModelCloseBtn"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Please check either applicant submit his/her fee before approve admission request or not.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">Close</button>
+                    @Html.ActionLink("Approve", "ApproveApplicant", "Student", new { id = Model.Id } , new { @class = "btn btn-primary", id = "ApproveBtn"})
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal End -->
     <div class="float-end">
         <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@Model.Id>DELETE</a>
+        @if (!Model.isRejected)
+        {
+            <a class="btn btn-sm btn-info rejectLink" data-bs-toggle="modal" data-bs-target="#rejectModel" IdValue=@Model.Id>REJECT</a>
+        }
+        else
+        {
+            <a class="btn btn-sm btn-info" id="alreadyRejected" onclick="AlreadyRejected()">REJECTED</a>
+        }
         @if (!Model.isApproved)
         {
-            @Ajax.ActionLink("APPROVE" , "ApproveApplicant" , "Student" , new { id = Model.Id } , ajaxOptions, new {@class="btn btn-sm btn-success" , id="ApproveBtn"})
+            @*@Ajax.ActionLink("APPROVE" , "ApproveApplicant" , "Student" , new { id = Model.Id } , ajaxOptions, new {@class="btn btn-sm btn-success" , id="ApproveBtn"})*@
+            <a class="btn btn-sm btn-success approveLink" data-bs-toggle="modal" data-bs-target="#apprveModel">APPROVE</a>
             @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
         }
         else
         {
-            <a onclick="AlreadyApproved()" class="btn btn-sm btn-success">APPROVED</a>
+            <a onclick="AlreadyApproved()" class="btn btn-sm btn-success" id="AlreadyApprovedBtn">APPROVED</a>
         }
     </div>
     <div class="clearfix"></div>
@@ -123,7 +168,30 @@
             var id = $(this).attr("IdValue");
             $("#deleteBtn").attr("href", "/Student/DeleteApplicant/" + id);
         });
-
+        var RejectApplicantId;
+        $(".rejectLink").click(function () {
+            RejectApplicantId = $(this).attr("IdValue"); 
+        });
+        $("#MessageForApplicant").focusout(function () {
+            var msg = $("#MessageForApplicant").val();
+            if (msg === "") {
+                $("#rejectBtn").attr("readonly", "");
+                $("#RejectionMsgError").text("Please enter rejection message.");
+            }
+            else {
+                $("#RejectionMsgError").text("");
+            }
+        });
+        $("#rejectBtn").click(function () {
+            var msg = $("#MessageForApplicant").val();
+            if (msg === "") {
+                $("#rejectBtn").attr("readonly", "");
+                $("#RejectionMsgError").text("Please enter rejection message.");
+            }
+            else {
+                $("#rejectBtn").attr("href", "/Student/RejectApplicant/" + RejectApplicantId + "?rejectionMsg=" + msg);
+            }
+        });
         function AlreadyApproved() {
             swal({
                 title: "Approved!",
@@ -140,6 +208,15 @@
                 button: "OK",
             });
             $("#ApproveBtn").text("APPROVED");
+            $(".approveLink").text("APPROVED");
+        }
+        function AlreadyRejected() {
+            swal({
+                title: "Rejected!",
+                text: "This application is already rejected.",
+                icon: "error",
+                button: "OK",
+            });
         }
     </script>
 }

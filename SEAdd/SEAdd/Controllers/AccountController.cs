@@ -99,7 +99,7 @@ namespace SEAdd.Controllers
                 case SignInStatus.Success:
                     ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
                     var roles = await UserManager.GetRolesAsync(user.Id);
-                    var applicant = db.Applicants.Where(u => u.userId == user.Id).FirstOrDefault();
+                    var applicant = db.Applicants.Where(u => u.userId == user.Id && u.isRejected == false).OrderByDescending(u => u.Id).FirstOrDefault();
                     if(applicant != null)
                     {
                         Session["UserAlreadyExist"] = true;
@@ -128,7 +128,7 @@ namespace SEAdd.Controllers
                         }
                         else
                         {
-                            Session["AdmissionDateExpire"] = false;
+                            Session["AdmissionDateExpire"] = true;
                         }
                         return RedirectToAction("UserDashboard", "Dashboard");
                     }

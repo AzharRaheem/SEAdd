@@ -5,8 +5,10 @@ using SEAdd.Models.DomainModels;
 using SEAdd.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,7 +30,7 @@ namespace SEAdd.Controllers
         }
         public ActionResult ViewAllApplicants()
         {
-            List<Applicant> applicants = db.Applicants.ToList();
+            List<Applicant> applicants = db.Applicants.OrderByDescending(a => a.isApproved).ToList();
             return View(applicants);
         }
         public ActionResult GetApplicantDetail(int id)
@@ -44,7 +46,7 @@ namespace SEAdd.Controllers
                 db.Applicants.Remove(applicant);
                 db.SaveChanges();
             }
-            return RedirectToAction("ViewAllApplicants");
+            return RedirectToAction("CurrentYearApplicants");
         }
         public ActionResult ApproveApplicant(int id)
         {
@@ -52,8 +54,15 @@ namespace SEAdd.Controllers
             if (applicant != null)
             {
                 applicant.isApproved = true;
+                applicant.isRejected = false;
                 db.Entry(applicant).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                var rejectionReason = db.RejectionReasons.Where(r => r.applicantId == applicant.Id).FirstOrDefault();
+                if (rejectionReason != null)
+                {
+                    db.RejectionReasons.Remove(rejectionReason);
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("CurrentYearApplicants");
         }
@@ -117,8 +126,9 @@ namespace SEAdd.Controllers
         public ActionResult PrintChallan()
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Challan.rpt"));
-            var model = db.Fees.ToList();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "Challan.rpt"));
+            var feeDetails = db.Fees.OrderByDescending(f => f.id).FirstOrDefault();
+            var model = db.Fees.Where(f => f.id == feeDetails.id).ToList();
             rd.SetDataSource(model);
             Response.Buffer = false;
             Response.ClearContent();
@@ -126,6 +136,66 @@ namespace SEAdd.Controllers
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "Challan_SoftwareEngineering.pdf");
+        }
+        public ActionResult PrintApplicantForm(int id)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "ApplicantsDetail.rpt"));
+            var model = db.Applicants.Where(a => a.Id == id).ToList();
+            var image = model[0].profileImgUrl;
+            var cutPathNewImage = image.Remove(0, 1);
+            model[0].profileImgUrl = cutPathNewImage;
+            rd.SetDataSource(model);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", model[0].Id.ToString()+"-ApplicantionForm.pdf");
+        }
+        public ActionResult PrintApprovedApplicant()
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "ApprovedApplicant.rpt"));
+            var model = db.Applicants.Where(a => a.isApproved == true && a.applyDate.Year == DateTime.Today.Date.Year).ToList();
+            rd.SetDataSource(model);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "ApprovedApplicants.pdf");
+        }
+        public ActionResult RejectApplicant(int id , string rejectionMsg)
+        {
+            var applicant = db.Applicants.Where(a => a.Id == id).FirstOrDefault();
+            if (applicant != null)
+            {
+                try
+                {
+                    #region SendEmailToUser
+                    SendEmail sendEmail = new SendEmail();
+                    sendEmail.SendMailMessage(applicant.Email, "Your Application has been rejected !", rejectionMsg);
+                    #endregion
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    applicant.isRejected = true;
+                    applicant.isApproved = false;
+                    db.Entry(applicant).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    RejectionReason rejectionReason = new RejectionReason();
+                    rejectionReason.applicantId = id;
+                    rejectionReason.RejectionMessage = rejectionMsg;
+                    db.RejectionReasons.Add(rejectionReason);
+                    db.SaveChanges();
+                }               
+            }
+            return RedirectToAction("CurrentYearApplicants");
         }
         [NonAction]
         private string GetFileUrl(HttpPostedFileBase file)
@@ -175,10 +245,10 @@ namespace SEAdd.Controllers
             }
             FilterApplicantVM model = new FilterApplicantVM()
             {
-                Applicants = db.Applicants.Where(a => a.Department.name == vm.departmentName && a.applyDate.Year == vm.year && (a.FirstName.ToLower().Contains(vm.otherAttributes.ToLower()) || (a.FirstName+" "+a.LastName).ToLower().Contains(vm.otherAttributes.ToLower()) ||
-                a.LastName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.FatherName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Email.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Gender.ToLower().Contains(vm.otherAttributes.ToLower()) ||
-                a.StateProvince.ToLower().Contains(vm.otherAttributes.ToLower()) || a.City.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Campus.name.ToLower().Contains(vm.otherAttributes.ToLower()) || a.FScBoard.ToLower().Contains(vm.otherAttributes.ToLower()) ||
-                a.Program.ProgramName.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Department.name.ToLower().Contains(vm.otherAttributes.ToLower()) || a.Qota.name.ToLower().Contains(vm.otherAttributes.ToLower()))).ToList(),
+                Applicants = db.Applicants.Where(a => a.Department.name == vm.departmentName && a.applyDate.Year == vm.year && (a.FirstName.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || (a.FirstName+" "+a.LastName).ToLower().Contains(vm.otherAttributes.Trim().ToLower()) ||
+                a.LastName.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.FatherName.Trim().ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.Email.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.Gender.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) ||
+                a.StateProvince.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.City.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.Campus.name.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.FScBoard.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) ||
+                a.Program.ProgramName.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.Department.name.ToLower().Contains(vm.otherAttributes.Trim().ToLower()) || a.Qota.name.ToLower().Contains(vm.otherAttributes.Trim().ToLower()))).ToList(),
                 departments = db.Departments.ToList(),
                 year = vm.year,
                 departmentName = vm.departmentName
@@ -187,7 +257,7 @@ namespace SEAdd.Controllers
         }
         public ActionResult CurrentYearApplicants()
         {
-            var model = db.Applicants.Where(a => a.applyDate.Year == DateTime.Now.Year).ToList();
+            var model = db.Applicants.Where(a => a.applyDate.Year == DateTime.Now.Year).OrderBy(a => a.isApproved).ToList();
             return View(model);
         }
         public ActionResult GetApprovedApplicants()
@@ -206,6 +276,17 @@ namespace SEAdd.Controllers
             FilterApplicantVM model = new FilterApplicantVM()
             {
                 Applicants = db.Applicants.Where(a => a.isApproved == false).ToList(),
+                departments = db.Departments.ToList(),
+                year = DateTime.Now.Year,
+                departmentName = null
+            };
+            return PartialView("_ViewFilteredApplicants", model);
+        }
+        public ActionResult GetRejectedApplicants()
+        {
+            FilterApplicantVM model = new FilterApplicantVM()
+            {
+                Applicants = db.Applicants.Where(a => a.isRejected == true).ToList(),
                 departments = db.Departments.ToList(),
                 year = DateTime.Now.Year,
                 departmentName = null

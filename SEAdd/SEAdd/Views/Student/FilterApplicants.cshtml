@@ -42,7 +42,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                        @Html.LabelFor(m => m.otherAttributes)
-                       @Html.TextBoxFor(m => m.otherAttributes, new { @class = "form-control", placeholder = "Enter Attribute" })
+                       @Html.TextBoxFor(m => m.otherAttributes, new { @class = "form-control", placeholder = "Enter { Name,Father Name,Gender etc. }" })
                        @Html.ValidationMessageFor(m => m.otherAttributes, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -63,7 +63,7 @@
     @Ajax.ActionLink("Today's Applications ", "GetTodaysApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-primary" })
     @Ajax.ActionLink("This Month's Applications", "GetThisMonthsApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-info" })
     @Ajax.ActionLink("Get Local Applicants", "GetLocalApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-success" })
-    @Ajax.ActionLink("Chella Campus Applicants", "GetApprovedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-info" })
+    @Ajax.ActionLink("Get Rejected Applicants", "GetRejectedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-primary" })
     @Ajax.ActionLink("Get Approved Applicants", "GetApprovedApplicants", "Student", ajaxOptions, new { @class = "btn btn-sm btn-success" })
 </div>
 <div class="col-md=12 mt-4 mx-4" id="ajaxDiv">

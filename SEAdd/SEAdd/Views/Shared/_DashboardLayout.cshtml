@@ -281,6 +281,59 @@
                                 </div>
                             </div>
                             <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown notification_dropdown">
+                                    <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M27.076 6.24662C26.962 5.48439 26.5787 4.78822 25.9955 4.28434C25.4123 3.78045 24.6679 3.50219 23.8971 3.5H4.10289C3.33217 3.50219 2.58775 3.78045 2.00456 4.28434C1.42137 4.78822 1.03803 5.48439 0.924011 6.24662L14 14.7079L27.076 6.24662Z" fill="#717579"></path>
+                                            <path d="M14.4751 16.485C14.3336 16.5765 14.1686 16.6252 14 16.6252C13.8314 16.6252 13.6664 16.5765 13.5249 16.485L0.875 8.30025V21.2721C0.875926 22.1279 1.2163 22.9484 1.82145 23.5536C2.42659 24.1587 3.24707 24.4991 4.10288 24.5H23.8971C24.7529 24.4991 25.5734 24.1587 26.1786 23.5536C26.7837 22.9484 27.1241 22.1279 27.125 21.2721V8.29938L14.4751 16.485Z" fill="#717579"></path>
+                                        </svg>
+                                        <span class="badge light text-white bg-success rounded-circle">@Convert.ToInt32(Session["RejectMsgCount"])</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <div id="DZ_W_Notification1" class="widget-media dlab-scroll p-3 ps" style="height:380px;">
+                                            <ul class="timeline">
+                                                <li>
+                                                    @if (@Convert.ToInt32(Session["RejectMsgCount"]) != 0)
+                                                    {
+                                                        <div class="timeline-panel">
+                                                            <div class="media me-2">
+                                                                <img alt="image" width="30" height="30" src="~/assets/images/comments.png">
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h5 class="mb-1 text-primary fw-bold">
+                                                                    Application Rejected
+                                                                </h5>
+                                                                <h6 class="mb-1">
+                                                                    @Convert.ToString(Session["RejectMsg"])
+                                                                </h6>
+                                                                <small class="d-block"><i class="fa fa-angle-double-right"> </i> From Administration</small>
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="timeline-panel">
+                                                            <div class="media me-2">
+                                                                <img alt="image" width="30" height="30" src="~/assets/images/comments.png">
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h5 class="mb-1">
+                                                                    No Message
+                                                                </h5>
+                                                                <h6 class="mb-1">
+                                                                   Empty
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </li>
+                                            </ul>
+                                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                                        </div>
+                                        <a class="all-notification" href="javascript:void(0);">Messages <i class="ti-arrow-end"></i></a>
+                                    </div>
+                                </li> <!-- This <li> is used for the Messages... -->
                                 <li class="nav-item dropdown  header-profile">
                                     <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                         @if (Session["UserProfileImage"] != null)
@@ -305,7 +358,7 @@
                                             </a>
                                         }
                                     </div>
-                                </li>
+                                </li> <!-- This <li> is used for the Profile Image & Role... -->
                             </ul>
                         </div>
                     </nav>

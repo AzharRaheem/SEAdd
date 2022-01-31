@@ -26,7 +26,7 @@ namespace SEAdd.Controllers
                 usersCount = db.Users.Count() , 
                 departmentCount = db.Departments.Count() , 
                 approvedApplicationsCount = db.Applicants.Where(a => a.isApproved == true).Count() , 
-                Applicants = db.Applicants.Where(a => a.applyDate.Year == DateTime.Now.Year).ToList() , 
+                Applicants = db.Applicants.Where(a => a.applyDate.Year == DateTime.Now.Year).OrderByDescending(a => a.isApproved).ToList() , 
                 notificationsCount = db.Notifications.Count()
             };
             return View(vm);
@@ -48,9 +48,19 @@ namespace SEAdd.Controllers
                 {
                     vm.applicationStatus = "Approved";
                 }
+                else if(applicant.isRejected == true)
+                {
+                    vm.applicationStatus = "Rejected";
+                }
                 else
                 {
-                    vm.applicationStatus = "Submitted";
+                    vm.applicationStatus = "Pending";
+                }
+                Session["RejectMsgCount"] = db.RejectionReasons.Where(d => d.applicantId == applicant.Id).Count();
+                var rejectionReason = db.RejectionReasons.Where(d => d.applicantId == applicant.Id).OrderByDescending(d=>d.id).FirstOrDefault(); //This is the object of the RejectionReason Model.
+                if(rejectionReason != null)
+                {
+                    Session["RejectMsg"] = rejectionReason.RejectionMessage;
                 }
             }
             else

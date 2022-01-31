@@ -303,6 +303,18 @@
     <Compile Include="Migrations\202201201531516_applyDatePropAdded.Designer.cs">
       <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201241516101_isRejectedPropAdded.cs" />
+    <Compile Include="Migrations\202201241516101_isRejectedPropAdded.Designer.cs">
+      <DependentUpon>202201241516101_isRejectedPropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201261701578_RejectionReasonModelAdded.cs" />
+    <Compile Include="Migrations\202201261701578_RejectionReasonModelAdded.Designer.cs">
+      <DependentUpon>202201261701578_RejectionReasonModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.cs" />
+    <Compile Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.Designer.cs">
+      <DependentUpon>202201281547406_ApplicantRollNumberPropRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
@@ -315,6 +327,8 @@
     <Compile Include="Models\DomainModels\Notification.cs" />
     <Compile Include="Models\DomainModels\Program.cs" />
     <Compile Include="Models\DomainModels\Qota.cs" />
+    <Compile Include="Models\DomainModels\RejectionReason.cs" />
+    <Compile Include="Models\DomainModels\SendEmail.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
@@ -324,6 +338,18 @@
     <Compile Include="Models\ViewModels\UserDashboardVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ApplicantsDetail.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicantsDetail.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApprovedApplicant.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApprovedApplicant.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\Challan.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,6 +362,8 @@
     <Content Include="assets\images\ajaxpreloader.gif" />
     <Content Include="assets\images\application.png" />
     <Content Include="assets\images\calander.png" />
+    <Content Include="assets\images\comments.png" />
+    <Content Include="assets\images\nomination.png" />
     <Content Include="assets\images\filter.png" />
     <Content Include="assets\images\filterbyyear.png" />
     <Content Include="assets\images\firefighter.png" />
@@ -510,6 +538,7 @@
     <Content Include="Views\Shared\_ViewFilteredApplicants.cshtml" />
     <Content Include="Views\Student\CurrentYearApplicants.cshtml" />
     <Content Include="Views\Shared\_ViewNewApplicants.cshtml" />
+    <Content Include="Views\Shared\_RejectApplicant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -574,6 +603,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201201531516_applyDatePropAdded.resx">
       <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201241516101_isRejectedPropAdded.resx">
+      <DependentUpon>202201241516101_isRejectedPropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201261701578_RejectionReasonModelAdded.resx">
+      <DependentUpon>202201261701578_RejectionReasonModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.resx">
+      <DependentUpon>202201281547406_ApplicantRollNumberPropRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicantsDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ApplicantsDetail.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApprovedApplicant.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ApprovedApplicant.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

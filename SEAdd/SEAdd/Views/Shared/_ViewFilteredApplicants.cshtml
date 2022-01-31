@@ -19,6 +19,7 @@
                             <th><strong>Campus</strong></th>
                             <th><strong>Department</strong></th>
                             <th><strong>Year</strong></th>
+                            <th><strong>Status</strong></th>
                             <th><strong>Actions</strong></th>
                         </tr>
                     </thead>
@@ -34,6 +35,18 @@
                                 <td>@item.Campus.name</td>
                                 <td>@item.Department.name</td>
                                 <td>@item.applyDate.Year</td>
+                                   @if (item.isApproved == true && item.isRejected == false)
+                                   {
+                                    <td><span class="badge light badge-lg badge-success">Approved</span></td>
+                                   }
+                                   else if (item.isApproved == false && item.isRejected == false)
+                                   {
+                                    <td><span class="badge light badge-primary">Pending</span></td>
+                                   }
+                                   else
+                                   {
+                                    <td><span class="badge light badge-lg badge-danger">Rejected</span></td>
+                                   }
                                 <td>
                                    @Html.ActionLink("Review", "GetApplicantDetail", "Student", new { id = @item.Id } , new { @class = "btn btn-sm btn-success mb-1" , target="_blank" })
                                    @if (!item.isApproved)
@@ -41,10 +54,6 @@
                                         <a onclick="ReviewApplication()" class="btn btn-sm btn-primary">Approve</a>
                                         @*<a href="~/Student/ApproveApplicant/@Model.Id" class="btn btn-sm btn-success">APPROVE</a>*@
                                    }
-                                   else
-                                   {
-                                        <a onclick="AlreadyApproved()" class="btn btn-sm btn-primary">Approved</a>
-                                    }
                                 </td>
                             </tr>
                         }

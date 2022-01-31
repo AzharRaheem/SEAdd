@@ -19,6 +19,7 @@
                             <th>Campus</th>
                             <th>Department</th>
                             <th>Year</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,7 +34,20 @@
                                 <td>@item.Campus.name</td>
                                 <td>@item.Department.name</td>
                                 <td>@item.applyDate.Year</td>
+                                    @if (item.isApproved == true && item.isRejected == false)
+                                    {
+                                        <td><span class="badge light badge-lg badge-success">Approved</span></td>
+                                    }
+                                    else if (item.isApproved == false && item.isRejected == false)
+                                    {
+                                        <td><span class="badge light badge-primary">Pending</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge light badge-lg badge-danger">Rejected</span></td>
+                                    }
                                 <td>
+                                    @Html.ActionLink("Review", "GetApplicantDetail", "Student", new { id = @item.Id }, new { @class = "btn btn-sm btn-success mb-1" })
                                     <!-- Modal Start -->
                                     <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">

@@ -109,5 +109,10 @@ namespace SEAdd.Models.DomainModels
         [DefaultValue(false)]
         public bool isApproved { get; set; }
         public DateTime applyDate { get; set; }
+        [DefaultValue(false)]
+        public bool isRejected { get; set; }
+
+
+        public virtual ICollection<RejectionReason> RejectionReason { get; set; }
     }
 }

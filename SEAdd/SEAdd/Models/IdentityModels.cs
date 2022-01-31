@@ -49,7 +49,7 @@ namespace SEAdd.Models
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<AdmissionDate> AdmissionDate { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-
+        public DbSet<RejectionReason> RejectionReasons { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
