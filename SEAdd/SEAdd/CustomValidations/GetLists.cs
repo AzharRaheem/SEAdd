@@ -27,5 +27,18 @@ namespace SEAdd.CustomValidations
         {
             return new List<string>() { "1st", "2nd" , "3rd" , "4th" };
         }
+        public static List<string> GetRolesList()
+        {
+            return new List<string>() { "Admin", "User", "SuperAdmin"};
+        }
+        public static List<string> GetReligionList()
+        {
+            return new List<string>() { "Islam", "Christianity", "Hinduism" , "Buddhism" };
+        }
+        public static List<string> GetProgramTypeList()
+        {
+            return new List<string>() { "Undergraduate", "Graduate" };
+        }
+
     }
 }

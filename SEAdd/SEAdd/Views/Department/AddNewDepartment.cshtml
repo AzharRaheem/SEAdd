@@ -1,4 +1,4 @@
-﻿@model SEAdd.Models.DomainModels.Department
+﻿@model SEAdd.Models.ViewModels.DepartmentCampusVM
 @{
     ViewBag.Title = "AddNewDepartment";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
@@ -12,12 +12,19 @@
     </ol>
 </div>
 
-@using (Html.BeginForm("AddNewDepartment", "Department", FormMethod.Post))
+@using (Html.BeginForm("AddNewDepartment", "Department", FormMethod.Post , new { enctype = "multipart/form-data" }))
 {
     <div class="container p-4">
-        <div class="row text-center" id="AlreadyExistErrorMsg">
-            <h4 class="text-danger">@ViewBag.ErrorMsg</h4>
-        </div>
+        @if (ViewBag.ErrorMsg != null)
+        {
+            <div class="container text-center">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    <strong>Error!</strong> @ViewBag.ErrorMsg
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                </div>
+            </div>
+        }
         <div class="row">
             <div class="col-sm-6">
                 <h3>New Department</h3>
@@ -31,20 +38,38 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.name)
-                    @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Enter Department Name" })
-                    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.department.name)
+                    @Html.TextBoxFor(m => m.department.name, new { @class = "form-control", placeholder = "Enter Department Name" })
+                    @Html.ValidationMessageFor(m => m.department.name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-sm-6">
-               
+                @Html.LabelFor(m => m.department.CampusId)
+                @Html.DropDownListFor(m => m.department.CampusId, new SelectList(Model.Campuses, "id", "name"), "-Select Campus-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.department.CampusId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row mt-2">
+            <div class="col-sm-6">
+                @Html.Label("Courses")
+               <br /><br />
+                    @Html.CheckBoxFor(m => m.department.BS , new {@class="form-check-input" , id="customCheckBox1" }) @Html.LabelFor(m => m.department.BS)
+                    @Html.CheckBoxFor(m => m.department.MS, new { @class = "form-check-input", id = "customCheckBox2" })  @Html.LabelFor(m => m.department.MS)
+                    @Html.CheckBoxFor(m => m.department.PHD, new { @class = "form-check-input", id = "customCheckBox3" }) @Html.LabelFor(m => m.department.PHD)
+            </div>
             <div class="col-sm-6 ">
                 <div class="form-group">
-                    <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-success col-md-2" />
+                    @Html.Label("Department Logo")
+                    @Html.TextBox("DeptLogoImg", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
                 </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 ">
+                <div class="form-group float-end">
+                    <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-success" />
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

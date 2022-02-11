@@ -38,7 +38,7 @@
         @{
             string userId = (string)Session["UserId"];
         }
-        @if (User.IsInRole("Admin")) //Admin Area...
+        @if (User.IsInRole("SuperAdmin")) //SuperAdmin Area...
         {
             <!--**********************************
                 Nav header start
@@ -169,6 +169,15 @@
                                         <li><a href="~/Campus/AddNewCampus">Add New Campus</a></li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Academic Degrees</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/AcademicDegree/Index">View All Degrees</a></li>
+                                        <li><a href="~/AcademicDegree/AddNewDegree">Add New Degree</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
 
@@ -209,8 +218,9 @@
                                 <span class="nav-text">Entry Test</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">View Entry Test</a></li>
+                                <li><a href="app-calender.html">Categories</a></li>
                                 <li><a href="app-calender.html">Create a Test</a></li>
+                                <li><a href="app-calender.html">Setting</a></li>
                             </ul>
                         </li>
                         <li>
@@ -230,6 +240,141 @@
                             <ul aria-expanded="false">
                                 <li><a href="~/Fee/Index">Manage Fee</a></li>
                                 <li><a href="~/Fee/ManageBank">Manage Bank</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Account/AllUsers" class="" aria-expanded="false">
+                                <i class="fas fa-users"></i>
+                                <span class="nav-text">Users</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="col-md-10 mx-auto" />
+                    <div class="text-center">
+                        <span>&copy; 2021 -All right reserved.</span>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <!--**********************************
+                Nav header start
+            ***********************************-->
+            <div class="nav-header">
+                <a href="~/Dashboard/AdminDashboard" class="brand-logo">
+                    <img src="~/assets/images/logo.png" width="70" height="70">
+                    <div class="brand-title">
+                        <h2 class="">SE Add  <span>-</span></h2>
+                        <span class="brand-sub-title">Software Engineering</span>
+                    </div>
+                </a>
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="line"></span><span class="line"></span><span class="line"></span>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+                Nav header end
+            ***********************************-->
+            <!--**********************************
+                Header start
+            ***********************************-->
+            <div class="header border-bottom">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                                <div class="dashboard_bar">
+                                    Dashboard
+                                </div>
+                            </div>
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown  header-profile">
+                                    <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                        @if (Session["UserProfileImage"] != null)
+                                        {
+                                            <img src="@Url.Content((string)Session["UserProfileImage"])" width="56" alt="User Image">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
+                                        }
+                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
+                                            <span class="ms-2"><i class="fa fa-user" style="font-size:14px;color:#886CC0;"></i> Profile </span>
+                                        </a>
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item ai-icon">
+                                                <span class="ms-2"><i class="fa fa-power-off" style="font-size:14px;color:red;"></i> Logout </span>
+                                            </a>
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!--**********************************
+                Header end ti-comment-alt
+            ***********************************-->
+            <!--**********************************
+                Sidebar start
+            ***********************************-->
+            <div class="dlabnav">
+                <div class="dlabnav-scroll">
+                    <ul class="metismenu" id="menu">
+                        <li>
+                            <a href="~/Dashboard/AdminDashboard" aria-expanded="false">
+                                <i class="fas fa-home"></i>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-book-reader"></i>
+                                <span class="nav-text">Applicants</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Student/ViewAllApplicants">View All Applicants</a></li>
+                                <li><a href="~/Student/FilterApplicants">Filter Applicants</a></li>
+                                <li><a href="~/Student/CurrentYearApplicants">Admission @DateTime.Now.Year Applicants</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-calendar"></i>
+                                <span class="nav-text">Admissions</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Admission/Index">Manage Date</a></li>
+                                <li><a href="app-calender.html">Create a Test</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-keyboard"></i>
+                                <span class="nav-text">Entry Test</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">Categories</a></li>
+                                <li><a href="app-calender.html">Create a Test</a></li>
+                                <li><a href="app-calender.html">Setting</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="nav-text">Merit Lists</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="app-calender.html">Generate Merit List</a></li>
                             </ul>
                         </li>
                         <li>
@@ -385,12 +530,13 @@
                                 <span class="nav-text">Admissions</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="~/Student/EligibilityCriteria">Eligibility Criteria</a></li>
+                                <li><a href="~/Applicant/EligibilityCriteria">Eligibility Criteria</a></li>
+                                <li><a href="~/Applicant/Help">Help</a></li>
                                 @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
                                 {
                                     if (!Convert.ToBoolean(Session["AdmissionDateExpire"]))
                                     {
-                                        <li><a href="~/Student/StudentRegistration">Apply Online</a></li>
+                                        <li><a href="~/Applicant/ApplicantRegistration">Apply Online</a></li>
                                     }
                                     else
                                     {
@@ -463,7 +609,7 @@
         <div class="footer">
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Engr. Awais Rathore</a> &amp; <a href="#" target="_blank">Azhar Raheem</a> -2021</p>
-                <p class="text-center">Department of <span class="text-primary">Software Engineering</span>.</p>
+                <p class="text-center">UAJK Admission Portal.</p>
             </div>
         </div>
         <!--**********************************

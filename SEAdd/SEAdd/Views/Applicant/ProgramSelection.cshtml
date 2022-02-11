@@ -1,0 +1,195 @@
+﻿@model SEAdd.Models.ViewModels.ProgramSelectionVM
+@{
+    ViewBag.Title = "ProgramSelection";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
+    }
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li class="active" id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li class="active" id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (TempData["ProgramAlreadyExist"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <strong>Error!</strong> @TempData["ProgramAlreadyExist"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("ProgramSelection", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container p-2">
+        <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Programme Selection</h2>
+        <h4 class="col-md-8 mx-auto text-center text-danger"><strong>Dear Applicant,</strong> If you are going to apply for more then 1 programmes then your Admission Processing fee will be incresed via number of programmes you applied.</h4>
+        <div class="col-md-4 mx-auto">
+            <hr /><br />
+        </div>
+         @Html.HiddenFor(m => m.programSelection.ApplicantId)
+        <!-- Personal Form Fields -->
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="text-center">
+                        <h2>Undergraduate</h2>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        @foreach (var item in Model.Programs)
+                        {
+                            if (item.ProgramType.ToLower() == "undergraduate")
+                            {
+                                <div class="col-md-4">
+                                    @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id , new { @class = "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="text-center">
+                        <h2>Graduate</h2>
+                    </div>
+                        <hr />
+                    <div class="row">
+                        @foreach (var item in Model.Programs)
+                        {
+                            if (item.ProgramType.ToLower() == "graduate")
+                            {
+                                <div class="col-md-4">
+                                    @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id , new { @class= "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
+                                </div>
+                            }
+                        }
+                    </div>
+               </div>
+            </div>
+            <div class="text-center">@Html.ValidationMessageFor(m => m.programSelection.ProgramId, "", new { @class = "text-danger mt-2 h4" })</div>
+        </div>
+        <hr />
+        <div class="row text-center">
+            <div class="col-md-4 mx-auto">
+                <h4>Department</h4>
+                @Html.DropDownListFor(m => m.programSelection.DepartmentId, new SelectList(Model.Departments, "id", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.programSelection.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-2 text-center">
+            <div class="col-md-4 mx-auto">
+                @if (Model.AppliedProgramsCount != 3)
+                {
+                    <input type="submit" class="btn btn-primary py-2 px-3 fw-bold mt-4" value="SAVE & APPLY FOR OTHER" />
+                }
+                else
+                {
+                    <button onclick="ShowErrorDialog()" class="btn btn-primary py-2 px-3 fw-bold mt-4">SAVE & APPLY FOR OTHER</button>
+                }
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+<div class="container p-2">
+    @if (Model.AppliedProgramsCount != 0)
+    {
+        <div class="float-end">
+            <a href="~/Applicant/Academics" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a>
+            <a href="" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="clearfix"></div>
+    }
+
+    <hr />
+    <h2 class="h3 py-1">Programmes Applied</h2>
+    <div class="row">
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>SNo.</th>
+                    <th>Department Name</th>
+                    <th>Campus</th>
+                    <th>Programme Name</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AppliedProgramsCount != 0)
+                {
+                    for (int i = 0; i < Model.AppliedProgramsCount; i++)
+                    {
+                        int x = 1 + i;
+                        <tr>
+                            <td>@x</td>
+                            <td>@Model.AppliedPrograms[i].Department.name</td>
+                            <td>@Model.AppliedPrograms[i].Department.Campus.name</td>
+                            <td>@Model.AppliedPrograms[i].Program.ProgramName</td>
+                            <td>@Model.AppliedPrograms[i].Program.duration Years</td>
+                            <td><span class="badge badge-success">Applied</span></td>
+                            <td>
+                                <a href="~/Applicant/DeleteProgramSelection/@Model.AppliedPrograms[i].id" class="btn btn-sm btn-danger"><i class="fa fa-trash"> </i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        function ShowErrorDialog() {
+            swal({
+                title: "Sorry!",
+                text: "You can only apply for just 3 departments.",
+                icon: "error",
+                button: "OK",
+            });
+        }
+    </script>
+    }

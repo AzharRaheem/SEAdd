@@ -13,7 +13,7 @@ namespace SEAdd.Models.ViewModels
         public int approvedApplicationsCount { get; set; }
         public int applicationsCount { get; set; }
         public int notificationsCount { get; set; }
+        public int rejectedApplicantsCount { get; set; }
         public int departmentCount { get; set; }
-        public List<Applicant> Applicants { get; set; }
     }
 }

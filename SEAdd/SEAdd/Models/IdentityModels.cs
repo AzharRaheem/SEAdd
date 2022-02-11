@@ -24,6 +24,8 @@ namespace SEAdd.Models
         public string fatherName { get; set; }
         public string address { get; set; }
         public bool? gender { get; set; } //True for Male
+        public string department { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -46,10 +48,14 @@ namespace SEAdd.Models
         public DbSet<Program> Programs { get; set; }
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Applicant> Applicants { get; set; }
         public DbSet<AdmissionDate> AdmissionDate { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<RejectionReason> RejectionReasons { get; set; }
+        public DbSet<AcademicDegree> AcademicDegrees { get; set; }
+        public DbSet<Academic> Academics { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<Provience> Proviences { get; set; }
+        public DbSet<ProgramSelection> ProgramSelections { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

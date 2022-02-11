@@ -1,5 +1,4 @@
-﻿@model SEAdd.Models.ViewModels.AdminDashboardVM
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -19,7 +18,7 @@
                                                 <h4 class="fs-18 font-w600 mb-4 text-nowrap">New Applications</h4>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                    <h2 class="fs-32 font-w700 mb-4">@Model.applicationsCount</h2>
+                                                    <h2 class="fs-32 font-w700 mb-4">0</h2>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
@@ -35,7 +34,7 @@
                                                 <h4 class="fs-18 font-w600 mb-4 text-nowrap">Total Users</h4>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                    <h2 class="fs-32 font-w700 mb-4">@Model.usersCount</h2>
+                                                    <h2 class="fs-32 font-w700 mb-4">0</h2>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
@@ -51,7 +50,7 @@
                                                 <h4 class="fs-18 font-w600 mb-4 text-nowrap">Total Departments</h4>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                    <h2 class="fs-32 font-w700 mb-4">@Model.departmentCount</h2>
+                                                    <h2 class="fs-32 font-w700 mb-4">0</h2>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
@@ -63,32 +62,84 @@
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
-                                    <div class="widget-stat card bg-primary">
-                                        <div class="card-body  p-4">
-                                            <div class="media">
-                                                <span class="me-3">
-                                                    <i class="fa fa-users"></i>
-                                                </span>
-                                                <div class="media-body text-white">
-                                                    <p class="mb-1">Approved Applications</p>
-                                                    <h3 class="text-white">@Model.approvedApplicationsCount</h3>
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card py-3">
+                                        <div class="card-body d-flex px-4 pb-0 justify-content-between">
+                                            <div class="col-md-9 col-sm-9">
+                                                <h4 class="fs-18 font-w600 mb-4 text-nowrap">Approved Applicants - (0)</h4>
+                                                <hr class="col-md-4" />
+                                                <div class="d-flex align-items-center">
+                                                    @if (true)
+                                                    {
+                                                        <a href="~/Student/PrintApprovedApplicants" class="btn btn-rounded btn-success">
+                                                            <span class="btn-icon-start text-success">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" onclick="AppplicantsCountZero()" class="btn btn-rounded btn-success">
+                                                            <span class="btn-icon-start text-success">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
                                                 </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <img src="~/assets/images/approved.png" width="80" height="80">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
-                                    <div class="widget-stat card bg-warning">
-                                        <div class="card-body p-4">
-                                            <div class="media">
-                                                <span class="me-3">
-                                                    <i class="fa fa-bell"></i>
-                                                </span>
-                                                <div class="media-body text-white">
-                                                    <p class="mb-1">Notifications</p>
-                                                    <h3 class="text-white">@Model.notificationsCount</h3>
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card py-3">
+                                        <div class="card-body d-flex px-4 pb-0 justify-content-between">
+                                            <div class="col-md-9 col-sm-9">
+                                                <h4 class="fs-18 font-w600 mb-4 text-nowrap">Rejected Applicants - (0)</h4>
+                                                <hr class="col-md-4" />
+                                                <div class="d-flex align-items-center">
+                                                    @if(true)
+                                                    { 
+                                                        <a href="~/Student/PrintRejectedApplicants" class="btn btn-rounded btn-primary">
+                                                            <span class="btn-icon-start text-primary">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" onclick="AppplicantsCountZero()" class="btn btn-rounded btn-primary">
+                                                            <span class="btn-icon-start text-primary">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
                                                 </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <img src="~/assets/images/rejected.png" width="80" height="80">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card py-3">
+                                        <div class="card-body d-flex px-4 pb-0 justify-content-between">
+                                            <div class="col-md-9 col-sm-9">
+                                                <h4 class="fs-18 font-w600 mb-4 text-nowrap">Notifications - (0)</h4>
+                                                <hr class="col-md-4" />
+                                                <div class="d-flex align-items-center">
+                                                    <a href="~/Notification/Index" class="btn btn-rounded btn-info">
+                                                        <span class="btn-icon-start text-info">
+                                                            <i class="fa fa-bell"></i>
+                                                        </span>View All
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <img src="~/assets/images/notification-bell.png" width="80" height="80">
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +147,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-xl-12 col-xxl-12 col-lg-12 col-sm-12">
-                                    @Html.Partial("_ViewNewApplicants" , Model.Applicants)
+                                    @*Render Patial view of the Applicants*@
                                 </div>
                             </div>
                         </div>
@@ -124,6 +175,15 @@
                 title: "Sorry!",
                 text: "Kindly review the application first.",
                 icon: "warning",
+                button: "OK",
+            });
+        }
+        function AppplicantsCountZero()
+        {
+            swal({
+                title: "Sorry!",
+                text: "Applicant count is zero.",
+                icon: "error",
                 button: "OK",
             });
         }

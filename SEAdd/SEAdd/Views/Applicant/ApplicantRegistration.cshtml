@@ -1,0 +1,274 @@
+﻿@model SEAdd.Models.ViewModels.ApplicantRegistrationVM
+@{
+    ViewBag.Title = "ApplicantRegistration";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
+}
+@if (Model.academicsCount != 0 && Model.programSelectionCount == 0)
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li class="active" id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.programSelectionCount != 0)
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li class="active" id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li class="active" id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li class="active" id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@using (Html.BeginForm("ApplicantRegistration", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container p-2">
+        <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Personal Information</h2>
+        <div class="float-end">
+            @if (Model.applicant.profileImgUrl != null)
+            {
+                <img src="@Url.Content(Model.applicant.profileImgUrl)" alt="Profile Image" style="width:150px; height:150px;" />
+            }
+        </div>
+        <div class="clearfix"></div>
+        @Html.HiddenFor(m => m.applicant.id)
+        @Html.HiddenFor(m => m.applicant.userId)
+        <!-- Personal Form Fields -->
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.FullName)
+                    @Html.TextBoxFor(m => m.applicant.FullName, new { @class = "form-control", placeholder = "Enter Full Name" })
+                    @Html.ValidationMessageFor(m => m.applicant.FullName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.FatherName)
+                    @Html.TextBoxFor(m => m.applicant.FatherName, new { @class = "form-control", placeholder = "Enter Father Name" })
+                    @Html.ValidationMessageFor(m => m.applicant.FatherName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.Email)
+                    @Html.TextBoxFor(m => m.applicant.Email, new { @class = "form-control", disabled = "disabled" , @readonly="readonly" , placeholder = "Enter Email Address", type = "email" })
+                    @Html.ValidationMessageFor(m => m.applicant.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.BirthDate)
+                    @Html.TextBoxFor(m => m.applicant.BirthDate, new { @class = "form-control", placeholder = "DD/MMM/YYYY", type = "date" })
+                    @Html.ValidationMessageFor(m => m.applicant.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.PersonalContact)
+                    @Html.TextBoxFor(m => m.applicant.PersonalContact, new { @class = "form-control", placeholder = "03000000000" })
+                    @Html.ValidationMessageFor(m => m.applicant.PersonalContact, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.GuardianContact)
+                    @Html.TextBoxFor(m => m.applicant.GuardianContact, new { @class = "form-control", placeholder = "03000000000" })
+                    @Html.ValidationMessageFor(m => m.applicant.GuardianContact, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.CNIC)
+                    @Html.TextBoxFor(m => m.applicant.CNIC, new { @class = "form-control", placeholder = "XXXX-XXXXXXX-X" })
+                    @Html.ValidationMessageFor(m => m.applicant.CNIC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.Domicile)
+                    @Html.TextBoxFor(m => m.applicant.Domicile, new { @class = "form-control", placeholder = "Domicile" })
+                    @Html.ValidationMessageFor(m => m.applicant.Domicile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.Nationality)
+                    @Html.DropDownListFor(m => m.applicant.Nationality, new SelectList(Model.Countries, "name", "name"), "-Select Nationality-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.applicant.Nationality, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.Religion)
+                    @Html.DropDownListFor(m => m.applicant.Religion, new SelectList(Model.Religions), "-Select Religion-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.applicant.Religion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.ProvienceId)
+                    @Html.DropDownListFor(m => m.applicant.ProvienceId, new SelectList(Model.Proviences, "id", "name"), "-Select Provience-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.applicant.ProvienceId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.District)
+                    @Html.TextBoxFor(m => m.applicant.District, new { @class = "form-control", placeholder = "Enter District" })
+                    @Html.ValidationMessageFor(m => m.applicant.District, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.PermanentAddress)
+                    @Html.TextAreaFor(m => m.applicant.PermanentAddress, new { @class = "form-control", placeholder = "Enter Permanent Address" })
+                    @Html.ValidationMessageFor(m => m.applicant.PermanentAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.PostalAddress)
+                    @Html.TextAreaFor(m => m.applicant.PostalAddress, new { @class = "form-control", placeholder = "Enter Postal Address" })
+                    @Html.ValidationMessageFor(m => m.applicant.PostalAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.Gender)
+                    @Html.DropDownListFor(m => m.applicant.Gender, new SelectList(Model.Genders), "-Select Gender-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.applicant.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.applicant.QotaId)
+                    @Html.DropDownListFor(m => m.applicant.QotaId, new SelectList(Model.Quotas, "id", "name"), "-Select Quota-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.applicant.QotaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Profile Image")
+                    @Html.TextBox("profileImg", "", new { @class = "form-file-input form-control pt-3", type = "file", required = "", accept = ".jpeg , .jpg , .png" })
+                </div>
+            </div>
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & NEXT" />
+        </div>
+    </div>
+}

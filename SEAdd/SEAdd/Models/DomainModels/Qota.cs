@@ -22,8 +22,7 @@ namespace SEAdd.Models.DomainModels
         public int numberOfSeats { get; set; }
 
 
-
-
         public virtual ICollection<Applicant> Applicants { get; set; }
+
     }
 }

@@ -98,16 +98,7 @@ namespace SEAdd.Controllers
             {
                 case SignInStatus.Success:
                     ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
-                    var roles = await UserManager.GetRolesAsync(user.Id);
-                    var applicant = db.Applicants.Where(u => u.userId == user.Id && u.isRejected == false).OrderByDescending(u => u.Id).FirstOrDefault();
-                    if(applicant != null)
-                    {
-                        Session["UserAlreadyExist"] = true;
-                    }
-                    else
-                    {
-                        Session["UserAlreadyExist"] = false;
-                    }
+                    var roles = await UserManager.GetRolesAsync(user.Id);                    
                     Session["UserId"] = user.Id;//Store logged User Id...
                     Session["UserProfileImage"] = user.profileImgUrl; //Store logged User Image...
                     if (roles.Contains("User"))
@@ -131,6 +122,11 @@ namespace SEAdd.Controllers
                             Session["AdmissionDateExpire"] = true;
                         }
                         return RedirectToAction("UserDashboard", "Dashboard");
+                    }
+                    else if(roles.Contains("SuperAdmin"))
+                    {
+                        Session["UserRole"] = "Super-Admin"; //Store User Role...
+                        return RedirectToAction("AdminDashboard", "Dashboard");
                     }
                     else
                     {
@@ -323,30 +319,70 @@ namespace SEAdd.Controllers
         {
             var applicationUsers = db.Users.ToList();
             List<UserProfileVM> users = new List<UserProfileVM>();
-            foreach (var user in applicationUsers)
+            var loggedAdmin = UserManager.FindById(Session["UserId"].ToString());
+            var role = UserManager.GetRoles(loggedAdmin.Id);
+            if(role.Contains("SuperAdmin"))
             {
-                UserProfileVM userProfile = new UserProfileVM();
-                userProfile.id = user.Id;
-                userProfile.firstName = user.FirstName;
-                userProfile.lastName = user.LastName;
-                userProfile.fatherName = user.fatherName;
-                userProfile.cnic = user.Cnic;
-                userProfile.email = user.Email;
-                userProfile.address = user.address;
-                userProfile.phoneNumber = user.PhoneNumber;
-                userProfile.profileImgUrl = user.profileImgUrl;
-                userProfile.gender = user.gender.ToString();
-                var roles = UserManager.GetRoles(user.Id);
-                if (roles.Contains("User"))
+                foreach (var user in applicationUsers)
                 {
-                    userProfile.role = "User";
+                    UserProfileVM userProfile = new UserProfileVM();
+                    userProfile.id = user.Id;
+                    userProfile.firstName = user.FirstName;
+                    userProfile.lastName = user.LastName;
+                    userProfile.fatherName = user.fatherName;
+                    userProfile.cnic = user.Cnic;
+                    userProfile.email = user.Email;
+                    userProfile.address = user.address;
+                    userProfile.phoneNumber = user.PhoneNumber;
+                    userProfile.profileImgUrl = user.profileImgUrl;
+                    userProfile.gender = user.gender.ToString();
+                    userProfile.department = user.department;
+                    var roles = UserManager.GetRoles(user.Id);
+                    if (roles.Contains("Admin"))
+                    {
+                        userProfile.role = "Admin";
+                    }
+                    else if (roles.Contains("SuperAdmin"))
+                    {
+                        userProfile.role = "SuperAdmin";
+                    }
+                    else
+                    {
+                        userProfile.role = "User";
+                    }
+                    users.Add(userProfile);
                 }
-                else
-                {
-                    userProfile.role = "Admin";
-                }
-                users.Add(userProfile);
             }
+            else
+            {
+                foreach (var user in applicationUsers)
+                {
+                    UserProfileVM userProfile = new UserProfileVM();
+                    userProfile.id = user.Id;
+                    userProfile.firstName = user.FirstName;
+                    userProfile.lastName = user.LastName;
+                    userProfile.fatherName = user.fatherName;
+                    userProfile.cnic = user.Cnic;
+                    userProfile.email = user.Email;
+                    userProfile.address = user.address;
+                    userProfile.phoneNumber = user.PhoneNumber;
+                    userProfile.profileImgUrl = user.profileImgUrl;
+                    userProfile.gender = user.gender.ToString();
+                    userProfile.department = user.department;
+                    var roles = UserManager.GetRoles(user.Id);
+                    if (roles.Contains("Admin") && user.department == loggedAdmin.department)
+                    {
+                        userProfile.role = "Admin";
+                        users.Add(userProfile);
+                    }
+                    else if (roles.Contains("User"))
+                    {
+                        userProfile.role = "User";
+                        users.Add(userProfile);
+                    }
+                }
+            }
+            
             return View(users);
         }
         //Get // Account / New User
@@ -357,70 +393,75 @@ namespace SEAdd.Controllers
             {
                 newUser = new NewUserViewModel() , 
                 Gender = GetLists.GetGenderList() , 
-                roles = db.Roles.ToList()
+                roles = db.Roles.ToList() , 
+                departments = db.Departments.ToList()
             } ;
             return View(model);
         }
         [HttpPost]
         public async Task<ActionResult> AddNewUser(UserRoleVM model , HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            ViewBag.DepartmentError = null;
+            ApplicationUser loggedAdmin = UserManager.FindById(Session["UserId"].ToString());
+            var role = UserManager.GetRoles(loggedAdmin.Id);
+            if((loggedAdmin.department == model.newUser.department && role.Contains("Admin") && model.newUser.role != "SuperAdmin") || role.Contains("SuperAdmin"))
             {
-                bool Gender = true; // For Male 
-                if(model.newUser.gender != "Male")
+                if (ModelState.IsValid)
                 {
-                    Gender = false; //For Female
-                }
-                var user = new ApplicationUser
-                {
-                    FirstName = model.newUser.FirstName,
-                    LastName = model.newUser.LastName,
-                    Cnic = model.newUser.Cnic,
-                    profileImgUrl = GetImageUrl(file),
-                    UserName = model.newUser.Email,
-                    Email = model.newUser.Email , 
-                    PhoneNumber = model.newUser.PhoneNumber ,
-                    gender = Gender ,
-                    address = model.newUser.Address , 
-                    fatherName = model.newUser.fatherName
-                };
-                var result = await UserManager.CreateAsync(user, model.newUser.Password);
-                if (result.Succeeded)
-                {
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole
+                    bool Gender = true; // For Male 
+                    if (model.newUser.gender != "Male")
                     {
-                        Name = model.newUser.role
-                    });
-                    await UserManager.AddToRoleAsync(user.Id, model.newUser.role);
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        Gender = false; //For Female
+                    }
+                    var user = new ApplicationUser
+                    {
+                        FirstName = model.newUser.FirstName,
+                        LastName = model.newUser.LastName,
+                        Cnic = model.newUser.Cnic,
+                        profileImgUrl = GetImageUrl(file),
+                        UserName = model.newUser.Email,
+                        Email = model.newUser.Email,
+                        PhoneNumber = model.newUser.PhoneNumber,
+                        gender = Gender,
+                        address = model.newUser.Address,
+                        fatherName = model.newUser.fatherName,
+                        department = model.newUser.department
+                    };
+                    var result = await UserManager.CreateAsync(user, model.newUser.Password);
+                    if (result.Succeeded)
+                    {
+                        var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+                        await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Name = model.newUser.role
+                        });
+                        await UserManager.AddToRoleAsync(user.Id, model.newUser.role);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        // For more information on how to enable account confirmation and password reset please visit.
+                        // Send an email with this link
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("AllUsers", "Account");
+                        return RedirectToAction("AllUsers", "Account");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+            }
+            else
+            {
+                ViewBag.DepartmentError = "You can't add user in other departments except your department.";
             }
             UserRoleVM userModel = new UserRoleVM()
             {
-                newUser = model.newUser ,
+                newUser = model.newUser,
                 Gender = GetLists.GetGenderList(),
-                roles = db.Roles.ToList()
+                roles = db.Roles.ToList(),
+                departments = db.Departments.ToList()
             };
-
-            // If we got this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay form.
             return View(userModel);
-        }
-        [HttpGet]
-        public ActionResult EditUser(string id)
-        {
-            var user = UserManager.FindById(id);
-            return View(user);
         }
         //Delete a User
         public async Task<ActionResult> DeleteAUser(string id)

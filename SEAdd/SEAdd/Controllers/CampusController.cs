@@ -9,6 +9,8 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
+    [Authorize(Roles = "SuperAdmin")]
     public class CampusController : Controller
     {
         private readonly ApplicationDbContext db;

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace SEAdd.Controllers
 {
     [HandleError]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class BoardController : Controller
     {
         private readonly ApplicationDbContext db;

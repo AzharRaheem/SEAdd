@@ -1,0 +1,297 @@
+﻿@model SEAdd.Models.ViewModels.ApplicantPreviousQualificationVM
+@{
+    ViewBag.Title = "Academics";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
+}
+@if (Model.ProgramSelectionCount != 0)
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li class="active" id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li class="active" id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center p-0">
+                <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                    <div id="mainProgressContainer">
+                        <ul id="progressbar">
+                            <li class="active" id="step1">
+                                <strong>Step 1</strong><br>
+                                <strong>Personal Information</strong>
+                            </li>
+                            <li class="active" id="step2">
+                                <strong>Step 2</strong><br>
+                                <strong>Academic Record</strong>
+                            </li>
+                            <li id="step3">
+                                <strong>Step 3</strong><br>
+                                <strong>Programme Selection</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 4</strong><br>
+                                <strong>Fee Challan</strong>
+                            </li>
+                            <li id="step4">
+                                <strong>Step 5</strong><br>
+                                <strong>Confirmation</strong>
+                            </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+    @if (TempData["AcademicAlreadyExist"] != null)
+    {
+        <div class="container text-center">
+            <div class="alert alert-danger alert-dismissible fade show">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                <strong>Error!</strong> @TempData["AcademicAlreadyExist"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+            </div>
+        </div>
+    }
+@using (Html.BeginForm("Academics", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container p-2">
+        <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Academic Record</h2>
+        @Html.HiddenFor(m => m.academic.ApplicantId)
+        <!-- Personal Form Fields -->
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.AcademicDegree)
+                    @Html.DropDownListFor(m => m.academic.AcademicDegree, new SelectList(Model.AcademicDegrees, "name", "name"), "-Select Certificate / Degree-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.academic.AcademicDegree, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.Discipline)
+                    @Html.TextBoxFor(m => m.academic.Discipline, new { @class = "form-control", placeholder = "i-e Science , Pre-engineering , BSCS" })
+                    @Html.ValidationMessageFor(m => m.academic.Discipline, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.YearOfPassing)
+                    @Html.TextBoxFor(m => m.academic.YearOfPassing, new { @class = "form-control", type="number" , placeholder="Year of Passing"})
+                    @Html.ValidationMessageFor(m => m.academic.YearOfPassing , "", new { @class = "text-danger" })
+                    <span id="YearOfPassingError" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.RollNumber)
+                    @Html.TextBoxFor(m => m.academic.RollNumber, new { @class = "form-control", placeholder = "Roll Number(101101)" })
+                    @Html.ValidationMessageFor(m => m.academic.RollNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.boardOrInstitute)
+                    @Html.TextBoxFor(m => m.academic.boardOrInstitute, new { @class = "form-control", placeholder = "i-e BISE Mirpur" })
+                    @Html.ValidationMessageFor(m => m.academic.boardOrInstitute, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.CountryId)
+                    @Html.DropDownListFor(m => m.academic.CountryId, new SelectList(Model.Countries, "id", "name"), "-Select Country-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.academic.CountryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.TotalMarks)
+                    @Html.TextBoxFor(m => m.academic.TotalMarks, new { @class = "form-control", placeholder="Total Marks" , type="number" })
+                    @Html.ValidationMessageFor(m => m.academic.TotalMarks, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.ObtainedMarks)
+                    @Html.TextBoxFor(m => m.academic.ObtainedMarks, new { @class = "form-control", placeholder = "Obtained Marks", type = "number" })
+                    @Html.ValidationMessageFor(m => m.academic.ObtainedMarks, "", new { @class = "text-danger" })
+                    <span id="ObtainedMarksError" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.academic.Percentage)
+                    @Html.TextBoxFor(m => m.academic.Percentage, new { @class = "form-control", placeholder = "Percentage", type = "number" })
+                    @Html.ValidationMessageFor(m => m.academic.Percentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Certificate/Degree/Transcript/DMC")
+                    @Html.TextBox("DMcMarksSheet", "", new { @class = "form-control pt-3", type = "file", required = "", accept = ".pdf , .jpeg , .jpg , .png" })
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                   
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="float-start">
+            <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & ADD ANOTHER" />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+}
+
+<div class="container p-2">
+    @if (Model.academicCount != 0)
+    {
+        <div class="float-end">
+            <a href="~/Applicant/ApplicantRegistration" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a> 
+            <a href="~/Applicant/ProgramSelection" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="clearfix"></div>
+    }
+   
+    <hr />
+    <h2 class="h3 p-1">Academic Record</h2>
+    <div class="row">
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>SNo.</th>
+                    <th>Degree</th>
+                    <th>Decipline</th>
+                    <th>Passing Year</th>
+                    <th>Roll Number</th>
+                    <th>Total Marks</th>
+                    <th>Obtained Marks</th>
+                    <th>Board/Institute/University</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @if (Model.academicCount != 0)
+                    {
+                        for (int i = 0; i < Model.academicCount; i++)
+                        {
+                            int x = 1 + i;
+                            <tr>
+                                <td>@x</td>
+                                <td>@Model.ExistingAcademics[i].AcademicDegree</td>
+                                <td>@Model.ExistingAcademics[i].Discipline</td>
+                                <td class="yearOfPassing">@Model.ExistingAcademics[i].YearOfPassing</td>
+                                <td>@Model.ExistingAcademics[i].RollNumber</td>
+                                <td>@Model.ExistingAcademics[i].TotalMarks</td>
+                                <td>@Model.ExistingAcademics[i].ObtainedMarks</td>
+                                <td>@Model.ExistingAcademics[i].boardOrInstitute</td>
+                                <td>
+                                    <a href="~/Applicant/DeleteAcademic/@Model.ExistingAcademics[i].id" class="btn btn-sm btn-danger"><i class="fa fa-trash"> </i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#academic_ObtainedMarks").focusout(function () {
+            var ObtainedMarks = parseFloat($("#academic_ObtainedMarks").val());
+            var TotalMarks = parseFloat($("#academic_TotalMarks").val());
+            if(ObtainedMarks > TotalMarks)
+            {
+                $("#ObtainedMarksError").show();
+                $("#ObtainedMarksError").text("Obtained Marks must be <= obtained marks.");
+                $("#academic_ObtainedMarks").val(0);
+                $("#academic_TotalMarks").val(0);
+            }
+            else {
+                var percentage = (ObtainedMarks / TotalMarks) * 100;
+                $("#academic_Percentage").val(percentage);
+            }
+        });
+        $("#academic_ObtainedMarks").focusin(function () {
+            $("#ObtainedMarksError").hide();
+        });
+        $("#academic_TotalMarks").focusin(function () {
+            $("#ObtainedMarksError").hide();
+            $("#ObtainedMarksError").text("");
+        });
+        $("#academic_YearOfPassing").focusin(function () {
+            $("#YearOfPassingError").hide();
+            $("#YearOfPassingError").text("");
+        });
+        $("#academic_YearOfPassing").focusout(function () {
+            var inputYear = $("#academic_YearOfPassing").val();
+            var yearOfPassing = document.getElementsByClassName("yearOfPassing");
+            console.log(yearOfPassing[0].innerText);
+            if (yearOfPassing.length != 0)
+            {
+                for (var i = 0; i < yearOfPassing.length; i++) {
+                    if (parseInt(yearOfPassing[i].innerText) >= parseInt(inputYear)) {
+                        $("#YearOfPassingError").show();
+                        $("#YearOfPassingError").text("Please enter year > your previous qualification.");
+                    }
+                }
+            }
+        });
+       
+    </script>
+}
+

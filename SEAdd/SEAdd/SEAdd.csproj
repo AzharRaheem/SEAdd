@@ -211,8 +211,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AcademicDegreeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdmissionController.cs" />
+    <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\CampusController.cs" />
     <Compile Include="Controllers\CustomErrorController.cs" />
@@ -224,7 +226,6 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\QotaController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="CustomValidations\CheckValidDOB.cs" />
     <Compile Include="CustomValidations\CheckValidObtainedMarks.cs" />
     <Compile Include="CustomValidations\GetLists.cs" />
@@ -235,132 +236,111 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112241612038_initializeDb.cs" />
-    <Compile Include="Migrations\202112241612038_initializeDb.Designer.cs">
-      <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
+    <Compile Include="Migrations\202202071206489_initializeDB.cs" />
+    <Compile Include="Migrations\202202071206489_initializeDB.Designer.cs">
+      <DependentUpon>202202071206489_initializeDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.cs" />
-    <Compile Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.Designer.cs">
-      <DependentUpon>202112250646434_ApplicantDataAnnotationAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202071218584_ApplicantModelRemoved.cs" />
+    <Compile Include="Migrations\202202071218584_ApplicantModelRemoved.Designer.cs">
+      <DependentUpon>202202071218584_ApplicantModelRemoved.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112261703545_PercentagePropertyAdded.cs" />
-    <Compile Include="Migrations\202112261703545_PercentagePropertyAdded.Designer.cs">
-      <DependentUpon>202112261703545_PercentagePropertyAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202081619115_DepartmentModelUpdated.cs" />
+    <Compile Include="Migrations\202202081619115_DepartmentModelUpdated.Designer.cs">
+      <DependentUpon>202202081619115_DepartmentModelUpdated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112281526190_StringLenghtValidationAdded.cs" />
-    <Compile Include="Migrations\202112281526190_StringLenghtValidationAdded.Designer.cs">
-      <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202090518400_AcademicDegreeModelAdded.cs" />
+    <Compile Include="Migrations\202202090518400_AcademicDegreeModelAdded.Designer.cs">
+      <DependentUpon>202202090518400_AcademicDegreeModelAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112291715240_MobileNumberValidationAdded.cs" />
-    <Compile Include="Migrations\202112291715240_MobileNumberValidationAdded.Designer.cs">
-      <DependentUpon>202112291715240_MobileNumberValidationAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202090608159_AcademicDegreeRelationAdded.cs" />
+    <Compile Include="Migrations\202202090608159_AcademicDegreeRelationAdded.Designer.cs">
+      <DependentUpon>202202090608159_AcademicDegreeRelationAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112301532496_isApprovedPropertyAdded.cs" />
-    <Compile Include="Migrations\202112301532496_isApprovedPropertyAdded.Designer.cs">
-      <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202090638564_ApplicantModelAdded.cs" />
+    <Compile Include="Migrations\202202090638564_ApplicantModelAdded.Designer.cs">
+      <DependentUpon>202202090638564_ApplicantModelAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201011557346_ApplicantModelUpdated.cs" />
-    <Compile Include="Migrations\202201011557346_ApplicantModelUpdated.Designer.cs">
-      <DependentUpon>202201011557346_ApplicantModelUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202202090707443_ProgramSelectionModelAdded.cs" />
+    <Compile Include="Migrations\202202090707443_ProgramSelectionModelAdded.Designer.cs">
+      <DependentUpon>202202090707443_ProgramSelectionModelAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201011735139_FeeModelUpdated.cs" />
-    <Compile Include="Migrations\202201011735139_FeeModelUpdated.Designer.cs">
-      <DependentUpon>202201011735139_FeeModelUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202202090712372_ProgramModelUpdated.cs" />
+    <Compile Include="Migrations\202202090712372_ProgramModelUpdated.Designer.cs">
+      <DependentUpon>202202090712372_ProgramModelUpdated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201031524024_AdmissionDateModelAdded.cs" />
-    <Compile Include="Migrations\202201031524024_AdmissionDateModelAdded.Designer.cs">
-      <DependentUpon>202201031524024_AdmissionDateModelAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202090924554_AcademicDegreeModelUpdated.cs" />
+    <Compile Include="Migrations\202202090924554_AcademicDegreeModelUpdated.Designer.cs">
+      <DependentUpon>202202090924554_AcademicDegreeModelUpdated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201031719382_AdmissionDateModelUpdated.cs" />
-    <Compile Include="Migrations\202201031719382_AdmissionDateModelUpdated.Designer.cs">
-      <DependentUpon>202201031719382_AdmissionDateModelUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202202090926315_AcademicDegreeModelUpdated1.cs" />
+    <Compile Include="Migrations\202202090926315_AcademicDegreeModelUpdated1.Designer.cs">
+      <DependentUpon>202202090926315_AcademicDegreeModelUpdated1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.cs" />
-    <Compile Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.Designer.cs">
-      <DependentUpon>202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202100403209_DepartmentModelUpdated1.cs" />
+    <Compile Include="Migrations\202202100403209_DepartmentModelUpdated1.Designer.cs">
+      <DependentUpon>202202100403209_DepartmentModelUpdated1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs" />
-    <Compile Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.Designer.cs">
-      <DependentUpon>202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202100500360_DepartmentModelUpdated2.cs" />
+    <Compile Include="Migrations\202202100500360_DepartmentModelUpdated2.Designer.cs">
+      <DependentUpon>202202100500360_DepartmentModelUpdated2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201031752387_NotificationDatePropertyAdded.cs" />
-    <Compile Include="Migrations\202201031752387_NotificationDatePropertyAdded.Designer.cs">
-      <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202100554581_ProgramSelectionModelAdded1.cs" />
+    <Compile Include="Migrations\202202100554581_ProgramSelectionModelAdded1.Designer.cs">
+      <DependentUpon>202202100554581_ProgramSelectionModelAdded1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201061625087_NotificationModelAdded.cs" />
-    <Compile Include="Migrations\202201061625087_NotificationModelAdded.Designer.cs">
-      <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202202100631290_ApplicantModelUpdated.cs" />
+    <Compile Include="Migrations\202202100631290_ApplicantModelUpdated.Designer.cs">
+      <DependentUpon>202202100631290_ApplicantModelUpdated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201101614585_ProgramModelUpdated.cs" />
-    <Compile Include="Migrations\202201101614585_ProgramModelUpdated.Designer.cs">
-      <DependentUpon>202201101614585_ProgramModelUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202202100640132_ApplicantModelUpdated1.cs" />
+    <Compile Include="Migrations\202202100640132_ApplicantModelUpdated1.Designer.cs">
+      <DependentUpon>202202100640132_ApplicantModelUpdated1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201111602168_CampusModelUpdated.cs" />
-    <Compile Include="Migrations\202201111602168_CampusModelUpdated.Designer.cs">
-      <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202202100644289_ApplicantModelUpdated2.cs" />
+    <Compile Include="Migrations\202202100644289_ApplicantModelUpdated2.Designer.cs">
+      <DependentUpon>202202100644289_ApplicantModelUpdated2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201201531516_applyDatePropAdded.cs" />
-    <Compile Include="Migrations\202201201531516_applyDatePropAdded.Designer.cs">
-      <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201241516101_isRejectedPropAdded.cs" />
-    <Compile Include="Migrations\202201241516101_isRejectedPropAdded.Designer.cs">
-      <DependentUpon>202201241516101_isRejectedPropAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201261701578_RejectionReasonModelAdded.cs" />
-    <Compile Include="Migrations\202201261701578_RejectionReasonModelAdded.Designer.cs">
-      <DependentUpon>202201261701578_RejectionReasonModelAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.cs" />
-    <Compile Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.Designer.cs">
-      <DependentUpon>202201281547406_ApplicantRollNumberPropRemoved.cs</DependentUpon>
+    <Compile Include="Migrations\202202111736577_ApplicantModelUpdated3.cs" />
+    <Compile Include="Migrations\202202111736577_ApplicantModelUpdated3.Designer.cs">
+      <DependentUpon>202202111736577_ApplicantModelUpdated3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DomainModels\Academic.cs" />
+    <Compile Include="Models\DomainModels\AcademicDegree.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
     <Compile Include="Models\DomainModels\Applicant.cs" />
     <Compile Include="Models\DomainModels\Bank.cs" />
     <Compile Include="Models\DomainModels\Board.cs" />
     <Compile Include="Models\DomainModels\Campus.cs" />
+    <Compile Include="Models\DomainModels\Country.cs" />
     <Compile Include="Models\DomainModels\Department.cs" />
     <Compile Include="Models\DomainModels\Fee.cs" />
     <Compile Include="Models\DomainModels\Notification.cs" />
     <Compile Include="Models\DomainModels\Program.cs" />
+    <Compile Include="Models\DomainModels\ProgramSelection.cs" />
+    <Compile Include="Models\DomainModels\Provience.cs" />
     <Compile Include="Models\DomainModels\Qota.cs" />
-    <Compile Include="Models\DomainModels\RejectionReason.cs" />
     <Compile Include="Models\DomainModels\SendEmail.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantPreviousQualificationVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantRegistrationVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
-    <Compile Include="Models\ViewModels\FilterApplicantVM.cs" />
-    <Compile Include="Models\ViewModels\StudentApplicationVM.cs" />
+    <Compile Include="Models\ViewModels\DepartmentCampusVM.cs" />
+    <Compile Include="Models\ViewModels\ProgramSelectionVM.cs" />
+    <Compile Include="Models\ViewModels\ProgramTypeVM.cs" />
     <Compile Include="Models\ViewModels\UserDashboardVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\ApplicantsDetail.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ApplicantsDetail.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\ApprovedApplicant.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ApprovedApplicant.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Challan.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Challan.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\ajaxpreloader.gif" />
     <Content Include="assets\images\application.png" />
+    <Content Include="assets\images\applicationForm.png" />
+    <Content Include="assets\images\approved.png" />
     <Content Include="assets\images\calander.png" />
     <Content Include="assets\images\comments.png" />
     <Content Include="assets\images\nomination.png" />
@@ -369,9 +349,12 @@
     <Content Include="assets\images\firefighter.png" />
     <Content Include="assets\images\man.png" />
     <Content Include="assets\images\newNotification.gif" />
+    <Content Include="assets\images\notification-bell.png" />
     <Content Include="assets\images\notificationBullets.gif" />
     <Content Include="assets\images\applicationStatus.png" />
+    <Content Include="assets\images\rejected.png" />
     <Content Include="assets\images\selective.png" />
+    <Content Include="assets\images\UniversityLogo.png" />
     <Content Include="assets\images\userProfileAvatar.PNG" />
     <Content Include="assets\js\datatables.init.js" />
     <Content Include="Content\bootstrap-custom.css" />
@@ -396,6 +379,7 @@
     <Content Include="Content\register.css" />
     <Content Include="Content\forgotPassword.css" />
     <Content Include="Content\resetPasswordForm.css" />
+    <Content Include="Content\stepperProgressBar.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\welcome.css" />
     <Content Include="favicon.ico" />
@@ -511,22 +495,16 @@
     <Content Include="Views\Fee\ManageBank.cshtml" />
     <Content Include="Views\Fee\AddNewBank.cshtml" />
     <Content Include="Views\Fee\EditBank.cshtml" />
-    <Content Include="Views\Student\EligibilityCriteria.cshtml" />
     <Content Include="Views\Account\UpdateUserProfile.cshtml" />
     <Content Include="Views\Account\AddNewUser.cshtml" />
     <Content Include="Views\Account\AllUsers.cshtml" />
     <Content Include="Views\Shared\_AllUsers.cshtml" />
     <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
-    <Content Include="Views\Student\StudentRegistration.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Student\ViewAllApplicants.cshtml" />
-    <Content Include="Views\Student\GetApplicantDetail.cshtml" />
     <Content Include="Views\Fee\AddFee.cshtml" />
     <Content Include="Views\Fee\UpdateFeeDetails.cshtml" />
     <Content Include="Views\Admission\AddNewDate.cshtml" />
     <Content Include="Views\Admission\Index.cshtml" />
     <Content Include="Views\Admission\EditAdmissionNotification.cshtml" />
-    <Content Include="Views\Shared\_AllApplicants.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\Notification\AddNotification.cshtml" />
     <Content Include="Views\Notification\EditNotification.cshtml" />
@@ -534,11 +512,14 @@
     <Content Include="Views\Campus\Index.cshtml" />
     <Content Include="Views\Campus\AddNewCampus.cshtml" />
     <Content Include="Views\Campus\EditCampus.cshtml" />
-    <Content Include="Views\Student\FilterApplicants.cshtml" />
-    <Content Include="Views\Shared\_ViewFilteredApplicants.cshtml" />
-    <Content Include="Views\Student\CurrentYearApplicants.cshtml" />
-    <Content Include="Views\Shared\_ViewNewApplicants.cshtml" />
-    <Content Include="Views\Shared\_RejectApplicant.cshtml" />
+    <Content Include="Views\AcademicDegree\Index.cshtml" />
+    <Content Include="Views\AcademicDegree\AddNewDegree.cshtml" />
+    <Content Include="Views\AcademicDegree\EditDegree.cshtml" />
+    <Content Include="Views\Applicant\ApplicantRegistration.cshtml" />
+    <Content Include="Views\Applicant\Academics.cshtml" />
+    <Content Include="Views\Applicant\ProgramSelection.cshtml" />
+    <Content Include="Views\Applicant\EligibilityCriteria.cshtml" />
+    <Content Include="Views\Applicant\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -546,84 +527,63 @@
     <Folder Include="assets\icons\" />
     <Folder Include="assets\plugins\datatables\" />
     <Folder Include="fonts\Roboto\" />
-    <Folder Include="Views\StudentRegistration\" />
+    <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112241612038_initializeDb.resx">
-      <DependentUpon>202112241612038_initializeDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202071206489_initializeDB.resx">
+      <DependentUpon>202202071206489_initializeDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112250646434_ApplicantDataAnnotationAdded.resx">
-      <DependentUpon>202112250646434_ApplicantDataAnnotationAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202071218584_ApplicantModelRemoved.resx">
+      <DependentUpon>202202071218584_ApplicantModelRemoved.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112261703545_PercentagePropertyAdded.resx">
-      <DependentUpon>202112261703545_PercentagePropertyAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202081619115_DepartmentModelUpdated.resx">
+      <DependentUpon>202202081619115_DepartmentModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112281526190_StringLenghtValidationAdded.resx">
-      <DependentUpon>202112281526190_StringLenghtValidationAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090518400_AcademicDegreeModelAdded.resx">
+      <DependentUpon>202202090518400_AcademicDegreeModelAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112291715240_MobileNumberValidationAdded.resx">
-      <DependentUpon>202112291715240_MobileNumberValidationAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090608159_AcademicDegreeRelationAdded.resx">
+      <DependentUpon>202202090608159_AcademicDegreeRelationAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112301532496_isApprovedPropertyAdded.resx">
-      <DependentUpon>202112301532496_isApprovedPropertyAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090638564_ApplicantModelAdded.resx">
+      <DependentUpon>202202090638564_ApplicantModelAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201011557346_ApplicantModelUpdated.resx">
-      <DependentUpon>202201011557346_ApplicantModelUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090707443_ProgramSelectionModelAdded.resx">
+      <DependentUpon>202202090707443_ProgramSelectionModelAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201011735139_FeeModelUpdated.resx">
-      <DependentUpon>202201011735139_FeeModelUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090712372_ProgramModelUpdated.resx">
+      <DependentUpon>202202090712372_ProgramModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201031524024_AdmissionDateModelAdded.resx">
-      <DependentUpon>202201031524024_AdmissionDateModelAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090924554_AcademicDegreeModelUpdated.resx">
+      <DependentUpon>202202090924554_AcademicDegreeModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201031719382_AdmissionDateModelUpdated.resx">
-      <DependentUpon>202201031719382_AdmissionDateModelUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202090926315_AcademicDegreeModelUpdated1.resx">
+      <DependentUpon>202202090926315_AcademicDegreeModelUpdated1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201031749430_AdmissionNotificationModuleAdded.resx">
-      <DependentUpon>202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100403209_DepartmentModelUpdated1.resx">
+      <DependentUpon>202202100403209_DepartmentModelUpdated1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201031751141_202201031749430_AdmissionNotificationModuleAdded.resx">
-      <DependentUpon>202201031751141_202201031749430_AdmissionNotificationModuleAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100500360_DepartmentModelUpdated2.resx">
+      <DependentUpon>202202100500360_DepartmentModelUpdated2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201031752387_NotificationDatePropertyAdded.resx">
-      <DependentUpon>202201031752387_NotificationDatePropertyAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100554581_ProgramSelectionModelAdded1.resx">
+      <DependentUpon>202202100554581_ProgramSelectionModelAdded1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201061625087_NotificationModelAdded.resx">
-      <DependentUpon>202201061625087_NotificationModelAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100631290_ApplicantModelUpdated.resx">
+      <DependentUpon>202202100631290_ApplicantModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201101614585_ProgramModelUpdated.resx">
-      <DependentUpon>202201101614585_ProgramModelUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100640132_ApplicantModelUpdated1.resx">
+      <DependentUpon>202202100640132_ApplicantModelUpdated1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201111602168_CampusModelUpdated.resx">
-      <DependentUpon>202201111602168_CampusModelUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202100644289_ApplicantModelUpdated2.resx">
+      <DependentUpon>202202100644289_ApplicantModelUpdated2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201201531516_applyDatePropAdded.resx">
-      <DependentUpon>202201201531516_applyDatePropAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201241516101_isRejectedPropAdded.resx">
-      <DependentUpon>202201241516101_isRejectedPropAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201261701578_RejectionReasonModelAdded.resx">
-      <DependentUpon>202201261701578_RejectionReasonModelAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201281547406_ApplicantRollNumberPropRemoved.resx">
-      <DependentUpon>202201281547406_ApplicantRollNumberPropRemoved.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\ApplicantsDetail.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ApplicantsDetail.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\ApprovedApplicant.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ApprovedApplicant.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Challan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Challan.cs</LastGenOutput>
+    <EmbeddedResource Include="Migrations\202202111736577_ApplicantModelUpdated3.resx">
+      <DependentUpon>202202111736577_ApplicantModelUpdated3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

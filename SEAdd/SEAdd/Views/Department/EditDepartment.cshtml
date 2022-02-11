@@ -1,4 +1,4 @@
-﻿@model SEAdd.Models.DomainModels.Department
+﻿@model SEAdd.Models.ViewModels.DepartmentCampusVM
 @{
     ViewBag.Title = "EditDepartment";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
@@ -11,7 +11,7 @@
     </ol>
 </div>
 
-@using (Html.BeginForm("EditDepartment", "Department", FormMethod.Post))
+@using (Html.BeginForm("EditDepartment", "Department", FormMethod.Post , new { enctype = "multipart/form-data" }))
 {
     <div class="container p-4">
         <div class="row">
@@ -23,25 +23,43 @@
             </div>
             <div class="clearfix"></div>
         </div>
+        @Html.HiddenFor(m => m.department.id)
         <hr />
         <div class="row mb-2">
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.name)
-                    @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Enter Department Name" })
-                    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.department.name)
+                    @Html.TextBoxFor(m => m.department.name, new { @class = "form-control", placeholder = "Enter Department Name" })
+                    @Html.ValidationMessageFor(m => m.department.name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-sm-6">
+                @Html.LabelFor(m => m.department.CampusId)
+                @Html.DropDownListFor(m => m.department.CampusId, new SelectList(Model.Campuses, "id", "name"), "-Select Campus-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.department.CampusId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-6">
+                @Html.Label("Courses")
+                <br /><br />
+                @Html.CheckBoxFor(m => m.department.BS, new { @class = "form-check-input", id = "customCheckBox1" }) @Html.LabelFor(m => m.department.BS)
+                @Html.CheckBoxFor(m => m.department.MS, new { @class = "form-check-input", id = "customCheckBox2" })  @Html.LabelFor(m => m.department.MS)
+                @Html.CheckBoxFor(m => m.department.PHD, new { @class = "form-check-input", id = "customCheckBox3" }) @Html.LabelFor(m => m.department.PHD)
+            </div>
+            <div class="col-sm-6 ">
                 <div class="form-group">
+                    @Html.Label("Department Logo")
+                    @Html.TextBox("DeptLogoImg", "", new { @class = "form-control pt-3", type = "file", required="" , accept = ".jpeg , .jpg , .png" })
                 </div>
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-sm-6 ">
-                <div class="form-group">
-                    <input type="submit" value="UPDATE" name="save" class="btn btn-sm btn-success col-md-2" />
+            <div class="col-sm-12 ">
+                <div class="form-group float-end">
+                    <input type="submit" value="UPDATE" name="save" class="btn btn-sm btn-success" />
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

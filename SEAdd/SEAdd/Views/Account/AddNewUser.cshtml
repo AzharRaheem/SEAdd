@@ -9,6 +9,18 @@
         <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
     </ol>
 </div>
+<div>
+        @if (ViewBag.DepartmentError != null)
+        {
+            <div class="container text-center">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    <strong>Error!</strong> @ViewBag.DepartmentError
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                </div>
+            </div>
+        }
+</div>
 @using (Html.BeginForm("AddNewUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container p-4">
@@ -111,12 +123,24 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                   @Html.Label("Profile Image")
-                   @Html.TextBox("file", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
+                   @Html.LabelFor(m => m.newUser.department)
+                   @Html.DropDownListFor(m => m.newUser.department, new SelectList(Model.departments, "name", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                   @Html.ValidationMessageFor(m => m.newUser.department, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Profile Image")
+                    @Html.TextBox("file", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
         <div class="row mb-2">
             <div class="col-sm-6">
                 <div class="form-group">

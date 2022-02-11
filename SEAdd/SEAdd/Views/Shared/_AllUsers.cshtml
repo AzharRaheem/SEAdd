@@ -14,13 +14,12 @@
                             <th>Profile</th>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Father's Name</th>
                             <th>CNIC</th>
                             <th>Email</th>
+                            <th>Department</th>
                             <th>Mobile</th>
                             <th>Gender</th>
                             <th>Role</th>
-                            <th>Address</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -40,9 +39,16 @@
                                 </td>
                                 <td>@item.firstName</td>
                                 <td>@item.lastName</td>
-                                <td>@item.fatherName</td>
                                 <td>@item.cnic</td>
                                 <td>@item.email</td>
+                                    @if(item.department != null)
+                                    {
+                                        <td>@item.department</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Not Selected</td>
+                                    }
                                 <td>@item.phoneNumber</td>
                                 @if (item.gender != null)
                                 {
@@ -62,7 +68,6 @@
                                 <td>
                                     @item.role
                                 </td>
-                                <td>@item.address</td>
                                 <td>
                                     @*@Html.ActionLink("View", "View", new { id = @item.id }, new { @class = "btn btn-sm btn-primary" })*@
                                     @*@Html.ActionLink("Edit", "EditUser", new { id = @item.id }, new { @class = "btn btn-sm btn-success col-md-12 col-sm-12 mb-1" })*@
@@ -89,6 +94,7 @@
                                     {
                                         <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@item.id.ToString()>Delete</a>
                                     }
+
                                 </td>
                             </tr>
                         }

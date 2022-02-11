@@ -122,6 +122,7 @@ namespace SEAdd.Models
     }
     public class NewUserViewModel //This Model is Used to Add new user in the Application .
     {
+        public string userId { get; set; }
         [Required]
         [StringLength(50)]
         [Display(Name ="First Name")][RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid name like \'John\'")]
@@ -165,6 +166,9 @@ namespace SEAdd.Models
         [Display(Name ="Gender")]
         public string gender { get; set; }
         [Required]
+        [Display(Name ="Department")]
+        public string department { get; set; }
+        [Required]
         [Display(Name ="Role")]
         public string role { get; set; }
     }
@@ -203,6 +207,7 @@ namespace SEAdd.Models
         public string address { get; set; }
         public string role { get; set; }
         public string gender { get; set; }
+        public string department { get; set; }
         public string profileImgUrl { get; set; }
     }
     public class ResetPasswordViewModel

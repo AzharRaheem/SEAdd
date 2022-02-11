@@ -8,6 +8,7 @@ namespace SEAdd.Models.ViewModels
 {
     public class UserDashboardVM
     {
+        public int Id { get; set; }
         public string  applicationStatus { get; set; }
         public DateTime admissionLastDate { get; set; }
         public List<Notification> Notifications { get; set; }

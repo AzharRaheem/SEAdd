@@ -1,4 +1,4 @@
-﻿@model SEAdd.Models.DomainModels.Program
+﻿@model SEAdd.Models.ViewModels.ProgramTypeVM
 @{
     ViewBag.Title = "AddNewProgram";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
@@ -29,24 +29,33 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.ProgramName)
-                    @Html.TextBoxFor(m => m.ProgramName, new { @class = "form-control", placeholder = "Enter Program Name" })
-                    @Html.ValidationMessageFor(m => m.ProgramName, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.program.ProgramName)
+                    @Html.TextBoxFor(m => m.program.ProgramName, new { @class = "form-control", placeholder = "Enter Program Name" })
+                    @Html.ValidationMessageFor(m => m.program.ProgramName, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.duration)
-                    @Html.TextBoxFor(m => m.duration, new { @class = "form-control" , type="number" ,min=2 , max=4})
-                    @Html.ValidationMessageFor(m => m.duration, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.program.duration)
+                    @Html.TextBoxFor(m => m.program.duration, new { @class = "form-control" , type="number" ,min=2 , max=4})
+                    @Html.ValidationMessageFor(m => m.program.duration, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-sm-6 ">
+        <div class="row mb-2">
+            <div class="col-sm-6">
                 <div class="form-group">
-                    <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-primary col-md-2" />
-                    
+                    @Html.LabelFor(m => m.program.ProgramType)
+                    @Html.DropDownListFor(m => m.program.ProgramType, new SelectList(Model.ProgramType), "-Select Type-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.program.ProgramType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="float-end mt-5">
+                        <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-success" />
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>

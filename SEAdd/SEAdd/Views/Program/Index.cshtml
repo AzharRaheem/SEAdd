@@ -1,6 +1,6 @@
 ﻿@model List<SEAdd.Models.DomainModels.Program>
 @{
-    ViewBag.Title = "Programs";
+    ViewBag.Title = "All Programs";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 <div class="row page-titles">
@@ -23,6 +23,7 @@
                         <tr>
                             <th>Program Name</th>
                             <th>Duration</th>
+                            <th>Type</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                             <tr>
                                 <td>@item.ProgramName</td>
                                 <td>@item.duration Years</td>
+                                <td>@item.ProgramType</td>
                                 <td>
                                     @*@Html.ActionLink("View", "View", new { id = @item.id }, new { @class = "btn btn-sm btn-primary" })*@
                                     @Html.ActionLink("Edit", "EditProgram", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })

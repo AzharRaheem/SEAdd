@@ -1,5 +1,7 @@
-﻿using SEAdd.Models;
+﻿using SEAdd.CustomValidations;
+using SEAdd.Models;
 using SEAdd.Models.DomainModels;
+using SEAdd.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,7 +12,7 @@ using System.Web.Mvc;
 namespace SEAdd.Controllers
 {
     [HandleError]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class ProgramController : Controller
     {
         ApplicationDbContext db;
@@ -26,39 +28,57 @@ namespace SEAdd.Controllers
         }
         public ActionResult AddNewProgram()
         {
-            Program program = new Program();
-            return View(program);
+            ProgramTypeVM model = new ProgramTypeVM()
+            {
+                program = new Program(),
+                ProgramType = GetLists.GetProgramTypeList()
+            };
+            return View(model);
         }
         [HttpPost]
-        public ActionResult AddNewProgram(Program model)
+        public ActionResult AddNewProgram(ProgramTypeVM model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                ProgramTypeVM vm = new ProgramTypeVM()
+                {
+                    program = model.program , 
+                    ProgramType = GetLists.GetProgramTypeList()
+                };
+                return View(vm);
             }
-            var alreadyExist = db.Programs.Where(p => p.ProgramName == model.ProgramName).FirstOrDefault();
+            var alreadyExist = db.Programs.Where(p => p.ProgramName == model.program.ProgramName).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Program already exist.";
                 return View(model);
             }
-            db.Programs.Add(model);
+            db.Programs.Add(model.program);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult EditProgram(int id)
         {
-            var model = db.Programs.Where(b => b.id == id).FirstOrDefault();
+            ProgramTypeVM model = new ProgramTypeVM()
+            {
+                program = db.Programs.Where(p => p.id == id).FirstOrDefault(),
+                ProgramType = GetLists.GetProgramTypeList()
+            };
             return View(model);
         }
         [HttpPost]
-        public ActionResult EditProgram(Program model)
+        public ActionResult EditProgram(ProgramTypeVM model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                ProgramTypeVM vm = new ProgramTypeVM()
+                {
+                    program = model.program,
+                    ProgramType = GetLists.GetProgramTypeList()
+                };
+                return View(vm);
             }
-            db.Entry(model).State = EntityState.Modified;
+            db.Entry(model.program).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

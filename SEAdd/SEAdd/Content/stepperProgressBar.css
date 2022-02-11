@@ -1,0 +1,87 @@
+﻿body {
+}
+#mainProgressContainer {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+#progressbar .active {
+    color: #2F8D46;
+}
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 20%;
+    float: left;
+    position: relative;
+    font-weight: 400
+}
+#progressbar #step1:before {
+    content: "\2714";
+    font-size:50px;
+    font-weight: bold;
+    line-height: 70px;
+}
+#progressbar #step2:before {
+    content: "\2714";
+    font-size:50px;
+    font-weight: bold;
+    line-height: 70px;
+}
+#progressbar #step3:before {
+    content: "\2714";
+    font-size:50px;
+    font-weight: bold;
+    line-height: 70px;
+}
+#progressbar #step4:before {
+    content: "\2714";
+    font-size:50px;
+    font-weight: bold;
+    line-height: 70px;
+}
+#progressbar #step5:before {
+    content: "\2714";
+    font-size:50px;
+    font-weight: bold;
+    line-height: 70px;
+}
+#progressbar li:before {
+    width: 70px;
+    height: 70px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background: lightgray;
+    position: absolute;
+    line-height: 70px;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #2F8D46;
+
+}
+.progress {
+    height: 20px
+}
+.progress-bar {
+    background-color: #2F8D46
+}

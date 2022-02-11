@@ -18,6 +18,7 @@ namespace SEAdd.Models.DomainModels
         [Required][Display(Name="Location")][StringLength(30)]
         public string Location { get; set; }
 
-        public virtual ICollection<Applicant> Applicants { get; set; }
+
+        public virtual ICollection<Department> Departments { get; set; }
     }
 }

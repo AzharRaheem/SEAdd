@@ -21,7 +21,9 @@
                 <table id="example5" class="display dataTable table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Logo</th>
                             <th>Department Name</th>
+                            <th>Campus</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -29,7 +31,16 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                @if (item.DeptLogUrl != null)
+                                {
+                                    <td><img src="@Url.Content(item.DeptLogUrl)" width="50" height="50" class="img-thumbnail" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/assets/images/UniversityLogo.png" width="50" height="50" class="img-thumbnail" /></td>
+                                }
                                 <td>@item.name</td>
+                                <td>@item.Campus.name</td>
                                 <td>
                                     @*@Html.ActionLink("View", "View", new { id = @item.id }, new { @class = "btn btn-sm btn-primary" })*@
                                     @Html.ActionLink("Edit", "EditDepartment", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })

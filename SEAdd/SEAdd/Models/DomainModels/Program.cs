@@ -13,15 +13,15 @@ namespace SEAdd.Models.DomainModels
         public int id { get; set; }
         [Required]
         [StringLength(50)]
-        [RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$" , ErrorMessage ="Please enter valid program name.")]
         [Display(Name ="Program Name")]
         public string ProgramName { get; set; }
         [Required][Display(Name ="Duration(in years)")]
         public int duration { get; set; }
+        [Required]
+        [Display(Name = "Type")]
+        public string ProgramType { get; set; }
 
 
-
-
-        public virtual ICollection<Applicant> Applicants { get; set; }
+        public virtual ICollection<ProgramSelection> ProgramsSelection { get; set; }
     }
 }

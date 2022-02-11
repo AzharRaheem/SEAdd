@@ -1,5 +1,4 @@
-﻿@model SEAdd.Models.ViewModels.UserDashboardVM
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -18,13 +17,13 @@
                                                 <h3 class="fs-25 font-w700 mb-4 text-nowrap">Application Status</h3>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                   @if (Model.applicationStatus == "Approved")
+                                                   @if (true)
                                                    {
-                                                       <h6 class="fs-20 font-w600 mb-4 text-success">@Model.applicationStatus</h6>
+                                                       <h6 class="fs-20 font-w600 mb-4 text-success">Approved</h6>
                                                    }
                                                    else
                                                    {
-                                                       <h6 class="fs-20 font-w600 mb-4 text-primary">@Model.applicationStatus</h6>
+                                                       <h6 class="fs-20 font-w600 mb-4 text-primary">Not Submitted</h6>
                                                    }
                                                 </div>
                                             </div>
@@ -38,30 +37,53 @@
                                     <div class="card">
                                         <div class="card-body d-flex px-4 pb-0 justify-content-between">
                                             <div class="col-md-9 col-sm-9">
-                                                <h3 class="fs-25 font-w700 mb-4 text-nowrap">Nomination</h3>
-                                                <hr class="col-md-4" />
-                                                <div class="d-flex align-items-center">
-                                                    <h6 class="fs-20 font-w600 mb-4">Required</h6>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3">
-                                                <img src="~/assets/images/nomination.png" width="80" height="80">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-4">
-                                    <div class="card">
-                                        <div class="card-body d-flex px-4 pb-0 justify-content-between">
-                                            <div class="col-md-9 col-sm-9">
                                                 <h3 class="fs-25 font-w700 mb-4 text-nowrap">Admission Last Date</h3>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                    <h6 class="fs-20 font-w600 mb-4">@Model.admissionLastDate.Date.ToString("dd - MMM , yyy")</h6>
+                                                    @if (@*Model.admissionLastDate.Date != null && DateTime.Today.Date <= Model.admissionLastDate.Date*@ false)
+                                                    {
+                                                        <h6 class="fs-20 font-w600 mb-4">@*@Model.admissionLastDate.Date.ToString("dd - MMM , yyy")*@</h6>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h6 class="fs-20 font-w600 mb-4 text-danger">Closed</h6>
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
                                                 <img src="~/assets/images/calander.png" width="80" height="80">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card py-3">
+                                        <div class="card-body d-flex px-4 pb-0 justify-content-between">
+                                            <div class="col-md-9 col-sm-9">
+                                                <h4 class="fs-18 font-w600 mb-4 text-nowrap">Download Application Form</h4>
+                                                <hr class="col-md-4" />
+                                                <div class="d-flex align-items-center">
+                                                    @if (true)
+                                                    {
+                                                        <a href="#" onclick="UserNotApplied()" class="btn btn-rounded btn-primary">
+                                                            <span class="btn-icon-start text-primary">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="~/Student/PrintApplicantForm/" class="btn btn-rounded btn-primary">
+                                                            <span class="btn-icon-start text-primary">
+                                                                <i class="fa fa-download"></i>
+                                                            </span>Download
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <img src="~/assets/images/applicationForm.png" width="80" height="80">
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +97,7 @@
         </div>
     </div>
     <div class="row">
-        @Html.Partial("_AllNotifications" , Model.Notifications)
+       
     </div>
 </div>
 
@@ -96,6 +118,14 @@
                    }
                }
            });
+        function UserNotApplied() {
+            swal({
+                title: "Sorry!",
+                text: "First Apply for admission and then download filled form and submit hardcopy to the department.",
+                icon: "error",
+                button: "OK",
+            });
+        }
     </script>
     }
 
