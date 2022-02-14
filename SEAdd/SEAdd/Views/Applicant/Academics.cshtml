@@ -8,7 +8,7 @@
 }
 @if (Model.ProgramSelectionCount != 0)
 {
-    <div class="container">
+    <div class="container mt-0" style="margin-top:-65px !important;">
         <div class="row justify-content-center">
             <div class="col-sm-12 text-center p-0">
                 <div class="px-0 pt-4 pb-0 mt-3 mb-3">
@@ -28,10 +28,14 @@
                             </li>
                             <li id="step4">
                                 <strong>Step 4</strong><br>
-                                <strong>Fee Challan</strong>
+                                <strong>Hostel Service</strong>
                             </li>
-                            <li id="step4">
+                            <li id="step5">
                                 <strong>Step 5</strong><br>
+                                <strong>Transport Service</strong>
+                            </li>
+                            <li id="step6">
+                                <strong>Step 6</strong><br>
                                 <strong>Confirmation</strong>
                             </li>
                         </ul>
@@ -46,7 +50,7 @@
 }
 else
 {
-    <div class="container">
+    <div class="container mt-0" style="margin-top:-65px !important;">
         <div class="row justify-content-center">
             <div class="col-sm-12 text-center p-0">
                 <div class="px-0 pt-4 pb-0 mt-3 mb-3">
@@ -66,10 +70,14 @@ else
                             </li>
                             <li id="step4">
                                 <strong>Step 4</strong><br>
-                                <strong>Fee Challan</strong>
+                                <strong>Hostel Service</strong>
                             </li>
-                            <li id="step4">
+                            <li id="step5">
                                 <strong>Step 5</strong><br>
+                                <strong>Transport Service</strong>
+                            </li>
+                            <li id="step6">
+                                <strong>Step 6</strong><br>
                                 <strong>Confirmation</strong>
                             </li>
                         </ul>
@@ -96,15 +104,21 @@ else
     }
 @using (Html.BeginForm("Academics", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="container p-2">
+    <div class="container p-2 mt-0" style="margin-top:-25px !important;">
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Academic Record</h2>
+        <div id="InfoAlert">
+            <div class="alert alert-danger alert-dismissible fade show">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>                <strong id="ShowInfoMsg"> </strong>
+                <button type="button" class="btn-close" id="closeBtn"></button>
+            </div>
+        </div>
         @Html.HiddenFor(m => m.academic.ApplicantId)
         <!-- Personal Form Fields -->
         <div class="row mb-2">
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.academic.AcademicDegree)
-                    @Html.DropDownListFor(m => m.academic.AcademicDegree, new SelectList(Model.AcademicDegrees, "name", "name"), "-Select Certificate / Degree-", new { @class = "default-select wide form-control" })
+                    @Html.DropDownListFor(m => m.academic.AcademicDegree, new SelectList(Model.AcademicDegrees, "name", "name"), "-Select Certificate / Degree-", new { @class = "default-select wide form-control" , onchange="OnTextChange()" })
                     @Html.ValidationMessageFor(m => m.academic.AcademicDegree, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -118,8 +132,8 @@ else
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.academic.YearOfPassing)
-                    @Html.TextBoxFor(m => m.academic.YearOfPassing, new { @class = "form-control", type="number" , placeholder="Year of Passing"})
-                    @Html.ValidationMessageFor(m => m.academic.YearOfPassing , "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.academic.YearOfPassing, new { @class = "form-control", type = "number", placeholder = "Year of Passing" })
+                    @Html.ValidationMessageFor(m => m.academic.YearOfPassing, "", new { @class = "text-danger" })
                     <span id="YearOfPassingError" class="text-danger"></span>
                 </div>
             </div>
@@ -151,7 +165,7 @@ else
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.academic.TotalMarks)
-                    @Html.TextBoxFor(m => m.academic.TotalMarks, new { @class = "form-control", placeholder="Total Marks" , type="number" })
+                    @Html.TextBoxFor(m => m.academic.TotalMarks, new { @class = "form-control", placeholder = "Total Marks", type = "number" })
                     @Html.ValidationMessageFor(m => m.academic.TotalMarks, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -176,36 +190,36 @@ else
                 <div class="form-group">
                     @Html.Label("Certificate/Degree/Transcript/DMC")
                     @Html.TextBox("DMcMarksSheet", "", new { @class = "form-control pt-3", type = "file", required = "", accept = ".pdf , .jpeg , .jpg , .png" })
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                   
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                   
+                <div class="col-sm-4">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="float-start">
-            <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & ADD ANOTHER" />
+        <div class="row">
+            <div class="float-start col-md-6">
+                <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & ADD ANOTHER" />
+            </div>
+            @if (Model.academicCount != 0)
+            {
+                <div class="float-end text-end col-md-6">
+                    <a href="~/Applicant/ApplicantRegistration" class="btn btn-sm btn-info p-2 px-3 fw-bold mt-4"><i class="fa fa-angle-left"></i> BACK</a>
+                    <a href="~/Applicant/ProgramSelection" class="btn btn-sm btn-success p-2 px-3 fw-bold mt-4">NEXT <i class="fa fa-angle-right"></i></a>
+                </div>
+            }
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
+  </div>
 }
 
-<div class="container p-2">
-    @if (Model.academicCount != 0)
-    {
-        <div class="float-end">
-            <a href="~/Applicant/ApplicantRegistration" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a> 
-            <a href="~/Applicant/ProgramSelection" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
-        </div>
-        <div class="clearfix"></div>
-    }
-   
+<div class="container p-2">  
     <hr />
     <h2 class="h3 p-1">Academic Record</h2>
     <div class="row">
@@ -251,6 +265,9 @@ else
 
 @section Scripts{
     <script>
+        $(document).ready(function () {
+            $("#InfoAlert").hide();
+        })
         $("#academic_ObtainedMarks").focusout(function () {
             var ObtainedMarks = parseFloat($("#academic_ObtainedMarks").val());
             var TotalMarks = parseFloat($("#academic_TotalMarks").val());
@@ -291,6 +308,35 @@ else
                 }
             }
         });
+        function OnTextChange() {
+            var text = $("#academic_AcademicDegree").val();
+            if (text == "HSSC") {
+                $("#InfoAlert").hide();
+                $("#InfoAlert").show();
+                $("#ShowInfoMsg").text("If your HSSC PART-II result is in awaiting Please Enter HSSC PART-I Result / CGPA And attach the Documents as well.");
+            }
+            else if (text == "BS") {
+                $("#InfoAlert").hide();
+                $("#InfoAlert").show();
+                $("#ShowInfoMsg").text("If your BS Semester-VIII result is in awaiting Please Enter BS Semester-VII Result / CGPA And attach the Documents as well.");
+            }
+            else if (text == "BA-BSc") {
+                $("#InfoAlert").hide();
+                $("#InfoAlert").show();
+                $("#ShowInfoMsg").text("If your BA-BSc PART-II result is in awaiting Please Enter BA-BSc PART-I Result / CGPA And attach the Documents as well.");
+            }
+            else if (text == "MA-MSc") {
+                $("#InfoAlert").show();
+                $("#ShowInfoMsg").text("If your MA-MSc Semester-IV result is in awaiting Please Enter MA-MSc Semester-III Result / CGPA And attach the Documents as well.");
+            }
+            else {
+                $("#InfoAlert").hide();
+            }
+        }
+        $("#closeBtn").click(function () {
+            $("#InfoAlert").hide();
+        })
+       
        
     </script>
 }

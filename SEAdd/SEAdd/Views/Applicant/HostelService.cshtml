@@ -1,0 +1,91 @@
+﻿@model SEAdd.Models.ViewModels.HostelServiceVM
+@{
+    ViewBag.Title = "HostelService";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
+}
+<div class="container mt-0" style="margin-top:-65px !important;">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center p-0">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                <div id="mainProgressContainer">
+                    <ul id="progressbar">
+                        <li class="active" id="step1">
+                            <strong>Step 1</strong><br>
+                            <strong>Personal Information</strong>
+                        </li>
+                        <li class="active"id="step2">
+                            <strong>Step 2</strong><br>
+                            <strong>Academic Record</strong>
+                        </li>
+                        <li class="active" id="step3">
+                            <strong>Step 3</strong><br>
+                            <strong>Programme Selection</strong>
+                        </li>
+                        <li class="active" id="step4">
+                            <strong>Step 4</strong><br>
+                            <strong>Hostel Service</strong>
+                        </li>
+                        <li id="step5">
+                            <strong>Step 5</strong><br>
+                            <strong>Transport Service</strong>
+                        </li>
+                        <li id="step6">
+                            <strong>Step 6</strong><br>
+                            <strong>Confirmation</strong>
+                        </li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("HostelService", "Applicant", FormMethod.Post))
+{
+    <div class="container p-2 mt-0" style="margin-top:-25px !important;">
+        <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Hostel Service</h2>
+        <div class="col-md-4 mx-auto">
+            <hr /><br />
+        </div>
+        <!-- Personal Form Fields -->
+        <div class="row text-center">
+            <div class="col-md-6 mx-auto">
+                <h4>Do you want hostel service in university?</h4>
+                <br />
+                @Html.RadioButtonFor(m => m.userSelectionYesNo , "Yes" , new { id="YesRadioBtn"}) <span> <strong> Yes</strong></span>
+                @Html.RadioButtonFor(m => m.userSelectionYesNo, "No" , new { id = "NoRadioBtn" }) <span> <strong> No</strong></span>
+                @*@Html.DropDownListFor(m => m.userSelectionYesNo, new SelectList(Model.YesNoList), "-Select Option-", new { @class = "default-select wide form-control" })*@
+                @Html.ValidationMessageFor(m => m.userSelectionYesNo, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6 mx-auto" id="HostelNameDD">
+                <h4>Choose Hostel</h4>
+                @Html.DropDownListFor(m => m.userHostelSelection, new SelectList(Model.HostelCampusNames), "-Select Hostel-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.userHostelSelection, "", new { @class = "text-danger" })
+                <span class="text-danger" id="HostelNameSelectionError">@TempData["ErrorMsg"]</span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="float-end">
+                    <a href="~/Applicant/ProgramSelection" class="btn btn-info  py-2 px-3 fw-bold mt-4"><i class="fa fa-angle-left"></i> BACK</a>
+                    <input type="submit" class="btn btn-primary py-2 px-3 fw-bold mt-4" value="NEXT >" />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        $("#userHostelSelection").focusout(function () {
+            $("#HostelNameSelectionError").hide();
+        });
+    </script>
+}

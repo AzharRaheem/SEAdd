@@ -39,6 +39,10 @@ namespace SEAdd.CustomValidations
         {
             return new List<string>() { "Undergraduate", "Graduate" };
         }
+        public static List<string> GetYesNoList()
+        {
+            return new List<string>() { "Yes", "No" };
+        }
 
     }
 }

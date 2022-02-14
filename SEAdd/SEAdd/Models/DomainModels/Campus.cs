@@ -20,5 +20,6 @@ namespace SEAdd.Models.DomainModels
 
 
         public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<Hostel> Hostel { get; set; }
     }
 }

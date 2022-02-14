@@ -80,6 +80,12 @@ namespace SEAdd.Models.DomainModels
         [Required]
         public DateTime ApplyDate { get; set; }
         [DefaultValue(false)]
+        public bool isHostelRequired { get; set; }
+        public string HostelName { get; set; }
+        [DefaultValue(false)]
+        public bool isTransportRequired { get; set; }
+        public string TransportRouteName { get; set; }
+        [DefaultValue(false)]
         public bool isRegistrationFinished { get; set; }
         [DefaultValue(false)]
         public bool isRejected { get; set; }

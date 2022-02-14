@@ -1,0 +1,56 @@
+﻿@model SEAdd.Models.ViewModels.RegistrationConfirmationVM
+@{
+    ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
+}
+<div class="container mt-0" style="margin-top:-65px !important;">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center p-0">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+                <div id="mainProgressContainer">
+                    <ul id="progressbar">
+                        <li class="active" id="step1">
+                            <strong>Step 1</strong><br>
+                            <strong>Personal Information</strong>
+                        </li>
+                        <li class="active" id="step2">
+                            <strong>Step 2</strong><br>
+                            <strong>Academic Record</strong>
+                        </li>
+                        <li class="active" id="step3">
+                            <strong>Step 3</strong><br>
+                            <strong>Programme Selection</strong>
+                        </li>
+                        <li class="active" id="step4">
+                            <strong>Step 4</strong><br>
+                            <strong>Hostel Service</strong>
+                        </li>
+                        <li class="active" id="step5">
+                            <strong>Step 5</strong><br>
+                            <strong>Transport Service</strong>
+                        </li>
+                        <li class="active" id="step6">
+                            <strong>Step 6</strong><br>
+                            <strong>Confirmation</strong>
+                        </li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-md-8 mx-auto">
+        <img src="~/assets/images/tick.png" width="300" height="300" class="mb-2"/>
+        <h3>Please check your provided information is correct.</h3>
+        <h3>After that , click on <strong class="text-primary">SUBMIT</strong> button.</h3>
+        <a href="~/Applicant/TransportService" class="btn btn-success px-4 py-2"><strong><i class="fa fa-angle-left"></i> BACK</strong></a>
+        <a href="~/Applicant/Finished/@Model.ApplicantId" class="btn btn-primary px-4 py-2"><strong>SUBMIT</strong></a>
+    </div>
+</div>

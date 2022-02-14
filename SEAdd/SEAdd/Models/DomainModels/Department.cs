@@ -29,6 +29,9 @@ namespace SEAdd.Models.DomainModels
         public bool MS { get; set; }
         [DefaultValue(false)]
         public bool PHD { get; set; }
+        [Required]
+        [DefaultValue(false)]
+        public bool EntryTestRequired { get; set; }
         public string DeptLogUrl { get; set; }
 
         public virtual ICollection<ProgramSelection> ProgramsSelection { get; set; }

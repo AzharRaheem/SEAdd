@@ -56,6 +56,9 @@ namespace SEAdd.Models
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Provience> Proviences { get; set; }
         public DbSet<ProgramSelection> ProgramSelections { get; set; }
+        public DbSet<TransportRoute> TransportRoutes { get; set; }
+        public DbSet<Hostel> Hostels { get; set; }
+        public DbSet<Setting> Settings { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

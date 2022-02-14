@@ -17,6 +17,9 @@ namespace SEAdd.Models.DomainModels
         [Required]
         [Display(Name = "Entry Test Fee")]
         public double entryTestFee { get; set; }
+        [Required]
+        [Display(Name = "Entry Test Fee")]
+        public double additionalFormFee { get; set; }
         public virtual Bank Bank { get; set; }
         [Required]
         [ForeignKey("Bank")]

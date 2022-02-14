@@ -6,7 +6,7 @@
 @section styles{
     <link href="~/Content/stepperProgressBar.css" rel="stylesheet" />
     }
-    <div class="container">
+    <div class="container mt-0" style="margin-top:-65px !important;">
         <div class="row justify-content-center">
             <div class="col-sm-12 text-center p-0">
                 <div class="px-0 pt-4 pb-0 mt-3 mb-3">
@@ -26,10 +26,14 @@
                             </li>
                             <li id="step4">
                                 <strong>Step 4</strong><br>
-                                <strong>Fee Challan</strong>
+                                <strong>Hostel Service</strong>
                             </li>
-                            <li id="step4">
+                            <li id="step5">
                                 <strong>Step 5</strong><br>
+                                <strong>Transport Service</strong>
+                            </li>
+                            <li id="step6">
+                                <strong>Step 6</strong><br>
                                 <strong>Confirmation</strong>
                             </li>
                         </ul>
@@ -41,7 +45,6 @@
             </div>
         </div>
     </div>
-}
 
 
 @if (TempData["ProgramAlreadyExist"] != null)
@@ -57,7 +60,7 @@
 
 @using (Html.BeginForm("ProgramSelection", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="container p-2">
+    <div class="container p-2 mt-0" style="margin-top:-25px !important;">
         <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Programme Selection</h2>
         <h4 class="col-md-8 mx-auto text-center text-danger"><strong>Dear Applicant,</strong> If you are going to apply for more then 1 programmes then your Admission Processing fee will be incresed via number of programmes you applied.</h4>
         <div class="col-md-4 mx-auto">
@@ -116,7 +119,7 @@
         </div>
         <div class="row mb-2 text-center">
             <div class="col-md-4 mx-auto">
-                @if (Model.AppliedProgramsCount != 3)
+                @if (Model.AppliedProgramsCount != Model.applicantCanApplyDeptCount)
                 {
                     <input type="submit" class="btn btn-primary py-2 px-3 fw-bold mt-4" value="SAVE & APPLY FOR OTHER" />
                 }
@@ -136,7 +139,7 @@
     {
         <div class="float-end">
             <a href="~/Applicant/Academics" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a>
-            <a href="" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
+            <a href="~/Applicant/HostelService" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="clearfix"></div>
     }
@@ -186,10 +189,10 @@
         function ShowErrorDialog() {
             swal({
                 title: "Sorry!",
-                text: "You can only apply for just 3 departments.",
+                text: "You can only apply for just '@Model.applicantCanApplyDeptCount' departments.",
                 icon: "error",
                 button: "OK",
             });
         }
     </script>
-    }
+}

@@ -38,11 +38,11 @@ namespace SEAdd.Models.DomainModels
         [Required]
         [ForeignKey("Country")]
         public int CountryId { get; set; }
-        [Display(Name = "Total Marks")]
+        [Display(Name = "Total Marks / Total CGPA")]
         [Required]
         [GetTotalMarks]
         public double TotalMarks { get; set; }
-        [Display(Name = "Obtained Marks")]
+        [Display(Name = "Obtained Marks / Obtained CGPA")]
         [Required][CheckValidObtainedMarks]
         public double ObtainedMarks { get; set; }
         [Display(Name = "Percentage")]

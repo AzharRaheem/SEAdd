@@ -42,15 +42,28 @@
         <div class="row mt-2">
             <div class="col-sm-6">
                 @Html.Label("Courses")
-                <br /><br />
+                <br />
                 @Html.CheckBoxFor(m => m.department.BS, new { @class = "form-check-input", id = "customCheckBox1" }) @Html.LabelFor(m => m.department.BS)
                 @Html.CheckBoxFor(m => m.department.MS, new { @class = "form-check-input", id = "customCheckBox2" })  @Html.LabelFor(m => m.department.MS)
                 @Html.CheckBoxFor(m => m.department.PHD, new { @class = "form-check-input", id = "customCheckBox3" }) @Html.LabelFor(m => m.department.PHD)
             </div>
             <div class="col-sm-6 ">
                 <div class="form-group">
-                    @Html.Label("Department Logo")
-                    @Html.TextBox("DeptLogoImg", "", new { @class = "form-control pt-3", type = "file", required="" , accept = ".jpeg , .jpg , .png" })
+                    @Html.Label("Entry Test Required?")
+                    <br />
+                    @Html.RadioButtonFor(m => m.department.EntryTestRequired, true) Yes
+                    @Html.RadioButtonFor(m => m.department.EntryTestRequired, false) No
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-6">
+                @Html.Label("Department Logo")
+                @Html.TextBox("DeptLogoImg", "", new { @class = "form-control pt-3", type = "file", accept = ".jpeg , .jpg , .png" })
+            </div>
+            <div class="col-sm-6 ">
+                <div class="form-group">
+
                 </div>
             </div>
         </div>

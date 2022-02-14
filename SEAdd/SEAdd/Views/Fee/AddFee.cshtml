@@ -48,11 +48,17 @@
             </div>
             <div class="col-sm-6">
                 <div class="col-sm-6 ">
-                    <div class="form-group">
-                        <input type="submit" value="SAVE" name="saveBtn" class="btn btn-sm btn-success mt-md-4" />
-                    </div>
+                    @Html.LabelFor(m => m.FeeDetails.additionalFormFee)
+                    @Html.TextBoxFor(m => m.FeeDetails.additionalFormFee, new { @class = "form-control", placeholder = "000", type = "number" })
+                    @Html.ValidationMessageFor(m => m.FeeDetails.additionalFormFee, "", new { @class = "text-danger" })
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="float-end">
+                <input type="submit" value="SAVE" name="saveBtn" class="btn btn-sm btn-success mt-md-4" />
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 }

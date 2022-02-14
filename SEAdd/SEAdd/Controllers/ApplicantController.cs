@@ -38,21 +38,21 @@ namespace SEAdd.Controllers
         }
         public ActionResult ApplicantRegistration()
         {
+            var loggedUserId = Session["UserId"].ToString();
+            var record = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
             ApplicantRegistrationVM model = new ApplicantRegistrationVM()
             {
                 Countries = db.Countries.ToList() , 
                 Proviences = db.Proviences.ToList() , 
                 Quotas = db.Qotas.ToList() , 
                 Religions = GetLists.GetReligionList() , 
-                Genders = GetLists.GetGenderList() , 
-                academicsCount = db.Academics.Count(),
-                programSelectionCount = db.ProgramSelections.Count()
+                Genders = GetLists.GetGenderList() 
             };
-            var loggedUserId = Session["UserId"].ToString();
-            var record = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
             if(record != null)
             {
                 model.applicant = record;
+                model.academicsCount = db.Academics.Where(a => a.ApplicantId == record.id).Count();
+                model.programSelectionCount = db.ProgramSelections.Where(a => a.ApplicantId == record.id).Count();
             }
             else
             {
@@ -65,6 +65,8 @@ namespace SEAdd.Controllers
                     Email = userDetails.Email , 
                     userId = userDetails.Id
                 };
+                model.academicsCount = 0;
+                model.programSelectionCount = 0;
             }
             return View(model);
         }
@@ -189,11 +191,13 @@ namespace SEAdd.Controllers
         {
             var loggedUserId = Session["UserId"].ToString();
             var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            var setting = db.Settings.FirstOrDefault();
             ProgramSelectionVM model = new ProgramSelectionVM()
             {
-                Programs = db.Programs.ToList() , 
+                Programs = db.Programs.ToList(),
                 Departments = db.Departments.ToList(),
-                AppliedProgramsCount = db.ProgramSelections.Where(a => a.ApplicantId == user.id).Count()
+                AppliedProgramsCount = db.ProgramSelections.Where(a => a.ApplicantId == user.id).Count(),
+                applicantCanApplyDeptCount = setting.applicantDeptApply
             };
             if (model.AppliedProgramsCount != 0)
             {
@@ -228,7 +232,8 @@ namespace SEAdd.Controllers
             }
             model.AppliedProgramsCount = db.ProgramSelections.Where(p=>p.ApplicantId == user.id).Count();
             model.AppliedPrograms = db.ProgramSelections.Where(p => p.ApplicantId == user.id).ToList();
-            if(model.AppliedProgramsCount != 0 && model.AppliedProgramsCount != 3)
+            var setting = db.Settings.FirstOrDefault();
+            if(model.AppliedProgramsCount != 0 && model.AppliedProgramsCount != setting.applicantDeptApply)
             {
                 foreach (var item in model.AppliedPrograms)
                 {
@@ -320,7 +325,7 @@ namespace SEAdd.Controllers
             }
             else
             {
-                if(model.AppliedProgramsCount != 3)
+                if(model.AppliedProgramsCount != setting.applicantDeptApply)
                 {
                     if (((department.PHD == true) && (program.ProgramName.ToLower() == "phd")) || ((department.MS == true) && (program.ProgramName.ToLower() == "ms")) || ((department.BS == true) && (program.ProgramName.ToLower() == "bs")) || (program.ProgramName.Contains("BS")))
                     {
@@ -420,7 +425,160 @@ namespace SEAdd.Controllers
             db.SaveChanges();
             return RedirectToAction("ProgramSelection");
         }
-
+        public ActionResult HostelService()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            HostelServiceVM model = new HostelServiceVM()
+            {
+                hostel = new Hostel(),
+                Hostels = db.Hostels.ToList(),
+                YesNoList = GetLists.GetYesNoList(),
+                userHostelSelection = (user.HostelName != null) ? user.HostelName : null ,
+                userSelectionYesNo = (user.isHostelRequired) ? "Yes" : "No" , 
+                HostelCampusNames = new List<string>()
+            };
+            foreach (var item in model.Hostels)
+            {
+                model.HostelCampusNames.Add(item.Name + "(" + item.Campus.name + ")");
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult HostelService(HostelServiceVM model)
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            if(!ModelState.IsValid)
+            {
+                HostelServiceVM VM = new HostelServiceVM()
+                {
+                    hostel = new Hostel(),
+                    Hostels = db.Hostels.ToList(),
+                    YesNoList = GetLists.GetYesNoList(),
+                    userHostelSelection = model.userHostelSelection,
+                    userSelectionYesNo = model.userSelectionYesNo,
+                    HostelCampusNames = new List<string>()
+                };
+                foreach (var item in VM.Hostels)
+                {
+                    VM.HostelCampusNames.Add(item.Name + "(" + item.Campus.name + ")");
+                }
+                return View(VM);
+            }
+            if(model.userSelectionYesNo == "Yes" && model.userHostelSelection != null)
+            {
+                user.isHostelRequired = true;
+                user.HostelName = model.userHostelSelection;
+                db.SaveChanges();
+                return RedirectToAction("TransportService");
+            }
+            else if(model.userSelectionYesNo == "No")
+            {
+                user.isHostelRequired = false;
+                user.HostelName = null;
+                db.SaveChanges();
+                return RedirectToAction("TransportService");
+            }
+            else
+            {
+                HostelServiceVM vm = new HostelServiceVM()
+                {
+                    hostel = new Hostel(),
+                    Hostels = db.Hostels.ToList(),
+                    YesNoList = GetLists.GetYesNoList(),
+                    userHostelSelection = model.userHostelSelection,
+                    userSelectionYesNo = model.userSelectionYesNo,
+                    HostelCampusNames = new List<string>()
+                };
+                foreach (var item in vm.Hostels)
+                {
+                    vm.HostelCampusNames.Add(item.Name + "(" + item.Campus.name + ")");
+                }
+                TempData["ErrorMsg"] = "Please select any hostel.";
+                return View(vm);
+            }
+        }
+        public ActionResult TransportService()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            TransportServiceVM model = new TransportServiceVM()
+            {
+                TransportRoute = new TransportRoute(),
+                Routes = db.TransportRoutes.ToList(),
+                YesNoList = GetLists.GetYesNoList(),
+                userRouteSelection = (user.TransportRouteName != null) ? user.TransportRouteName : null,
+                userSelectionYesNo = (user.isTransportRequired == true) ? "Yes" : "No"
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult TransportService(TransportServiceVM model)
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                TransportServiceVM vm = new TransportServiceVM()
+                {
+                    TransportRoute = new TransportRoute(),
+                    Routes = db.TransportRoutes.ToList(),
+                    YesNoList = GetLists.GetYesNoList(),
+                    userRouteSelection = model.userRouteSelection ,
+                    userSelectionYesNo = model.userSelectionYesNo
+                };
+                return View(vm);
+            }
+            if (model.userSelectionYesNo == "Yes" && model.userRouteSelection != null)
+            {
+                user.isTransportRequired = true;
+                user.TransportRouteName = model.userRouteSelection;
+                db.SaveChanges();
+                return RedirectToAction("Confirmation");
+            }
+            else if (model.userSelectionYesNo == "No")
+            {
+                user.isTransportRequired = false;
+                user.TransportRouteName = null;
+                db.SaveChanges();
+                return RedirectToAction("Confirmation");
+            }
+            else
+            {
+                TransportServiceVM vm = new TransportServiceVM()
+                {
+                    TransportRoute = new TransportRoute(),
+                    Routes = db.TransportRoutes.ToList(),
+                    YesNoList = GetLists.GetYesNoList(),
+                    userRouteSelection = model.userRouteSelection,
+                    userSelectionYesNo = model.userSelectionYesNo
+                };
+                TempData["ErrorMsg"] = "Please select any route.";
+                return View(vm);
+            }
+        }
+        public ActionResult Confirmation()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            RegistrationConfirmationVM model = new RegistrationConfirmationVM()
+            {
+                ApplicantId = user.id
+            };
+            return View(model);
+        }
+        public ActionResult Finished()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            if (user.isRegistrationFinished == false)
+            {
+                user.isRegistrationFinished = true;
+                db.SaveChanges();
+            }
+            return RedirectToAction("UserDashboard" , "Dashboard");
+        }
         [NonAction]
         private string GetImageUrl(HttpPostedFileBase file)
         {
