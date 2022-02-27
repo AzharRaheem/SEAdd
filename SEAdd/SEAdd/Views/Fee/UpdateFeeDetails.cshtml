@@ -12,6 +12,7 @@
 </div>
 @using (Html.BeginForm("UpdateFeeDetails", "Fee", FormMethod.Post))
 {
+    @Html.HiddenFor(m=>m.FeeDetails.id)
     <div class="container p-4">
         <div class="row">
             <div class="col-sm-6">
@@ -47,7 +48,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="col-sm-6 ">
+                <div class="form-group ">
                     @Html.LabelFor(m => m.FeeDetails.additionalFormFee)
                     @Html.TextBoxFor(m => m.FeeDetails.additionalFormFee, new { @class = "form-control", placeholder = "000", type = "number" })
                     @Html.ValidationMessageFor(m => m.FeeDetails.additionalFormFee, "", new { @class = "text-danger" })

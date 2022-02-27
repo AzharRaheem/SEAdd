@@ -205,15 +205,15 @@ else
         </div>
         <div class="row">
             <div class="float-start col-md-6">
-                <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & ADD ANOTHER" />
+                <a href="~/Applicant/ApplicantRegistration" class="btn btn-sm btn-info p-2 px-3 fw-bold mt-4"><i class="fa fa-angle-left"></i> BACK</a>
             </div>
-            @if (Model.academicCount != 0)
-            {
-                <div class="float-end text-end col-md-6">
-                    <a href="~/Applicant/ApplicantRegistration" class="btn btn-sm btn-info p-2 px-3 fw-bold mt-4"><i class="fa fa-angle-left"></i> BACK</a>
+            <div class="float-end text-end col-md-6">
+                <input type="submit" class="btn btn-primary p-2 px-3 fw-bold mt-4" value="SAVE & ADD ANOTHER" />
+                @if (Model.academicCount != 0)
+                {
                     <a href="~/Applicant/ProgramSelection" class="btn btn-sm btn-success p-2 px-3 fw-bold mt-4">NEXT <i class="fa fa-angle-right"></i></a>
-                </div>
-            }
+                }
+            </div>
             <div class="clearfix"></div>
         </div>
   </div>
@@ -221,7 +221,7 @@ else
 
 <div class="container p-2">  
     <hr />
-    <h2 class="h3 p-1">Academic Record</h2>
+    <h2 class="h3 p-1 text-center">Academic Record</h2>
     <div class="row">
         <table class="table table-bordered table-responsive table-striped">
             <thead>

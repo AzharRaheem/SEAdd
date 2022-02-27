@@ -45,7 +45,7 @@
             ***********************************-->
             <div class="nav-header">
                 <a href="~/Dashboard/AdminDashboard" class="brand-logo">
-                    <img src="~/assets/images/AppLogo.png" width="70" height="70">
+                    <img src="~/assets/images/PortalLogo.png" width="70" height="70">
                     <div class="brand-title">
                         <h2 class="">UAJK    <span>-</span></h2>
                         <span class="brand-sub-title">Admission Portal</span>
@@ -205,9 +205,9 @@
                                 <span class="nav-text">Applicants</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="~/Student/ViewAllApplicants">View All Applicants</a></li>
+                                <li><a href="~/Applicant/ViewAllApplicants">View All Applicants</a></li>
                                 <li><a href="~/Student/FilterApplicants">Filter Applicants</a></li>
-                                <li><a href="~/Student/CurrentYearApplicants">Admission @DateTime.Now.Year Applicants</a></li>
+                                <li><a href="~/Applicant/NewApplicants">Admission @DateTime.Now.Year Applicants</a></li>
                             </ul>
                         </li>
                         <li>
@@ -287,7 +287,7 @@
             ***********************************-->
             <div class="nav-header">
                 <a href="~/Dashboard/AdminDashboard" class="brand-logo">
-                    <img src="~/assets/images/AppLogo.png" width="70" height="70">
+                    <img src="~/assets/images/PortalLogo.png" width="70" height="70">
                     <div class="brand-title">
                         <h2 class="">UAJK    <span>-</span></h2>
                         <span class="brand-sub-title">Admission Portal</span>
@@ -366,9 +366,9 @@
                                 <span class="nav-text">Applicants</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="~/Student/ViewAllApplicants">View All Applicants</a></li>
+                                <li><a href="~/Applicant/ViewDepartmentalApplicants">View All Applicants</a></li>
                                 <li><a href="~/Student/FilterApplicants">Filter Applicants</a></li>
-                                <li><a href="~/Student/CurrentYearApplicants">Admission @DateTime.Now.Year Applicants</a></li>
+                                <li><a href="~/Applicant/ViewDepartmentalNewApplicants">Admission @DateTime.Now.Year Applicants</a></li>
                             </ul>
                         </li>
                         <li>
@@ -422,7 +422,7 @@
             ***********************************-->
             <div class="nav-header">
                 <a href="~/Dashboard/AdminDashboard" class="brand-logo">
-                    <img src="~/assets/images/AppLogo.png" width="70" height="70">
+                    <img src="~/assets/images/PortalLogo.png" width="70" height="70">
                     <div class="brand-title">
                         <h2 class="">UAJK    <span>-</span></h2>
                         <span class="brand-sub-title">Admission Portal</span>
@@ -558,14 +558,7 @@
                                 <li><a href="~/Applicant/Help">Help</a></li>
                                 @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
                                 {
-                                    if (!Convert.ToBoolean(Session["AdmissionDateExpire"]))
-                                    {
-                                        <li><a href="~/Applicant/ApplicantRegistration">Apply Online</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="#" onclick="AdmissionExpire()">Apply Online</a></li>
-                                    }
+                                    <li><a href="~/Applicant/ApplicantRegistration">Apply Online</a></li>
                                 }
                                 else
                                 {
@@ -583,7 +576,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="~/Student/PrintChallan" target="_blank" aria-expanded="false">
+                            <a href="~/Applicant/FeeChallanView" aria-expanded="false">
                                 <i class="fas fa-file"></i>
                                 <span class="nav-text">Print Challan</span>
                             </a>

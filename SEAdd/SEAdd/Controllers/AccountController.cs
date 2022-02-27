@@ -101,26 +101,18 @@ namespace SEAdd.Controllers
                     var roles = await UserManager.GetRolesAsync(user.Id);                    
                     Session["UserId"] = user.Id;//Store logged User Id...
                     Session["UserProfileImage"] = user.profileImgUrl; //Store logged User Image...
+                    if(db.Applicants.Where(a=>a.userId == user.Id && a.isRegistrationFinished == true).FirstOrDefault() != null)
+                    {
+                        Session["UserAlreadyExist"] = true;
+                    }
+                    else
+                    {
+                        Session["UserAlreadyExist"] = false;
+                    }
                     if (roles.Contains("User"))
                     {
                         Session["UserRole"] = "User"; //Store User Role...
                         Session["User"] = user;
-                        AdmissionDate admissionDate = db.AdmissionDate.OrderByDescending(d => d.Id).FirstOrDefault();
-                        if(admissionDate != null)
-                        {
-                            if (admissionDate.EndDate.Date >= DateTime.Today.Date)
-                            {
-                                Session["AdmissionDateExpire"] = false;
-                            }
-                            else
-                            {
-                                Session["AdmissionDateExpire"] = true;
-                            }
-                        }
-                        else
-                        {
-                            Session["AdmissionDateExpire"] = true;
-                        }
                         return RedirectToAction("UserDashboard", "Dashboard");
                     }
                     else if(roles.Contains("SuperAdmin"))

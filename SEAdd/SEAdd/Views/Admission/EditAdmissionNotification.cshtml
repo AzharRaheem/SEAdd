@@ -14,7 +14,7 @@
 </div>
 @using (Html.BeginForm("EditAdmissionNotification", "Admission", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <<div class="container p-4">
+    <div class="container p-4">
         <div class="row">
             <div class="col-sm-6">
                 <h3>Admission Date Notification</h3>
@@ -35,36 +35,63 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.StartDate)
-                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", type = "date" })
-                    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+                    @Html.Label("Upload Notification")
+                    @Html.TextBox("file", "", new { @class = "form-control pt-3", required = "", type = "file", accept = ".jpeg , .jpg , .png , .pdf" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <h3>Under-Graduate Program</h3>
+                <hr class="col-md-6 mx-auto" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UnderGraduateProgStartDate)
+                    @Html.TextBoxFor(m => m.UnderGraduateProgStartDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.UnderGraduateProgStartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UnderGraduateProgEndDate)
+                    @Html.TextBoxFor(m => m.UnderGraduateProgEndDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.UnderGraduateProgEndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <h3>Graduate Program</h3>
+                <hr class="col-md-6 mx-auto" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.GraduateProgStartDate)
+                    @Html.TextBoxFor(m => m.GraduateProgStartDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.GraduateProgStartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.GraduateProgEndDate)
+                    @Html.TextBoxFor(m => m.GraduateProgEndDate, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.GraduateProgEndDate, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="row mb-2">
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.EndDate)
-                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", type = "date" })
-                    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                   @Html.Label("Upload Notification")
-                   @Html.TextBox("file", "", new { @class = "form-control pt-3", required = "", type = "file", accept = ".jpeg , .jpg , .png , .pdf" })
-                </div>
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <div class="float-end"><input type="submit" value="PUBLISH" name="edit" class="btn btn-sm btn-success mt-4" /></div>
+                    <div class="float-end"><input type="submit" value="PUBLISH" name="save" class="btn btn-sm btn-success mt-4" /></div>
                     <div class="clearfix"></div>
                 </div>
             </div>

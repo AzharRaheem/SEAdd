@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="SuperAdmin")]
     public class AdmissionController : Controller
     {
         private readonly ApplicationDbContext db;

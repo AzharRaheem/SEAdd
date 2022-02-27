@@ -100,11 +100,7 @@ namespace SEAdd.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult FeeChallanView()
-        {
-            var model = db.Fees.FirstOrDefault();
-            return View(model);
-        }
+       
         [NonAction]
         private string GetImageUrl(HttpPostedFileBase file)
         {

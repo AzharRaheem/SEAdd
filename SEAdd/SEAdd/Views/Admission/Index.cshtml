@@ -21,13 +21,19 @@
                 <table id="example5" class="display dataTable table table-bordered">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Dated</th>
-                            <th>Title</th>
+                            <th rowspan="2"></th>
+                            <th rowspan="2">Dated</th>
+                            <th rowspan="2">Title</th>
+                            <th colspan="2" class="text-center">Under-Graduate Programs</th>
+                            <th colspan="2" class="text-center">Graduate Programs</th>
+                            <th rowspan="2">Notification</th>
+                            <th rowspan="2">Actions</th>
+                        </tr>
+                        <tr>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th>Notification</th>
-                            <th>Actions</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,8 +43,10 @@
                                 <td><img src="~/assets/images/notificationBullets.gif" alt="New Notification"></td>
                                 <td>@item.NotificationDate.ToString("dd/MM/yyyy")</td>
                                 <td>@item.Title</td>
-                                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
-                                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UnderGraduateProgStartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UnderGraduateProgEndDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.GraduateProgStartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.GraduateProgEndDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a href="@Url.Content(item.NotificationFileUrl)" target="_blank" style="color:blue;">Download/View</a>
                                 </td>

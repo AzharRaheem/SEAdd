@@ -26,6 +26,7 @@
                         <tr>
                             <th>Main Form Fee</th>
                             <th>Entry Test Fee</th>
+                            <th>Additional Form Fee</th>
                             <th>Bank</th>
                             <th>Account No.</th>
                             <th>Actions</th>
@@ -37,10 +38,11 @@
                                 <tr>
                                     <td>@item.formFee</td>
                                     <td>@item.entryTestFee</td>
+                                    <td>@item.additionalFormFee</td>
                                     <td>@item.Bank.name</td>
                                     <td>@item.Bank.accountNo</td>
                                     <td>
-                                        @*@Html.ActionLink("Edit", "UpdateFeeDetails", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })*@
+                                        @Html.ActionLink("Edit", "UpdateFeeDetails", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
                                         <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -25,5 +26,9 @@ namespace SEAdd.Models.DomainModels
         [Required(ErrorMessage ="Please choose a program to apply for admission")]
         [ForeignKey("Program")]
         public int ProgramId { get; set; }
+        [DefaultValue(false)]
+        public bool isRejected { get; set; }
+        [DefaultValue(false)]
+        public bool isApproved { get; set; }
     }
 }

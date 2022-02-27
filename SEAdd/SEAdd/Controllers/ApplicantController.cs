@@ -13,6 +13,8 @@ using SEAdd.Models.ViewModels;
 using SEAdd.CustomValidations;
 using System.IO;
 using System.Data.Entity;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace SEAdd.Controllers
 {
@@ -197,7 +199,8 @@ namespace SEAdd.Controllers
                 Programs = db.Programs.ToList(),
                 Departments = db.Departments.ToList(),
                 AppliedProgramsCount = db.ProgramSelections.Where(a => a.ApplicantId == user.id).Count(),
-                applicantCanApplyDeptCount = setting.applicantDeptApply
+                applicantCanApplyDeptCount = setting.applicantDeptApply , 
+                admissionDate = db.AdmissionDate.OrderByDescending(a => a.Id).FirstOrDefault()
             };
             if (model.AppliedProgramsCount != 0)
             {
@@ -576,9 +579,114 @@ namespace SEAdd.Controllers
             {
                 user.isRegistrationFinished = true;
                 db.SaveChanges();
+                Session["UserAlreadyExist"] = true;
             }
             return RedirectToAction("UserDashboard" , "Dashboard");
         }
+        public ActionResult FeeChallanView()
+        {
+            var model = db.Fees.FirstOrDefault();
+            return View(model);
+        }
+        public ActionResult DownloadChallanForm()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Applicants.Where(a => a.userId == loggedUserId).FirstOrDefault();
+            var model = db.Fees.FirstOrDefault();
+            int TotalForms = user.ProgramsSelection.Count();
+            int entryTestCount = 0;
+            foreach (var item in user.ProgramsSelection)
+            {
+                if(item.Department.EntryTestRequired)
+                {
+                    entryTestCount += 1;
+                }
+            }
+            TotalForms = TotalForms - 1;
+            model.entryTestFee = entryTestCount * model.entryTestFee;
+            model.additionalFormFee = TotalForms * model.additionalFormFee;
+            //Print Challan Form
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "Challan.rpt"));
+            List<Fee> FeeDetails = new List<Fee>();
+            FeeDetails.Add(model);
+            rd.SetDataSource(FeeDetails);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "Fee_Challan_UAJK.pdf");
+        }
+        #region ViewAllDepartmentApplicants
+        public ActionResult ViewAllApplicants() //All Applicants....
+        {
+            var model = db.Applicants.Where(a => a.isRegistrationFinished == true).ToList();
+            return View(model);
+        }
+        public ActionResult NewApplicants() //This year's applicants....
+        {
+            //var model = db.Applicants.Where(a => a.isRegistrationFinished == true && a.ApplyDate.Year == DateTime.Today.Year).ToList();
+            return View();
+        }
+        #endregion
+        public ActionResult ReviewApplicant(int id) //To Review Applicant's Application....
+        {
+            var model = db.Applicants.Where(a => a.id == id).FirstOrDefault();
+            return View(model);
+        }
+        #region ViewApplicantsAccordingToAdminDepartment
+        [Authorize(Roles ="Admin")]
+        public ActionResult ViewDepartmentalApplicants() //All Applicants for Admin Department....
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Users.Where(a => a.Id == loggedUserId).FirstOrDefault();
+            ApplicantProgramDepartVM vm = new ApplicantProgramDepartVM()
+            {
+                DepartmentalApplicants = new List<Applicant>() , 
+                adminDepartment = user.department , 
+                ProgramSelection = new Models.DomainModels.ProgramSelection()
+            };
+            var model = db.Applicants.Where(a => a.isRegistrationFinished == true).ToList();
+            foreach (var item in model)
+            {
+                foreach (var program in item.ProgramsSelection)
+                {
+                    if(program.Department.name.ToLower() == user.department.ToLower())
+                    {
+                        vm.ProgramSelection = item.ProgramsSelection.Where(p=>p.Department.name == user.department).FirstOrDefault();
+                        vm.DepartmentalApplicants.Add(item);
+                    }
+                }
+            }
+            return View(vm);
+        }
+        [Authorize(Roles ="Admin")]
+        public ActionResult ViewDepartmentalNewApplicants() //This Year Applicants for Admin Department....
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Users.Where(a => a.Id == loggedUserId).FirstOrDefault();
+            ApplicantProgramDepartVM vm = new ApplicantProgramDepartVM()
+            {
+                DepartmentalApplicants = new List<Applicant>(),
+                adminDepartment = user.department , 
+                ProgramSelection = new Models.DomainModels.ProgramSelection()
+            };
+            var model = db.Applicants.Where(a => a.isRegistrationFinished == true && a.ApplyDate.Year == DateTime.Today.Year).ToList();
+            foreach (var item in model)
+            {
+                foreach (var program in item.ProgramsSelection)
+                {
+                    if (program.Department.name.ToLower() == user.department.ToLower())
+                    {
+                        vm.ProgramSelection = item.ProgramsSelection.Where(p => p.Department.name == user.department).FirstOrDefault();
+                        vm.DepartmentalApplicants.Add(item);
+                    }
+                }
+            }
+            return View(vm);
+        }
+        #endregion
         [NonAction]
         private string GetImageUrl(HttpPostedFileBase file)
         {

@@ -173,7 +173,7 @@ else
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.applicant.Email)
-                    @Html.TextBoxFor(m => m.applicant.Email, new { @class = "form-control", disabled = "disabled" , placeholder = "Enter Email Address", type = "email" })
+                    @Html.TextBoxFor(m => m.applicant.Email, new { @class = "form-control" , placeholder = "Enter Email Address", type = "email" })
                     @Html.ValidationMessageFor(m => m.applicant.Email, "", new { @class = "text-danger" })
                 </div>
             </div>

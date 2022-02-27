@@ -335,6 +335,18 @@
     <Compile Include="Migrations\202202141525215_DepartmentModelUpdated3.Designer.cs">
       <DependentUpon>202202141525215_DepartmentModelUpdated3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202211230199_AdmissionDateModelUpdated.cs" />
+    <Compile Include="Migrations\202202211230199_AdmissionDateModelUpdated.Designer.cs">
+      <DependentUpon>202202211230199_AdmissionDateModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202262017591_updateDB.cs" />
+    <Compile Include="Migrations\202202262017591_updateDB.Designer.cs">
+      <DependentUpon>202202262017591_updateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202270957159_ProgramSelectionModelUpdated.cs" />
+    <Compile Include="Migrations\202202270957159_ProgramSelectionModelUpdated.Designer.cs">
+      <DependentUpon>202202270957159_ProgramSelectionModelUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\Academic.cs" />
@@ -360,6 +372,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
     <Compile Include="Models\ViewModels\ApplicantPreviousQualificationVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantProgramDepartVM.cs" />
     <Compile Include="Models\ViewModels\ApplicantRegistrationVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
     <Compile Include="Models\ViewModels\DepartmentCampusVM.cs" />
@@ -387,7 +400,6 @@
     <Content Include="assets\images\approved.png" />
     <Content Include="assets\images\calander.png" />
     <Content Include="assets\images\comments.png" />
-    <Content Include="assets\images\AppLogo.png" />
     <Content Include="assets\images\nomination.png" />
     <Content Include="assets\images\filter.png" />
     <Content Include="assets\images\filterbyyear.png" />
@@ -397,6 +409,7 @@
     <Content Include="assets\images\notification-bell.png" />
     <Content Include="assets\images\notificationBullets.gif" />
     <Content Include="assets\images\applicationStatus.png" />
+    <Content Include="assets\images\PortalLogo.png" />
     <Content Include="assets\images\rejected.png" />
     <Content Include="assets\images\selective.png" />
     <Content Include="assets\images\tick.png" />
@@ -576,7 +589,12 @@
     <Content Include="Views\Applicant\HostelService.cshtml" />
     <Content Include="Views\Applicant\TransportService.cshtml" />
     <Content Include="Views\Applicant\Confirmation.cshtml" />
-    <Content Include="Views\Department\FeeChallanView.cshtml" />
+    <Content Include="Views\Applicant\FeeChallanView.cshtml" />
+    <Content Include="Views\Applicant\ViewAllApplicants.cshtml" />
+    <Content Include="Views\Applicant\NewApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewDepartmentalApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewDepartmentalNewApplicants.cshtml" />
+    <Content Include="Views\Applicant\ReviewApplicant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -661,6 +679,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202141525215_DepartmentModelUpdated3.resx">
       <DependentUpon>202202141525215_DepartmentModelUpdated3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202211230199_AdmissionDateModelUpdated.resx">
+      <DependentUpon>202202211230199_AdmissionDateModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202262017591_updateDB.resx">
+      <DependentUpon>202202262017591_updateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202270957159_ProgramSelectionModelUpdated.resx">
+      <DependentUpon>202202270957159_ProgramSelectionModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

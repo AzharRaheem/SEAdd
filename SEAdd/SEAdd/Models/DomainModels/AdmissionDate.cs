@@ -15,9 +15,15 @@ namespace SEAdd.Models.DomainModels
         public string Title { get; set; }
         public DateTime NotificationDate { get; set; }
         [Required][Display(Name ="Start Date")]
-        public DateTime StartDate { get; set; }
+        public DateTime UnderGraduateProgStartDate { get; set; }
         [Required][Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public DateTime UnderGraduateProgEndDate { get; set; }
+        [Required]
+        [Display(Name = "Start Date")]
+        public DateTime GraduateProgStartDate { get; set; }
+        [Required]
+        [Display(Name = "End Date")]
+        public DateTime GraduateProgEndDate { get; set; }
         public string NotificationFileUrl { get; set; }
     }
 }

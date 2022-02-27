@@ -14,5 +14,6 @@ namespace SEAdd.Models.ViewModels
         public List<ProgramSelection> AppliedPrograms { get; set; }
         public int AppliedProgramsCount { get; set; }
         public int applicantCanApplyDeptCount { get; set; }
+        public AdmissionDate admissionDate { get; set; }
     }
 }

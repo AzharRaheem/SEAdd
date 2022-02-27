@@ -1,0 +1,98 @@
+﻿@model List<SEAdd.Models.DomainModels.Applicant>
+@{
+    ViewBag.Title = "NewApplicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Applicants</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+<!-- This is a Model for Delete Dialog Box(Start) -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<!-- This is a Model for Delete Dialog Box(End) -->
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Applicants</h4>
+            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="display dataTable table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Form No.</th>
+                            <th>Full Name</th>
+                            <th>Father's Name</th>
+                            <th>Email</th>
+                            <th>CNIC</th>
+                            <th>Gender</th>
+                            <th>Nationality</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.FullName</td>
+                                <td>@item.FatherName</td>
+                                <td>@item.Email</td>
+                                <td>@item.CNIC</td>
+                                <td>@item.Gender</td>
+                                <td>@item.Nationality</td>
+                                <td>
+                                    @if (item.isApproved == true && item.isRejected == false)
+                                    {
+                                        <span class="badge light badge-success">Approved</span>
+                                    }
+                                    else if (item.isApproved == false && item.isRejected == true)
+                                    {
+                                        <span class="badge light badge-danger">Rejected</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge light badge-primary">Pending</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Review", "ReviewApplicant", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+    </script>
+}
+
+
+
+

@@ -19,7 +19,18 @@
                             <h4><i class="fa fa-times-circle text-danger"></i> Sorry!</h4>
                             <p> Your Requested Resource is not available</p>
                             <div>
-                                <a class="btn btn-sm btn-primary" href="#">Back to Home</a>
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <a class="btn btn-sm btn-primary" href="~/Dashboard/AdminDashboard">Back to Home</a>
+                                }
+                                else if (User.IsInRole("Admin"))
+                                {
+                                    <a class="btn btn-sm btn-primary" href="~/Dashboard/AdminDashboard">Back to Home</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-sm btn-primary" href="~/Dashboard/UserDashboard">Back to Home</a>
+                                }
                             </div>
                         </div>
                     </div>

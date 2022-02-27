@@ -1,0 +1,59 @@
+﻿@model SEAdd.Models.DomainModels.Fee
+
+@{
+    ViewBag.Title = "FeeChallanView";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container">
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div>
+            <h2 class="float-start"><strong>Fee Submission Process</strong></h2>
+            <div class="d-flex align-items-center float-end">
+                <a href="/Applicant/DownloadChallanForm" class="btn btn-rounded btn-success">
+                    <span class="btn-icon-start text-success">
+                        <i class="fa fa-download"></i>
+                    </span>Download
+                </a>
+            </div>
+        </div><br /><br /><br /><br />
+        <div class="clearfix"></div>
+        <h4>1-Download Challan form by clicking on Download Button.</h4>
+        <h4>2-Deposit fee in HBL Bank.</h4>
+        <h4>3-Submit Challan to Department & University.</h4>
+    </div>
+</div><br /><br />
+<div class="row col-md-10 mx-auto">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="bg-primary text-white">
+                <th>Form Type</th>
+                <th>Program with Entry Test</th>
+                <th>Program without Entry Test</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Prospectus/Application Processing Fee</strong></td>
+                <td>@Model.formFee /-</td>
+                <td>@Model.formFee /-</td>
+            </tr>
+            <tr>
+                <td><strong>Entry Test Fee</strong></td>
+                <td>@Model.entryTestFee /-</td>
+                <td>000 /-</td>
+            </tr>
+            <tr>
+                <td><strong>Additional Form Fee (Per Form)</strong></td>
+                <td>@Model.additionalFormFee /-</td>
+                <td>@Model.additionalFormFee /-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+
+

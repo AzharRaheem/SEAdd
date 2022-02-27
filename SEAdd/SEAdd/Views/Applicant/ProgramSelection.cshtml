@@ -76,14 +76,23 @@
                     </div>
                     <hr />
                     <div class="row">
-                        @foreach (var item in Model.Programs)
+                        @if (Model.admissionDate != null && Model.admissionDate.UnderGraduateProgEndDate.Date >= DateTime.Today.Date)
                         {
-                            if (item.ProgramType.ToLower() == "undergraduate")
+                            foreach (var item in Model.Programs)
                             {
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id , new { @class = "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
-                                </div>
+                                if (item.ProgramType.ToLower() == "undergraduate")
+                                {
+                                    <div class="col-md-4">
+                                        @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id, new { @class = "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
+                                    </div>
+                                }
                             }
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <h4 class="text-danger">Under-Graduate Programme's Admission Closed.</h4>
+                            </div>
                         }
                     </div>
                 </div>
@@ -95,14 +104,23 @@
                     </div>
                         <hr />
                     <div class="row">
-                        @foreach (var item in Model.Programs)
+                        @if (Model.admissionDate != null && Model.admissionDate.GraduateProgEndDate.Date >= DateTime.Today.Date)
                         {
-                            if (item.ProgramType.ToLower() == "graduate")
+                            foreach (var item in Model.Programs)
                             {
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id , new { @class= "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
-                                </div>
+                                if (item.ProgramType.ToLower() == "graduate")
+                                {
+                                    <div class="col-md-4">
+                                        @Html.RadioButtonFor(m => m.programSelection.ProgramId, item.id, new { @class = "form-check-input" }) <span> <strong>@item.ProgramName</strong></span>
+                                    </div>
+                                }
                             }
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <h4 class="text-danger">Graduate Programme's Admission Closed.</h4>
+                            </div>
                         }
                     </div>
                </div>
@@ -127,7 +145,6 @@
                 {
                     <button onclick="ShowErrorDialog()" class="btn btn-primary py-2 px-3 fw-bold mt-4">SAVE & APPLY FOR OTHER</button>
                 }
-
             </div>
             <div class="clearfix"></div>
         </div>
@@ -135,17 +152,18 @@
 }
 
 <div class="container p-2">
-    @if (Model.AppliedProgramsCount != 0)
-    {
-        <div class="float-end">
-            <a href="~/Applicant/Academics" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a>
+    <div class="float-start">
+        <a href="~/Applicant/Academics" class="btn btn-sm btn-info"><i class="fa fa-angle-left"></i> BACK</a>
+    </div>
+    <div class="float-end">
+        @if (Model.AppliedProgramsCount != 0)
+        {
             <a href="~/Applicant/HostelService" class="btn btn-sm btn-success">NEXT <i class="fa fa-angle-right"></i></a>
-        </div>
-        <div class="clearfix"></div>
-    }
-
+        }
+    </div>
+    <div class="clearfix"></div>
     <hr />
-    <h2 class="h3 py-1">Programmes Applied</h2>
+    <h2 class="h3 py-1 text-center">Programmes Applied</h2>
     <div class="row">
         <table class="table table-bordered table-responsive table-striped">
             <thead>
