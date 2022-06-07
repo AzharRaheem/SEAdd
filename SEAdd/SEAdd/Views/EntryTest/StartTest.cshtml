@@ -1,0 +1,81 @@
+﻿@model SEAdd.Models.ViewModels.QuestionEntryTestVM
+@{
+    ViewBag.Title = "StartTest";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        
+    };
+}
+@section styles{
+    <style>
+        .option {
+            display: block;
+            width: 300px !important;
+            height: 40px;
+            margin-left: 40px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        p {
+            display:inline-block;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+}
+<div class="container" id="RenderTestEndPartialView">
+    <table class="table table-responsive table-striped table-bordered">
+        <tr class="bg-primary">
+            <th class="text-white">Test Name</th>
+            <th class="text-white">Year</th>
+            <th class="text-white">Marks</th>
+            <th class="text-white">Time</th>
+        </tr>
+        <tr class="bg-light">
+            <td><strong>@Model.entryTestSetting.testName</strong></td>
+            <td><strong>@DateTime.Today.Date.Year</strong></td>
+            <td><strong>@Model.entryTestSetting.TotalMarks</strong></td>
+            <td><strong><h4><span id="TestTimer"></span></h4></strong></td>
+        </tr>
+    </table>
+    <div id="RenderPartialView">
+        @Html.Partial("_EntryTestQuestion", Model.Question)
+    </div> 
+</div>
+<!-- Render Patial View for Question -->
+
+
+
+@section scripts{
+    <script>
+        // Set the date we're counting down to
+
+        var countDownDate = new Date('@Model.entryTestSetting.TestEndDateTime.ToString("MM dd, yyyy HH:mm:ss")').getTime();
+        console.log(countDownDate);
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+          // Get today's date and time
+            var now = new Date().getTime();
+            console.log("Now : "+now);
+          // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+            console.log("Distance : " +distance);
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          // Display the result in the element with id="demo"
+          document.getElementById("TestTimer").innerHTML = hours + "h "
+          + minutes + "m " + seconds + "s ";
+          // If the count down is finished, write some text
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("TestTimer").innerHTML = "<p class='text-danger'>TIMES UP</p>";
+            $("#TimesUpView").css("display", "block");
+            $("#partial").css("display", "none");
+          }
+        }, 1000);
+    </script>
+}

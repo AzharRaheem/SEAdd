@@ -23,5 +23,6 @@ namespace SEAdd.Models.DomainModels
 
 
         public virtual ICollection<ProgramSelection> ProgramsSelection { get; set; }
+
     }
 }

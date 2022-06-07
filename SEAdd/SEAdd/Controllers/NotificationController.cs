@@ -19,13 +19,13 @@ namespace SEAdd.Controllers
             db = new ApplicationDbContext();
         }
         // GET: Notification
-        [Authorize(Roles ="Admin , User")]
+        [Authorize(Roles ="Admin , User , SuperAdmin")]
         public ActionResult Index()
         {
             var Notifications = db.Notifications.ToList();
             return View(Notifications);
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin , SuperAdmin")]
         public ActionResult AddNotification()
         {
             var model = new Notification();
@@ -44,7 +44,7 @@ namespace SEAdd.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin , SuperAdmin")]
         public ActionResult EditNotification(int id)
         {
             var model = db.Notifications.Where(n => n.Id == id).FirstOrDefault();
@@ -63,7 +63,7 @@ namespace SEAdd.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin , SuperAdmin")]
         public ActionResult DeleteNotification(int id)
         {
             var model = db.Notifications.Where(n => n.Id == id).FirstOrDefault();

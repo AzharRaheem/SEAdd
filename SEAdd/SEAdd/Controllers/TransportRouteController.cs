@@ -35,7 +35,7 @@ namespace SEAdd.Controllers
                 
                 return View(vm);
             }
-            var alreadyExist = db.TransportRoutes.Where(r=>r.route == model.route).FirstOrDefault();
+            var alreadyExist = db.TransportRoutes.Where(r=>r.route.ToLower() == model.route.ToLower()).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Sorry! This Route already exist.";

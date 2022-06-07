@@ -1,0 +1,94 @@
+﻿@model List<SEAdd.Models.DomainModels.Country>
+@{
+    ViewBag.Title = "All Countries";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Countries</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+<!-- This is a Model for Delete Dialog Box(Start) -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<!-- This is a Model for Delete Dialog Box(End) -->
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Countries</h4>
+            <a href="~/Country/AddNewCountry" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="display dataTable table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Country Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.name</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "EditCountry", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
+                                    <!-- Modal Start -->
+                                    <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title" id="exampleModalLabel">Confirm</h3>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Are you sure you want to delete this item?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">Close</button>
+                                                    <a id="deleteBtn" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal End -->
+                                    <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel" IdValue=@item.id>Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+
+        $(".deleteLink").click(function () {
+            var id = $(this).attr("IdValue");
+            $("#deleteBtn").attr("href", "/Country/DeleteCountry/" + id);
+        });
+    </script>
+}
+

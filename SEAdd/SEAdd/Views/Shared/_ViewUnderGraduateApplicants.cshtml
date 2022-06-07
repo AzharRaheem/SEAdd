@@ -1,0 +1,47 @@
+﻿@model List<SEAdd.Models.DomainModels.Applicant>
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Applicants</h4>
+            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="display dataTable table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Form No.</th>
+                            <th>Full Name</th>
+                            <th>Father's Name</th>
+                            <th>Email</th>
+                            <th>CNIC</th>
+                            <th>Gender</th>
+                            <th>Nationality</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.FullName</td>
+                                <td>@item.FatherName</td>
+                                <td>@item.Email</td>
+                                <td>@item.CNIC</td>
+                                <td>@item.Gender</td>
+                                <td>@item.Nationality</td>
+                                <td>
+                                    @Html.ActionLink("Review", "ReviewApplicant", new { id = @item.id }, new { @class = "btn btn-sm btn-success" , target="_blank" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

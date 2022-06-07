@@ -51,6 +51,10 @@
                                 <td>@Model.ProgramSelection.Program.ProgramName</td>
                                 <th>@Model.ProgramSelection.Department.name</th>
                                 <td>
+                                    @if (Model.ProgramSelection != null)
+                                    {
+                                        Model.ProgramSelection = item.ProgramsSelection.Where(p => p.Program.ProgramName == Model.ProgramSelection.Program.ProgramName && p.Department.name.ToLower() == Model.ProgramSelection.Department.name.ToLower()).FirstOrDefault();
+                                    }
                                     @if (Model.ProgramSelection.isApproved == true && Model.ProgramSelection.isRejected == false)
                                     {
                                         <span class="badge light badge-success">Approved</span>
@@ -65,7 +69,7 @@
                                     }
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Review", "ReviewApplicant", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
+                                    @Html.ActionLink("Review", "ReviewApplicantDetails", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
                                 </td>
                             </tr>
                         }

@@ -59,6 +59,20 @@ namespace SEAdd.Models
         public DbSet<TransportRoute> TransportRoutes { get; set; }
         public DbSet<Hostel> Hostels { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<RejectionMessage> RejectionMessages { get; set; }
+        public DbSet<TestCategory> TestCategories { get; set; }
+        public DbSet<TestType> TestTypes { get; set; }
+        public DbSet<CategoryPercentage> CategoriesPercentage { get; set; }
+        public DbSet<MeritCriteria> MeritCriterias { get; set; }
+        public DbSet<MeritList> MeritsLists { get; set; }
+        public DbSet<TestName> TestNames { get; set; }
+        public DbSet<TestQuestion> TestQuestions { get; set; }
+        public DbSet<DepartmentSetting> DepartmentSettings { get; set; }
+        public DbSet<EntryTestSetting> EntryTestSettings { get; set; }
+        public DbSet<RollNumber> RollNumbers { get; set; }
+        public DbSet<TransferApplicationForm> TransferApplicationForms { get; set; }
+        public DbSet<ApplicantQualificationProgram> ApplicantQualificationPrograms { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

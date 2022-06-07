@@ -20,8 +20,8 @@ namespace SEAdd.Models.DomainModels
         [Required]
         [Display(Name = "Total Seats")]
         public int numberOfSeats { get; set; }
-
-
+        [Display(Name ="Nomination")]
+        public string NominationFrom { get; set; }
         public virtual ICollection<Applicant> Applicants { get; set; }
 
     }

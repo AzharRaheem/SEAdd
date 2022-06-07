@@ -1,16 +1,255 @@
-﻿@*@model SEAdd.Models.DomainModels.Applicant*@
+﻿@model SEAdd.Models.DomainModels.Applicant
 @{
     ViewBag.Title = "ReviewApplicant";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Personal Information</h3>
+</div>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <img src="@Url.Content(Model.profileImgUrl)" width="100" height="100" class="img-thumbnail float-end" />
+    </div>
+</div>
 <div class="row">
-    <div class="col-md-8">
-        <div class="col-md-2">
-            <img src="~/assets/images/UniversityLogo.png" width="50" height="50"/>
+    <div class="col-md-3">
+        <strong>Full Name : </strong>@Model.FullName
+    </div>
+    <div class="col-md-3">
+        <strong>Father Name : </strong>@Model.FatherName
+    </div>
+    <div class="col-md-3">
+        <strong>Email : </strong>@Model.Email
+    </div>
+    <div class="col-md-3">
+        <strong>CNIC : </strong>@Model.CNIC
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>Gender : </strong>@Model.Gender
+    </div>
+    <div class="col-md-3">
+        <strong>Birth Date : </strong>@Model.BirthDate.Date.ToString("dd-MM-yyyy")
+    </div>
+    <div class="col-md-3">
+        <strong>Personal Contact : </strong>@Model.PersonalContact
+    </div>
+    <div class="col-md-3">
+        <strong>Guardian Contact : </strong>@Model.GuardianContact
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>Nationality : </strong>@Model.Nationality
+    </div>
+    <div class="col-md-3">
+        <strong>Religion : </strong>@Model.Religion
+    </div>
+    <div class="col-md-3">
+        <strong>Domicile : </strong>@Model.Domicile
+    </div>
+    <div class="col-md-3">
+        <strong>Provience : </strong>@Model.Provience.name
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <strong>Permanent Address : </strong>@Model.PermanentAddress
+    </div>
+    <div class="col-md-6">
+        <strong>Postal Address : </strong>@Model.PostalAddress
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>District : </strong>@Model.District
+    </div>
+    <div class="col-md-3">
+        <strong>Apply Date : </strong>@Model.ApplyDate.Date.ToString("dd-MM-yyyy")
+    </div>
+    <div class="col-md-3">
+        
+    </div>
+    <div class="col-md-3">
+        
+    </div>
+</div>
+<hr />
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Previous Qualification</h3>
+</div>
+<div class="row mt-3">
+    <div class="col-md-1">
+        <strong>Degree</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Dicipline</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Board/University/Institute</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Year of Passing</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Total Marks</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Obtained Marks</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Percentage</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Country</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Marks Sheet</strong>
+    </div>
+</div>
+@foreach (var item in Model.Academics)
+{
+    <div class="row mt-3">
+        <div class="col-md-1">
+            @item.AcademicDegree
         </div>
-        <div class="col-md-10">
-            <h2><strong>THE UNIVERSITY OF AZAD JAMMU &Aacute; KASHMIR , MUZAFFARABAD</strong></h2>
+        <div class="col-md-1">
+            @item.Discipline
+        </div>
+        <div class="col-md-2">
+            @item.boardOrInstitute
+        </div>
+        <div class="col-md-2">
+            @item.YearOfPassing
+        </div>
+        <div class="col-md-1">
+           @item.TotalMarks
+        </div>
+        <div class="col-md-2">
+           @item.ObtainedMarks
+        </div>
+        <div class="col-md-1">
+           @Math.Ceiling(item.Percentage) %
+        </div>
+        <div class="col-md-1">
+           @item.Country.name
+        </div>
+        <div class="col-md-1">
+            <a href="@Url.Content(item.DMcMarksSheetUrl)" class="text-primary">Download/View</a>
+        </div>
+    </div>
+}
+<hr />
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Program Selection</h3>
+</div>
+<div class="row mt-3">
+    <div class="col-md-1">
+        <strong>Program</strong>
+    </div>
+    <div class="col-md-3">
+        <strong>Program Type</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Department</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Duration</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Campus</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Status</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Actions</strong>
+    </div>
+</div>
+@foreach (var item in Model.ProgramsSelection)
+{
+    <div class="row mt-3">
+        <div class="col-md-1">
+            @item.Program.ProgramName
+        </div>
+        <div class="col-md-3">
+            @item.Program.ProgramType
+        </div>
+        <div class="col-md-2">
+            @item.Department.name
+        </div>
+        <div class="col-md-2">
+            @item.Program.duration Years
+        </div>
+        <div class="col-md-2">
+            @item.Department.Campus.name
+        </div>
+        <div class="col-md-1">
+           @if (item.isApproved == true)
+           {
+             <span class="badge light badge-success">Approved</span>
+           }
+           else if (item.isRejected == true)
+           {
+             <span class="badge light badge-danger">Rejected</span>
+           }
+           else
+           {
+             <span class="badge light badge-primary">Pending</span>
+           }
+        </div>
+        <div class="col-md-1">
+            <!-- Delete Modal Start -->
+            <div class="modal fade" id="deleteProgramModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary rounded-2">
+                            <h3 class="modal-title text-white id="exampleModalLabel">Confirm</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete this request?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                            <a href="~/Applicant/DeleteApplicant/@item.id" class="btn btn-danger">DELETE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+            <a class="btn btn-sm btn-outline-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteProgramModel">DELETE</a>
+        </div>
+    </div>
+}
+<hr />
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="float-end">
+            <!-- Delete Modal Start -->
+            <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary rounded-2">
+                            <h3 class="modal-title text-white id="exampleModalLabel">Confirm</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete the applicant?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                            <a href="~/Applicant/DeleteApplicant/@Model.id" id="deleteBtn" class="btn btn-danger">DELETE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+            <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel">DELETE</a>
         </div>
     </div>
 </div>
+
+

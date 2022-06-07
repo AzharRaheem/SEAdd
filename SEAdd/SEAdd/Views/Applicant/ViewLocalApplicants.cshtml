@@ -1,0 +1,33 @@
+﻿@model List<SEAdd.Models.DomainModels.Applicant>
+@{
+    ViewBag.Title = "ViewLocalApplicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Applicants</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+
+@Html.Partial("_AllApplicants", Model)
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+    </script>
+}

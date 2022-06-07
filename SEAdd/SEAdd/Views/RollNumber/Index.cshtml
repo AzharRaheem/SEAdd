@@ -1,0 +1,52 @@
+﻿@model List<SEAdd.Models.ViewModels.ApplicantRollNumberVM>
+@{
+    ViewBag.Title = "Applicant-RollNumbers";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4 class="card-title text-white">Applicant Roll Numbers</h4>
+            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th><strong>Form Number</strong></th>
+                            <th><strong>Full Name</strong></th>
+                            <th><strong>Father's Name</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>CNIC</strong></th>
+                            <th><strong>Department</strong></th>
+                            <th><strong>Program</strong></th>
+                            <th><strong>Roll Number</strong></th>
+                            <th><strong>Actions</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.programDetail.id</td>
+                                <td>@item.applicant.FullName</td>
+                                <td>@item.applicant.FatherName</td>
+                                <td>@item.applicant.Email</td>
+                                <td>@item.applicant.CNIC</td>
+                                <td>@item.programDetail.Department.name</td>
+                                <td>@item.programDetail.Program.ProgramName</td>
+                                <td>@item.applicantRollNumber.applicantRollNumber</td>
+                                <td>@Html.ActionLink("Review", "ReviewApplicantDetails", "Applicant" , new { id = @item.applicant.id }, new { @class = "btn btn-sm btn-success" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

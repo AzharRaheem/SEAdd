@@ -44,7 +44,7 @@ namespace SEAdd.Controllers
                 };
                 return View(vm);
             }
-            var alreadyExist = db.Hostels.Where(h => h.Name == model.hostel.Name).FirstOrDefault();
+            var alreadyExist = db.Hostels.Where(h => h.Name.ToLower() == model.hostel.Name.ToLower()).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Sorry! Hostel already exist.";

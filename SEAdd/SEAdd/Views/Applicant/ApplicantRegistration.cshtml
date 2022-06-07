@@ -182,7 +182,7 @@ else
             <div class="col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.applicant.BirthDate)
-                    @Html.TextBoxFor(m => m.applicant.BirthDate, new { @class = "form-control", placeholder = "DD/MMM/YYYY", type = "date" })
+                    @Html.TextBoxFor(m => m.applicant.BirthDate, new { @class = "form-control", placeholder = "DD/MMM/YYYY", type = "date" , data_format="dd/MM/yyyy HH:mm:ss PP" })
                     @Html.ValidationMessageFor(m => m.applicant.BirthDate, "", new { @class = "text-danger" })
                 </div>
             </div>

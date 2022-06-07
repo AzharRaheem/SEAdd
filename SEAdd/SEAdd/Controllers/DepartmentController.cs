@@ -48,7 +48,7 @@ namespace SEAdd.Controllers
                 };
                 return View(vm);
             }
-            var alreadyExist = db.Departments.Where(d => d.name == model.department.name).FirstOrDefault();
+            var alreadyExist = db.Departments.Where(d => d.name.ToLower() == model.department.name.ToLower()).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Department already exist.";

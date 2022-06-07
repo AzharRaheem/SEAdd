@@ -1,0 +1,69 @@
+﻿@model List<SEAdd.Models.DomainModels.ProgramSelection>
+@{
+    ViewBag.Title = "ViewApplicationsStatus";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Application Status</h4>
+            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>Form No.</th>
+                            <th>Full Name</th>
+                            <th>Father's Name</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+                            <th>Nationality</th>
+                            <th>Program</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.Applicant.FullName</td>
+                                <td>@item.Applicant.FatherName</td>
+                                <td>@item.Applicant.Email</td>
+                                <td>@item.Applicant.Gender</td>
+                                <td>@item.Applicant.Nationality</td>
+                                <td>@item.Program.ProgramName</td>
+                                <td>@item.Department.name</td>
+                                <td>
+                                    @if (item.isApproved == true && item.isRejected == false)
+                                    {
+                                        <span class="badge light badge-success">Approved</span>
+                                    }
+                                    else if (item.isApproved == false && item.isRejected == true)
+                                    {
+                                        <span class="badge light badge-danger">Rejected</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge light badge-primary">Pending</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

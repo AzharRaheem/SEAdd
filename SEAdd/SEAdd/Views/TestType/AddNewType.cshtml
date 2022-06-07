@@ -1,0 +1,57 @@
+﻿@model SEAdd.Models.DomainModels.TestType
+@{
+    ViewBag.Title = "AddNewType";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Questions-Types</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@using (Html.BeginForm("AddNewType", "TestType", FormMethod.Post))
+{
+    <div class="container p-4">
+        <div class="row text-center" id="AlreadyExistErrorMsg">
+            <h4 class="text-danger">@ViewBag.ErrorMsg</h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>New Question Type</h3>
+            </div>
+            <div class="col-sm-6">
+                <span><a href="~/TestType/Index" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.name)
+                    @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Enter Question Type Name" })
+                    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-6 ">
+                <div class="form-group">
+                    <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-success col-md-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script>
+           $("#name").focusout(function () {
+               $("#AlreadyExistErrorMsg").hide();
+           })
+    </script>
+}

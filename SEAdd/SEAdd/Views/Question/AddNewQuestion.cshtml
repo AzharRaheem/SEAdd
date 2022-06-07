@@ -1,0 +1,217 @@
+﻿@model SEAdd.Models.ViewModels.QuestionCategoryVM
+@{
+    ViewBag.Title = "AddNewQuestion";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section styles{
+    <style>
+        .tox-tinymce{
+        height:250px !important;
+        }
+    </style>
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <strong>Error!</strong> @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-primary alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            <strong>Success!</strong> @TempData["SuccessMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+
+        @using (Html.BeginForm("AddNewQuestion", "Question", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="container">
+                <h2 class="text-primary"><strong>Add New Question</strong></h2>
+                <span><hr /></span>
+                <div class="row mb-2">
+                    <h3 class="text-primary"><strong>Question</strong></h3>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.QuestionText)
+                            @Html.TextAreaFor(m => m.Question.QuestionText, new { @class = "form-control p-2", placeholder = "Enter Question Text...", id = "HtmlEditor", style = "height:67px;" })
+                            @Html.ValidationMessageFor(m => m.Question.QuestionText, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.testTypeId)
+                            @Html.DropDownListFor(m => m.Question.testTypeId, new SelectList(Model.TestTypes, "id", "name"), "-Select Type-", new { @class = "default-select wide form-control" })
+                            @Html.ValidationMessageFor(m => m.Question.testTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.TestId)
+                            @Html.DropDownListFor(m => m.Question.TestId, new SelectList(Model.TestName, "id", "testName"), "-Select Test-", new { @class = "default-select wide form-control" })
+                            @Html.ValidationMessageFor(m => m.Question.TestId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.categoryId)
+                            @Html.DropDownListFor(m => m.Question.categoryId, new SelectList(Model.Categories, "id", "categoryName"), "-Select Category-", new { @class = "default-select wide form-control" })
+                            @Html.ValidationMessageFor(m => m.Question.categoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @*@Html.LabelFor(m => m.Question.QuestionText)
+                                @Html.TextAreaFor(m => m.Question.QuestionText, new { @class = "form-control p-2", placeholder = "Enter Question Text..." })
+                                @Html.ValidationMessageFor(m => m.Question.QuestionText, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2 border-1">
+                    <h3 class="text-primary"><strong>Options</strong></h3>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.OptionA)
+                            @Html.TextBoxFor(m => m.Question.OptionA, new { @class = "form-control", placeholder = "Enter Option A" })
+                            @Html.ValidationMessageFor(m => m.Question.OptionA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.OptionB)
+                            @Html.TextBoxFor(m => m.Question.OptionB, new { @class = "form-control", placeholder = "Enter Option B" })
+                            @Html.ValidationMessageFor(m => m.Question.OptionB, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2 border-1">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.OptionC)
+                            @Html.TextBoxFor(m => m.Question.OptionC, new { @class = "form-control", placeholder = "Enter Option C" })
+                            @Html.ValidationMessageFor(m => m.Question.OptionC, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.OptionD)
+                            @Html.TextBoxFor(m => m.Question.OptionD, new { @class = "form-control", placeholder = "Enter Option D" })
+                            @Html.ValidationMessageFor(m => m.Question.OptionD, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <h3 class="text-primary"><strong>Answer</strong></h3>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.CorrectAns)
+                            @Html.TextBoxFor(m => m.Question.CorrectAns, new { @class = "form-control", placeholder = "Enter Correct Answer" })
+                            @Html.ValidationMessageFor(m => m.Question.CorrectAns, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Question.marks)
+                            @Html.TextBoxFor(m => m.Question.marks, new { @class = "form-control", type = "number", min = 0 })
+                            @Html.ValidationMessageFor(m => m.Question.marks, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <h3 class="text-primary"><strong>Hint!</strong></h3>
+                            @Html.TextAreaFor(m => m.Question.Hint, new { @class = "form-control p-2", placeholder = "Enter Answer Hint!...", style = "height:67px;" })
+                            @Html.ValidationMessageFor(m => m.Question.Hint, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <br />
+                        <div class="float-end">
+                            <a href="~/Question/ViewAllQuestions" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View All Questions</a>
+                            <input type="submit" value="SAVE" name="saveBtn" class="btn btn-sm btn-success" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        }
+
+
+        @section scripts{
+            <script src="~/assets/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
+            <script>
+                tinymce.init({
+                    selector: '#HtmlEditor',
+                    plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                    imagetools_cors_hosts: ['picsum.photos'],
+                    menubar: 'file edit view insert format tools table help',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                    toolbar_sticky: true,
+                    autosave_ask_before_unload: true,
+                    autosave_interval: "30s",
+                    autosave_prefix: "{path}{query}-{id}-",
+                    autosave_restore_when_empty: false,
+                    autosave_retention: "2m",
+                    image_advtab: true,
+                    /*content_css: '//www.tiny.cloud/css/codepen.min.css',*/
+                    link_list: [
+                        { title: 'My page 1', value: 'https://www.codexworld.com' },
+                        { title: 'My page 2', value: 'https://www.xwebtools.com' }
+                    ],
+                    image_list: [
+                        { title: 'My page 1', value: 'https://www.codexworld.com' },
+                        { title: 'My page 2', value: 'https://www.xwebtools.com' }
+                    ],
+                    image_class_list: [
+                        { title: 'None', value: '' },
+                        { title: 'Some class', value: 'class-name' }
+                    ],
+                    importcss_append: true,
+                    file_picker_callback: function (callback, value, meta) {
+                        /* Provide file and text for the link dialog */
+                        if (meta.filetype === 'file') {
+                            callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                        }
+
+                        /* Provide image and alt text for the image dialog */
+                        if (meta.filetype === 'image') {
+                            callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                        }
+
+                        /* Provide alternative source and posted for the media dialog */
+                        if (meta.filetype === 'media') {
+                            callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                        }
+                    },
+                    templates: [
+                        { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                        { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                        { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                    ],
+                    template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                    template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                    height: 600,
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                    noneditable_noneditable_class: "mceNonEditable",
+                    toolbar_mode: 'sliding',
+                    contextmenu: "link image imagetools table",
+                });
+            </script>
+        }

@@ -37,7 +37,7 @@ namespace SEAdd.Controllers
             {
                 return View(model);
             }
-            var alreadyExist = db.Boards.Where(b => b.name == model.name).FirstOrDefault();
+            var alreadyExist = db.Boards.Where(b => b.name.ToLower() == model.name.ToLower()).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Board already exist.";

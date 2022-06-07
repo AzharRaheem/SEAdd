@@ -1,0 +1,117 @@
+﻿@model SEAdd.Models.ViewModels.EntryTestSettingVM
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-primary alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            <strong>Success!</strong> @TempData["SuccessMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("EditEntryTestSetting", "EntryTestSetting", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ETSetting.id)
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3><strong>Settings</strong></h3>
+            </div>
+            <div class="col-sm-6">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ETSetting.TestStartDateTime)
+                    @Html.TextBoxFor(m => m.ETSetting.TestStartDateTime , new { @class = "form-control", type="datetime-local" })
+                    @Html.ValidationMessageFor(m => m.ETSetting.TestStartDateTime , "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ETSetting.TestEndDateTime)
+                    @Html.TextBoxFor(m => m.ETSetting.TestEndDateTime, new { @class = "form-control", type = "datetime-local"})
+                    @Html.ValidationMessageFor(m => m.ETSetting.TestEndDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ETSetting.TotalMarks)
+                    @Html.TextBoxFor(m => m.ETSetting.TotalMarks, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.ETSetting.TotalMarks, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ETSetting.testName)
+                    @Html.DropDownListFor(m => m.ETSetting.testName, new SelectList(Model.Tests, "testName", "testName"), "-Select Test-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.ETSetting.testName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ETSetting.TotalQuestions)
+                    @Html.TextBoxFor(m => m.ETSetting.TotalQuestions, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.ETSetting.TotalQuestions, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="form-group float-end">
+                    <input type="submit" value="Save Changes" name="save" class="btn btn-sm btn-success mt-5" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="container">
+    <div class="col-md=12 mt-4 mx-4">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <h4 class="card-title text-white">Settings</h4>
+                @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+            </div>
+            <div class="clearfix"></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example5" class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th><strong>Start Date & Time</strong></th>
+                                <th><strong>End Date & Time</strong></th>
+                                <th><strong>Total Marks</strong></th>
+                                <th><strong>Total Questions</strong></th>
+                                <th><strong>Department</strong></th>
+                                <th><strong>Test</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.ETSetting.TestStartDateTime</td>
+                                <td>@Model.ETSetting.TestEndDateTime</td>
+                                <td>@Model.ETSetting.TotalMarks</td>
+                                <td>@Model.ETSetting.TotalQuestions</td>
+                                <td>@Model.ETSetting.departmentName</td>
+                                <td>@Model.ETSetting.testName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

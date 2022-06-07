@@ -10,7 +10,7 @@ namespace SEAdd.Models.DomainModels
     {
         [Key]
         public int id { get; set; }
-        [Required]
+        [Required][Display(Name = "Provience Name")]
         [StringLength(100)]
         [RegularExpression("^[A-Za-z]+((\\s)?([A-Za-z])+)*$", ErrorMessage = "Please enter valid provience name.")]
         public string name { get; set; }

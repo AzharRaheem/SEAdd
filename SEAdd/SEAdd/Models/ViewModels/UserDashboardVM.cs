@@ -8,9 +8,10 @@ namespace SEAdd.Models.ViewModels
 {
     public class UserDashboardVM
     {
-        public int Id { get; set; }
-        public string  applicationStatus { get; set; }
-        public DateTime admissionLastDate { get; set; }
+        public Applicant applicant { get; set; }
+        public int ApplicantId { get; set; }
+        public List<ProgramSelection> programSelections { get; set; }
+        public AdmissionDate admissionDate { get; set; }
         public List<Notification> Notifications { get; set; }
     }
 }

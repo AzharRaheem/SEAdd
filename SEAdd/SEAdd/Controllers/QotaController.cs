@@ -38,7 +38,7 @@ namespace SEAdd.Controllers
             }
             else
             {
-                var alreadyExist = db.Qotas.Where(q => q.name == model.name).FirstOrDefault();
+                var alreadyExist = db.Qotas.Where(q => q.name.ToLower() == model.name.ToLower()).FirstOrDefault();
                 if(alreadyExist != null)
                 {
                     ViewBag.ErrorMsg = "Quota already exist.";

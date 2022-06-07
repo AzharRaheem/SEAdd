@@ -180,6 +180,24 @@
                                 </li>
                                 <li>
                                     <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Countries</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Country/Index">View All Countries</a></li>
+                                        <li><a href="~/Country/AddNewCountry">Add New Country</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Proviences</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Provience/Index">View All Proviences</a></li>
+                                        <li><a href="~/Provience/AddNewProvience">Add New Provience</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                         <span class="nav-text">Hostels</span>
                                     </a>
                                     <ul aria-expanded="false">
@@ -206,7 +224,7 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="~/Applicant/ViewAllApplicants">View All Applicants</a></li>
-                                <li><a href="~/Student/FilterApplicants">Filter Applicants</a></li>
+                                <li><a href="~/Applicant/FilterApplicantsSuperAdmin">Filter Applicants</a></li>
                                 <li><a href="~/Applicant/NewApplicants">Admission @DateTime.Now.Year Applicants</a></li>
                             </ul>
                         </li>
@@ -236,12 +254,19 @@
                                 <span class="nav-text">Entry Test</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">Categories</a></li>
-                                <li><a href="app-calender.html">Create a Test</a></li>
-                                <li><a href="app-calender.html">Setting</a></li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Categories</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/TestCategory/Index">View All</a></li>
+                                        <li><a href="~/TestCategory/AddNewCategory">Add New</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="~/TestType/Index">Question Types</a></li>
                             </ul>
                         </li>
-                        <li>
+                        @*<li>
                             <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fa fa-list"></i>
                                 <span class="nav-text">Merit Lists</span>
@@ -249,7 +274,7 @@
                             <ul aria-expanded="false">
                                 <li><a href="app-calender.html">Generate Merit List</a></li>
                             </ul>
-                        </li>
+                        </li>*@
                         <li>
                             <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fas fa-money-bill-alt"></i>
@@ -367,18 +392,9 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="~/Applicant/ViewDepartmentalApplicants">View All Applicants</a></li>
-                                <li><a href="~/Student/FilterApplicants">Filter Applicants</a></li>
+                                <li><a href="~/Applicant/FilterApplicantsAdmin">Filter Applicants</a></li>
                                 <li><a href="~/Applicant/ViewDepartmentalNewApplicants">Admission @DateTime.Now.Year Applicants</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-                                <i class="fas fa-calendar"></i>
-                                <span class="nav-text">Admissions</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a href="~/Admission/Index">Manage Date</a></li>
-                                <li><a href="app-calender.html">Create a Test</a></li>
+                                <li><a href="~/Applicant/ViewTransferredApplications">Transferred Applications</a></li>
                             </ul>
                         </li>
                         <li>
@@ -387,9 +403,27 @@
                                 <span class="nav-text">Entry Test</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">Categories</a></li>
-                                <li><a href="app-calender.html">Create a Test</a></li>
-                                <li><a href="app-calender.html">Setting</a></li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Categories</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/CategoryPercentage/Index">View All</a></li>
+                                        <li><a href="~/CategoryPercentage/AddNewCategoryPercentage">Add New</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Create a Test</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/Test/Index">Add Test</a></li>
+                                        <li><a href="~/TestType/Index">Add Question Type</a></li>
+                                        <li><a href="~/Question/AddNewQuestion">Add Questions</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="~/RollNumber/Index">Applicant's RollNumbers</a></li>
+                                <li><a href="~/EntryTestSetting/Index">Entry Test Settings</a></li>
                             </ul>
                         </li>
                         <li>
@@ -398,13 +432,20 @@
                                 <span class="nav-text">Merit Lists</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">Generate Merit List</a></li>
+                                <li><a href="~/MeritCriteria/AddUpdateCriteria">Set Criteria</a></li>
+                                <li><a href="~/MeritLists/GenerateMeritList">Generate Merit List</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="~/Account/AllUsers" class="" aria-expanded="false">
                                 <i class="fas fa-users"></i>
                                 <span class="nav-text">Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/DepartmentSetting/Index" class="" aria-expanded="false">
+                                <i class="fa fa-cog"></i>
+                                <span class="nav-text">Settings</span>
                             </a>
                         </li>
                     </ul>
@@ -456,25 +497,28 @@
                                             <path d="M27.076 6.24662C26.962 5.48439 26.5787 4.78822 25.9955 4.28434C25.4123 3.78045 24.6679 3.50219 23.8971 3.5H4.10289C3.33217 3.50219 2.58775 3.78045 2.00456 4.28434C1.42137 4.78822 1.03803 5.48439 0.924011 6.24662L14 14.7079L27.076 6.24662Z" fill="#717579"></path>
                                             <path d="M14.4751 16.485C14.3336 16.5765 14.1686 16.6252 14 16.6252C13.8314 16.6252 13.6664 16.5765 13.5249 16.485L0.875 8.30025V21.2721C0.875926 22.1279 1.2163 22.9484 1.82145 23.5536C2.42659 24.1587 3.24707 24.4991 4.10288 24.5H23.8971C24.7529 24.4991 25.5734 24.1587 26.1786 23.5536C26.7837 22.9484 27.1241 22.1279 27.125 21.2721V8.29938L14.4751 16.485Z" fill="#717579"></path>
                                         </svg>
-                                        <span class="badge light text-white bg-success rounded-circle">@Convert.ToInt32(Session["RejectMsgCount"])</span>
+                                        @if (Convert.ToInt32(Session["MessageCount"]) != 0)
+                                        {
+                                            <span class="badge light text-white bg-success rounded-circle">@Convert.ToInt32(Session["MessageCount"])</span>
+                                        }
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div id="DZ_W_Notification1" class="widget-media dlab-scroll p-3 ps" style="height:380px;">
                                             <ul class="timeline">
                                                 <li>
-                                                    @if (@Convert.ToInt32(Session["RejectMsgCount"]) != 0)
-                                                    {
+                                                    @if (Convert.ToInt32(Session["MessageCount"]) != 0)
+                                                                {
                                                         <div class="timeline-panel">
                                                             <div class="media me-2">
                                                                 <img alt="image" width="30" height="30" src="~/assets/images/comments.png">
                                                             </div>
                                                             <div class="media-body">
-                                                                <h5 class="mb-1 text-primary fw-bold">
-                                                                    Application Rejected
-                                                                </h5>
-                                                                <h6 class="mb-1">
-                                                                    @Convert.ToString(Session["RejectMsg"])
+                                                                <h6 class="mb-1 text-primary fw-bold">
+                                                                    @Convert.ToString(Session["MessageTitle"])
                                                                 </h6>
+                                                                <p class="mb-1">
+                                                                    @Convert.ToString(Session["MessageBody"])
+                                                                </p>
                                                                 <small class="d-block"><i class="fa fa-angle-double-right"> </i> From Administration</small>
                                                                 <hr />
                                                             </div>
@@ -506,7 +550,7 @@
                                 <li class="nav-item dropdown  header-profile">
                                     <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                         @if (Session["UserProfileImage"] != null)
-                                        {
+                                                    {
                                             <img src="@Url.Content((string)Session["UserProfileImage"])" width="56" alt="User Image">
                                         }
                                         else
@@ -591,10 +635,14 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="widget-basic.html" class="" aria-expanded="false">
+                            <a class="has-arrow" href="widget-basic.html" aria-expanded="false">
                                 <i class="fas fa-keyboard"></i>
                                 <span class="nav-text">Entry Test</span>
                             </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/RollNumber/GetRollNumber">Get Roll Number</a></li>
+                                <li><a href="~/EntryTest/CheckRollNumber">Participate in the Test</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <hr class="col-md-10 mx-auto" />
@@ -715,6 +763,7 @@
 		        button: "OK",
 		    });
 		}
+      
 
     </script>
 </body>

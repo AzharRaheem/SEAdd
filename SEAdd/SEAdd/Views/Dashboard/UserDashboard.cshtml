@@ -1,7 +1,72 @@
-﻿@{
+﻿@model SEAdd.Models.ViewModels.UserDashboardVM
+@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <strong>Error!</strong> @TempData["ErrorMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+
+
+<div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary rounded-2">
+                <h3 class="modal-title text-white">Admission Last Date</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                    @if (Model.admissionDate.GraduateProgEndDate >= DateTime.Today.Date && Model.admissionDate.UnderGraduateProgEndDate >= DateTime.Today.Date)
+                    {
+                        <div class="row">
+                           <img src="~/assets/images/newNotification.gif" width="50" height="50" class="col-md-2" /> <h4 class="col-md-10"><strong>Under-Graduate Programs : </strong> @Model.admissionDate.UnderGraduateProgEndDate.ToString("dd-MMM,yyy")</h4><br />
+                        </div>
+                        <div class="row">
+                           <img src="~/assets/images/newNotification.gif" width="50" height="50" class="col-md-2" /> <h4 class="col-md-10"><strong>Graduate Programs : </strong>|@Model.admissionDate.GraduateProgEndDate.ToString("dd-MMM,yyy")</h4>
+                        </div>
+                    }
+                    else if (Model.admissionDate.GraduateProgEndDate >= DateTime.Today.Date && Model.admissionDate.UnderGraduateProgEndDate < DateTime.Today.Date)
+                    {
+                        <div class="row">
+                            <h4 class="col-md-10 offset-2"><strong>Under-Graduate Programs : </strong> <span class="text-danger">Closed</span></h4><br />
+                        </div>
+                        <div class="row">
+                            <img src="~/assets/images/newNotification.gif" width="50" height="50" class="col-md-2" /> <h4 class="col-md-10"><strong>Graduate Programs : </strong> @Model.admissionDate.GraduateProgEndDate.ToString("dd-MMM,yyy")</h4>
+                        </div>
+                    }
+                    else if (Model.admissionDate.GraduateProgEndDate < DateTime.Today.Date && Model.admissionDate.UnderGraduateProgEndDate >= DateTime.Today.Date)
+                    {
+                        <div class="row">
+                            <img src="~/assets/images/newNotification.gif" width="20" height="20" class="col-md-2" /> <h4 class="col-md-10"><strong>Under-Graduate Programs : </strong> @Model.admissionDate.UnderGraduateProgEndDate.ToString("dd-MMM,yyy") </h4><br /><br />
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-10 offset-2"><strong>Graduate Programs : </strong><span class="text-danger">Closed</span></h4>
+                        </div>
+                    }
+                    else
+                    {
+                        <h4 class="fs-20 font-w600 mb-4 text-danger">Closed</h4>
+                    }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
@@ -17,14 +82,7 @@
                                                 <h3 class="fs-25 font-w700 mb-4 text-nowrap">Application Status</h3>
                                                 <hr class="col-md-4" />
                                                 <div class="d-flex align-items-center">
-                                                   @if (true)
-                                                   {
-                                                       <h6 class="fs-20 font-w600 mb-4 text-success">Approved</h6>
-                                                   }
-                                                   else
-                                                   {
-                                                       <h6 class="fs-20 font-w600 mb-4 text-primary">Not Submitted</h6>
-                                                   }
+                                                   <a href="~/Applicant/ViewApplicationsStatus" class="btn btn-rounded btn-success"><i class="fa fa-eye"></i> View Status</a>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
@@ -38,16 +96,9 @@
                                         <div class="card-body d-flex px-4 pb-0 justify-content-between">
                                             <div class="col-md-9 col-sm-9">
                                                 <h3 class="fs-25 font-w700 mb-4 text-nowrap">Admission Last Date</h3>
-                                                <hr class="col-md-4" />
+                                                <hr class="col-md-6" />
                                                 <div class="d-flex align-items-center">
-                                                    @if (@*Model.admissionLastDate.Date != null && DateTime.Today.Date <= Model.admissionLastDate.Date*@ false)
-                                                    {
-                                                        <h6 class="fs-20 font-w600 mb-4">@*@Model.admissionLastDate.Date.ToString("dd - MMM , yyy")*@</h6>
-                                                    }
-                                                    else
-                                                    {
-                                                        <h6 class="fs-20 font-w600 mb-4 text-danger">Closed</h6>
-                                                    }
+                                                    <button type="button" class="btn btn-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="fa fa-eye"></i> View</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3">
@@ -97,7 +148,7 @@
         </div>
     </div>
     <div class="row">
-       
+       @Html.Partial("_AllNotifications" , Model.Notifications)
     </div>
 </div>
 
@@ -126,6 +177,7 @@
                 button: "OK",
             });
         }
+        
     </script>
     }
 

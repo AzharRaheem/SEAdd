@@ -1,7 +1,7 @@
 ﻿@model SEAdd.Models.ViewModels.ApplicantProgramDepartVM
 
 @{
-    ViewBag.Title = "ViewDepartmentalNewApplicants";
+    ViewBag.Title = "NewApplicants";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
@@ -11,71 +11,18 @@
         <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
     </ol>
 </div>
-<!-- This is a Model for Delete Dialog Box(Start) -->
-<!-- Button trigger modal -->
-<!-- Modal -->
-<!-- This is a Model for Delete Dialog Box(End) -->
-<div class="col-md=12 mt-4 mx-4">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Applicants</h4>
-            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
-        </div>
-        <div class="clearfix"></div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="example5" class="display dataTable table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Form No.</th>
-                            <th>Full Name</th>
-                            <th>Father's Name</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Nationality</th>
-                            <th>Program</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.DepartmentalApplicants)
-                        {
-                            <tr>
-                                <td>@item.id</td>
-                                <td>@item.FullName</td>
-                                <td>@item.FatherName</td>
-                                <td>@item.Email</td>
-                                <td>@item.Gender</td>
-                                <td>@item.Nationality</td>
-                                <td>@Model.ProgramSelection.Program.ProgramName</td>
-                                <td>@Model.ProgramSelection.Department.name</td>
-                                <td>
-                                    @if (Model.ProgramSelection.isApproved == true && Model.ProgramSelection.isRejected == false)
-                                    {
-                                        <span class="badge light badge-success">Approved</span>
-                                    }
-                                    else if (Model.ProgramSelection.isApproved == false && Model.ProgramSelection.isRejected == true)
-                                    {
-                                        <span class="badge light badge-danger">Rejected</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge light badge-primary">Pending</span>
-                                    }
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Review", "ReviewApplicant", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <strong>Error!</strong> @TempData["ErrorMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
         </div>
     </div>
-</div>
+}
+@Html.Partial("_AllApplicantsDepartmental" , Model)
+
 
 @section Scripts{
     <script>

@@ -116,14 +116,7 @@
     <div class="text-center">
         @if (!Convert.ToBoolean(Session["UserAlreadyExist"]))
         {
-            if (!Convert.ToBoolean(Session["AdmissionDateExpire"]))
-            {
-                <a href="~/Student/StudentRegistration" class="btn btn-outline-primary btn-sm fw-bold">Apply Online</a>
-            }
-            else
-            {
-                <a href="#" onclick="AdmissionExpire()" class="btn btn-outline-primary btn-sm fw-bold">Apply Online</a>
-            }
+            <a href="~/Applicant/ApplicantRegistration" class="btn btn-outline-primary btn-sm fw-bold">Apply Online</a>
         }
         else
         {

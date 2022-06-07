@@ -1,0 +1,75 @@
+﻿@model SEAdd.Models.ViewModels.ApplicantProgramDepartVM
+
+@using (Html.BeginForm("ReviewApplicantInfo", "Applicant", FormMethod.Post))
+{
+    <div class="col-md=12 mt-4 mx-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Applicants</h4>
+                <a href="~/Applicant/FilterApplicantsSuperAdmin" class="btn btn-rounded btn-sm btn-primary"><img src="~/assets/images/filterbyyear.png" width="30" height="30" /> Apply Filter</a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example5" class="display dataTable table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Form No.</th>
+                                <th>Full Name</th>
+                                <th>Father's Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Nationality</th>
+                                <th>Program</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.DepartmentalApplicants)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <input type="hidden" value="@item.id" name="id" />
+                                    <td>@item.FullName</td>
+                                    <td>@item.FatherName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Gender</td>
+                                    <td>@item.Nationality</td>
+                                    <td>@Model.ProgramSelection.Program.ProgramName</td>
+                                    <td>@Model.ProgramSelection.Department.name</td>
+                                    <input type="hidden" value="@Model.ProgramSelection.Department.name" name="departmentName" />
+                                    <td>
+                                        @if (Model.ProgramSelection != null)
+                                        {
+                                            Model.ProgramSelection = item.ProgramsSelection.Where(p => p.Program.ProgramName == Model.ProgramSelection.Program.ProgramName && p.Department.name.ToLower() == Model.ProgramSelection.Department.name.ToLower()).FirstOrDefault();
+                                        }
+                                        @if (Model.ProgramSelection.isApproved == true && Model.ProgramSelection.isRejected == false)
+                                        {
+                                            <span class="badge light badge-success">Approved</span>
+                                        }
+                                        else if (Model.ProgramSelection.isApproved == false && Model.ProgramSelection.isRejected == true)
+                                        {
+                                            <span class="badge light badge-danger">Rejected</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge light badge-primary">Pending</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Review" class="btn btn-sm btn-success" target="_blank" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

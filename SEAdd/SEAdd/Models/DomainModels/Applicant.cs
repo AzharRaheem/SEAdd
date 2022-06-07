@@ -88,11 +88,14 @@ namespace SEAdd.Models.DomainModels
         [DefaultValue(false)]
         public bool isRegistrationFinished { get; set; }
         [DefaultValue(false)]
-        public bool isRejected { get; set; }
-        [DefaultValue(false)]
         public bool isApproved { get; set; }
+        [DefaultValue(false)]
+        public bool isRejected { get; set; }
+        public string departmentName { get; set; }
+        public string programName { get; set; }
 
         public virtual ICollection<ProgramSelection> ProgramsSelection { get; set; }
         public virtual ICollection<Academic> Academics { get; set; }
+
     }
 }

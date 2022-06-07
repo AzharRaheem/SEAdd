@@ -3,19 +3,30 @@
 @{
     ViewBag.Title = "FeeChallanView";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "Loader",
+        OnComplete = "LoadDataTableDesign"
+    };
 }
 
 <div class="container">
 <div class="row">
+    <div class="text-center" id="Loader" style="display:none;">
+        <img src="~/assets/images/ajaxpreloader.gif" width="50" height="50" />
+    </div>
     <div class="col-md-10 mx-auto">
         <div>
             <h2 class="float-start"><strong>Fee Submission Process</strong></h2>
             <div class="d-flex align-items-center float-end">
-                <a href="/Applicant/DownloadChallanForm" class="btn btn-rounded btn-success">
+                @Ajax.ActionLink("Download" , "DownloadChallanForm" , "Applicant" , ajaxOptions , new {@class="btn btn-rounded btn-success" })
+                @*<a href="/Applicant/DownloadChallanForm" class="btn btn-rounded btn-success">
                     <span class="btn-icon-start text-success">
                         <i class="fa fa-download"></i>
                     </span>Download
-                </a>
+                </a>*@
             </div>
         </div><br /><br /><br /><br />
         <div class="clearfix"></div>

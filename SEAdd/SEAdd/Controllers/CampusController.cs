@@ -38,7 +38,7 @@ namespace SEAdd.Controllers
             }
             else
             {
-                var alreadyExist = db.Campuses.Where(c => c.name == model.name).FirstOrDefault();
+                var alreadyExist = db.Campuses.Where(c => c.name.ToLower() == model.name.ToLower()).FirstOrDefault();
                 if (alreadyExist != null)
                 {
                     ViewBag.ErrorMsg = "Campus already exist.";

@@ -1,0 +1,285 @@
+﻿@model SEAdd.Models.ViewModels.ApplicantDepartmentReviewVM
+
+@{
+    ViewBag.Title = "ReviewApplicantInfo";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Personal Information</h3>
+</div>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <img src="@Url.Content(Model.applicant.profileImgUrl)" width="100" height="100" class="img-thumbnail float-end" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <strong>Full Name : </strong>@Model.applicant.FullName
+    </div>
+    <div class="col-md-3">
+        <strong>Father Name : </strong>@Model.applicant.FatherName
+    </div>
+    <div class="col-md-3">
+        <strong>Email : </strong>@Model.applicant.Email
+    </div>
+    <div class="col-md-3">
+        <strong>CNIC : </strong>@Model.applicant.CNIC
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>Gender : </strong>@Model.applicant.Gender
+    </div>
+    <div class="col-md-3">
+        <strong>Birth Date : </strong>@Model.applicant.BirthDate.Date.ToString("dd-MM-yyyy")
+    </div>
+    <div class="col-md-3">
+        <strong>Personal Contact : </strong>@Model.applicant.PersonalContact
+    </div>
+    <div class="col-md-3">
+        <strong>Guardian Contact : </strong>@Model.applicant.GuardianContact
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>Nationality : </strong>@Model.applicant.Nationality
+    </div>
+    <div class="col-md-3">
+        <strong>Religion : </strong>@Model.applicant.Religion
+    </div>
+    <div class="col-md-3">
+        <strong>Domicile : </strong>@Model.applicant.Domicile
+    </div>
+    <div class="col-md-3">
+        <strong>Provience : </strong>@Model.applicant.Provience.name
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <strong>Permanent Address : </strong>@Model.applicant.PermanentAddress
+    </div>
+    <div class="col-md-6">
+        <strong>Postal Address : </strong>@Model.applicant.PostalAddress
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <strong>District : </strong>@Model.applicant.District
+    </div>
+    <div class="col-md-3">
+        <strong>Apply Date : </strong>@Model.applicant.ApplyDate.Date.ToString("dd-MM-yyyy")
+    </div>
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+<hr />
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Previous Qualification</h3>
+</div>
+<div class="row mt-3">
+    <div class="col-md-1">
+        <strong>Degree</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Dicipline</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Board/University/Institute</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Year of Passing</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Total Marks</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Obtained Marks</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Percentage</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Country</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>Marks Sheet</strong>
+    </div>
+</div>
+@foreach (var item in Model.applicant.Academics)
+{
+    <div class="row mt-3">
+        <div class="col-md-1">
+            @item.AcademicDegree
+        </div>
+        <div class="col-md-1">
+            @item.Discipline
+        </div>
+        <div class="col-md-2">
+            @item.boardOrInstitute
+        </div>
+        <div class="col-md-2">
+            @item.YearOfPassing
+        </div>
+        <div class="col-md-1">
+            @item.TotalMarks
+        </div>
+        <div class="col-md-2">
+            @item.ObtainedMarks
+        </div>
+        <div class="col-md-1">
+            @Math.Ceiling(item.Percentage) %
+        </div>
+        <div class="col-md-1">
+            @item.Country.name
+        </div>
+        <div class="col-md-1">
+            <a href="@Url.Content(item.DMcMarksSheetUrl)" class="text-primary">Download/View</a>
+        </div>
+    </div>
+}
+<hr />
+<div class="row text-center bg-primary">
+    <h3 class="text-white">Program Selection</h3>
+</div>
+<div class="row mt-3">
+    <div class="col-md-2">
+        <strong>Program</strong>
+    </div>
+    <div class="col-md-3">
+        <strong>Program Type</strong>
+    </div>
+    <div class="col-md-3">
+        <strong>Department</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Duration</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>Campus</strong>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-2">
+        @Model.programSelection.Program.ProgramName
+    </div>
+    <div class="col-md-3">
+        @Model.programSelection.Program.ProgramType
+    </div>
+    <div class="col-md-3">
+        @Model.programSelection.Department.name
+    </div>
+    <div class="col-md-2">
+        @Model.programSelection.Program.duration Years
+    </div>
+    <div class="col-md-2">
+        @Model.programSelection.Department.Campus.name
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="float-end">
+            <!-- Modal Start -->
+            <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary rounded-2">
+                            <h3 class="modal-title text-white id="exampleModalLabel">Confirm</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete this application?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                            <a href="~/Applicant/DeleteDepartmentalApplicant/@Model.programSelection.id" id="deleteBtn" class="btn btn-danger">DELETE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+            <!-- Reject Modal Start -->
+            <div class="modal fade" id="rejectionModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary rounded-2">
+                            <h3 class="modal-title text-white id="exampleModalLabel">Reject Application</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        @using (Html.BeginForm("RejectApplication", "Applicant", FormMethod.Post))
+                        {
+                            <div class="modal-body">
+                                <h4>Rejection Message</h4>
+                                @Html.HiddenFor(m => m.programSelection.id)
+                                @Html.TextAreaFor(m => m.RejectionMsg.message, new { @class = "col-md-12", placeholder = "Enter Rejection Message Here...", style = "height:140px;" })
+                                @Html.ValidationMessageFor(m => m.RejectionMsg.message, "", new { @class = "text-danger" })
+                                @*<textarea row="10"  name="RejectionMsg" placeholder="Enter Rejection Message Here..." id="RejectionMsg" style="height:115px !important;"></textarea>*@
+                                @*<span class="text-danger" id="rejectionMsgError"></span>*@
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</a>
+                                @*<a id="rejectBtn" class="btn btn-danger">REJECT</a>*@
+                                <button type="submit" class="btn btn-danger">REJECT</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+            <!-- Approve Modal Start -->
+            <div class="modal fade" id="approveModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary rounded-2">
+                            <h3 class="modal-title text-white id="exampleModalLabel">Approve Application</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to approve this application?</h4>
+                            <h5>Verify that Applicant has submitted his/her fee.</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="closeBtn">CLOSE</button>
+                            <a href="~/Applicant/ApproveDepartmentalApplication/@Model.programSelection.id" id="approveBtn" class="btn btn-danger">APPROVE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+            @*<a class="btn btn-sm btn-dark" href="~/Applicant/TransferApplicationForm/@Model.programSelection.id">TRANSFER FORM</a>*@
+            <a class="btn btn-sm btn-danger deleteLink" data-bs-toggle="modal" data-bs-target="#deleteModel">DELETE</a>
+            <a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#rejectionModel">REJECT</a>
+            <a class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#approveModel">APPROVE</a>
+        </div>
+    </div>
+</div>
+
+@*@section Scripts{
+        <script>
+            $('#rejectBtn').click(function () {
+                debugger;
+                var RejectionMsg = $('#RejectionMsg').val();
+                $('#rejectionMsgError').hide();
+                if (RejectionMsg == '') {
+                    $('#rejectionMsgError').show();
+                    document.getElementById("rejectionMsgError").innerText = "Please enter message in the message box.";
+                }
+            });
+            $('#RejectionMsg').focusout(function () {
+                debugger;
+                var RejectionMsg = $('#RejectionMsg').val();
+                if (RejectionMsg == '') {
+                    $('#rejectionMsgError').show();
+                }
+                else {
+                    $('#rejectBtn').attr('href', '/Applicant/RejectApplication/@Model.programSelection.id/' + RejectionMsg);
+                    $('#rejectionMsgError').hide();
+                }
+            });
+        </script>
+    }*@
+

@@ -1,0 +1,29 @@
+﻿@model List<SEAdd.Models.DomainModels.Applicant>
+
+@{
+    ViewBag.Title = "ViewGraduateApplicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+@Html.Partial("_ViewGraduateApplicants", Model)
+
+
+@section Scripts{
+    <script>
+        $('#example5').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+    </script>
+}

@@ -1,0 +1,160 @@
+﻿@model SEAdd.Models.DomainModels.MeritCriteria
+@{
+    ViewBag.Title = "MeritCriteria";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+@*<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Criteria</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>*@
+@using (Html.BeginForm("AddUpdateCriteria", "MeritCriteria", FormMethod.Post))
+{
+    <div class="container p-4">
+        @if (TempData["Message"] != null)
+        {
+            <div class="row text-center">
+                <div class="alert alert-primary alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                    <strong>Success!</strong> @TempData["Message"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                </div>
+            </div>
+        }
+        @Html.HiddenFor(m => m.id)
+        @Html.HiddenFor(m => m.departmentName)
+        <div class="row">
+            <div class="text-center">
+                <h2 class="text-primary"><strong>Manage Merit Criteria</strong></h2>
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <h3><strong>For BS-Program</strong></h3>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BsMetricPercentage)
+                    @Html.TextBoxFor(m => m.BsMetricPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.BsMetricPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BsIntermediatePercentage)
+                    @Html.TextBoxFor(m => m.BsIntermediatePercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.BsIntermediatePercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BsEntryTestPercentage)
+                    @Html.TextBoxFor(m => m.BsEntryTestPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.BsEntryTestPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <h3><strong>For MS/MPhil-Program</strong></h3>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MsMetricPercentage)
+                    @Html.TextBoxFor(m => m.MsMetricPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.MsMetricPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MsIntermediatePercentage)
+                    @Html.TextBoxFor(m => m.MsIntermediatePercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.MsIntermediatePercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MsBsPercentage)
+                    @Html.TextBoxFor(m => m.MsBsPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.MsBsPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MsNTsORInterviewPercentage)
+                    @Html.TextBoxFor(m => m.MsNTsORInterviewPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.MsNTsORInterviewPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <h3><strong>For PHD-Program</strong></h3>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhdMetricPercentage)
+                    @Html.TextBoxFor(m => m.PhdMetricPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.PhdMetricPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhdIntermediatePercentage)
+                    @Html.TextBoxFor(m => m.PhdIntermediatePercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.PhdIntermediatePercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhdBsPercentage)
+                    @Html.TextBoxFor(m => m.PhdBsPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.PhdBsPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhdMsPercentage)
+                    @Html.TextBoxFor(m => m.PhdMsPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.PhdMsPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhdNTsORInterviewPercentage)
+                    @Html.TextBoxFor(m => m.PhdNTsORInterviewPercentage, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                    @Html.ValidationMessageFor(m => m.PhdNTsORInterviewPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 ">
+                <div class="form-group">
+                    <div class="float-end">
+                        <input type="submit" value="Save Changes" name="save" class="btn btn-sm btn-success" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

@@ -1,0 +1,65 @@
+﻿@model List<SEAdd.Models.ViewModels.ApplicatTransferredApplicationVM>
+@{
+    ViewBag.Title = "ViewTransferredApplications";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container">
+    <h2><strong>Note!</strong></h2>
+    <h5 class="text-danger">You can't delete or reverse the transferred application form from one department to another department until the applicant request to transferred application again from the current department 
+    to previous department.</h5>
+</div>
+
+<div class="col-md=12 mt-4 mx-4">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4 class="card-title text-white">Transferred Application Forms</h4>
+            @*<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>*@
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="table table-bordered table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th rowspan="2"><strong>Form No.</strong></th>
+                            <th rowspan="2"><strong>Full Name</strong></th>
+                            <th rowspan="2"><strong>Father's Name</strong></th>
+                            <th rowspan="2"><strong>Email</strong></th>
+                            <th rowspan="2"><strong>CNIC</strong></th>
+                            <th rowspan="2"><strong>Gender</strong></th>
+                            <th rowspan="2"><strong>Nationality</strong></th>
+                            <th rowspan="2"><strong>Program</strong></th>
+                            <th colspan="2" class="bg-info text-white text-center"><strong>Department</strong></th>
+                            <th rowspan="2"><strong>Status</strong></th>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white"><strong>From</strong></th>
+                            <th class="bg-success text-white"><strong>To</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.applicant.id</td>
+                                <td>@item.applicant.FullName</td>
+                                <td>@item.applicant.FatherName</td>
+                                <td>@item.applicant.Email</td>
+                                <td>@item.applicant.CNIC</td>
+                                <td>@item.applicant.Gender</td>
+                                <td>@item.applicant.Nationality</td>
+                                <td>@item.programDetails.Program.ProgramName</td>
+                                <td>@item.oldDepartment.name</td>
+                                <td>@item.newDepartment.name</td>
+                                <td>
+                                    <span class="badge light badge-primary">Transferred</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

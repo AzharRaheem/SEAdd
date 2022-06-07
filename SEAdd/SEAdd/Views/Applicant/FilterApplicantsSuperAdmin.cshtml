@@ -1,0 +1,64 @@
+﻿@model SEAdd.Models.ViewModels.SuperAdminFilterVM
+@{
+    ViewBag.Title = "FilterApplicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST" ,
+        UpdateTargetId = "ShowRecords" ,
+        InsertionMode = InsertionMode.Replace ,
+        LoadingElementId = "Loader",
+        OnComplete = "LoadDataTableDesign"
+    };
+}
+
+<div class="row mb-3">
+    <h2>Filter Applicants<span><img src="~/assets/images/filter.png" height="40" width="40"/></span></h2>
+</div>
+<div class="text-center" id="Loader" style="display:none;">
+    <img src="~/assets/images/ajaxpreloader.gif" width="50" height="50" />
+</div>
+<div class="container">
+    @using (Ajax.BeginForm("FilterApplicantsSuperAdmin", "Applicant", ajaxOptions))
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.departmentId)
+                @Html.DropDownListFor(m => m.departmentId, new SelectList(Model.Departments, "id", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.departmentId , "" , new { @class="text-danger"})
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.programId)
+                @Html.DropDownListFor(m => m.programId, new SelectList(Model.Programs, "id", "ProgramName"), "-Select Program-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.departmentId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.year)
+                @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year", type = "number" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.otherAttributes)
+                @Html.TextBoxFor(m => m.otherAttributes, new { @class = "form-control", placeholder = "Enter Name,Father Name,Program etc." })
+            </div>
+        </div>
+        <div class="row float-end">
+            <input type="submit" value="Apply Filter" name="filterBtn" id="filterButton" class="btn btn-primary btn-sm mt-3" />
+        </div>
+        <div class="clearfix"></div>
+        <hr />
+    }
+</div>
+
+<div class="container text-center">
+        <span>@Html.ActionLink("View UnderGraduate Applications", "ViewUnderGraduateApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-primary" })</span>
+        <span>@Html.ActionLink("View Graduate Applications", "ViewGraduateApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-success" })</span>
+        <span>@Html.ActionLink("New Applications", "NewApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-info" })</span>
+        <span>@Html.ActionLink("All Applications", "ViewAllApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-primary" })</span>
+        <span>@Html.ActionLink("Today's Applications", "TodaysApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-success" })</span>
+        <span>@Html.ActionLink("View Local Applicants", "ViewLocalApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-info" })</span>
+        @*<span>@Html.ActionLink("View Graduate Applicants", "ViewGraduateApplicants", "Applicant", new { @class = "btn btn-sm btn-rounded btn-success" })</span>*@
+</div>
+
+<div class="row" id="ShowRecords">
+
+</div>

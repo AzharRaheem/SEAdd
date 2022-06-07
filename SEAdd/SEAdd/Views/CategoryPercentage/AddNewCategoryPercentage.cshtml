@@ -1,0 +1,65 @@
+﻿@model SEAdd.Models.ViewModels.CategoryPercentageVM
+@{
+    ViewBag.Title = "AddNewCategory";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Categories</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">@ViewBag.Title</a></li>
+    </ol>
+</div>
+@using (Html.BeginForm("AddNewCategoryPercentage", "CategoryPercentage", FormMethod.Post))
+{
+    <div class="container p-4">
+        @if (ViewBag.ErrorMsg != null)
+        {
+            <div class="row text-center">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    <strong>Error!</strong> @ViewBag.ErrorMsg
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>New Category</h3>
+            </div>
+            <div class="col-sm-6">
+                <span><a href="~/CategoryPercentage/Index" class="btn btn-sm btn-primary float-end"><i class="fa fa-angle-double-left"></i> Back to List</a></span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.categoryPercentage.categoryName)
+                    @Html.DropDownListFor(m => m.categoryPercentage.categoryName, new SelectList(Model.Categories, "name", "name"), "-Select Category-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.categoryPercentage.categoryName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.categoryPercentage.QuestionPercentage)
+                    @Html.TextBoxFor(m => m.categoryPercentage.QuestionPercentage , new { @class = "form-control" , type="number" , min=0 , max=100 })
+                    @Html.ValidationMessageFor(m => m.categoryPercentage.QuestionPercentage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 ">
+                <div class="form-group">
+                    <div class="float-end">
+                        <input type="submit" value="SAVE" name="save" class="btn btn-sm btn-success" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

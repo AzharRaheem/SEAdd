@@ -24,6 +24,7 @@
                         <tr>
                             <th>Quota Name</th>
                             <th>Number of Seats</th>
+                            <th>Nomination</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,6 +34,7 @@
                             <tr>
                                 <td>@item.name</td>
                                 <td>@item.numberOfSeats</td>
+                                <td>@item.NominationFrom</td>
                                 <td>
                                     @*@Html.ActionLink("View", "View", new { id = @item.id }, new { @class = "btn btn-sm btn-primary" })*@
                                     @Html.ActionLink("Edit", "EditQota", new { id = @item.id }, new { @class = "btn btn-sm btn-success" })

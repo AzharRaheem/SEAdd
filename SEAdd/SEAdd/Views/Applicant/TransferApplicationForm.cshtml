@@ -1,0 +1,35 @@
+﻿@model SEAdd.Models.ViewModels.ProgramSelectionVM
+@{
+    ViewBag.Title = "TransferApplicationForm";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+@using (Html.BeginForm("TransferApplicationForm", "Applicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container p-2 mt-0" style="margin-top:-25px !important;">
+        <h2 class="h3 text-center bg-primary text-white rounded-1 p-1">Transfer Application Form</h2>
+        @*<h4 class="col-md-8 mx-auto text-center text-danger"><strong>Dear Applicant,</strong> If you are going to apply for more then 1 programmes then your Admission Processing fee will be incresed via number of programmes you applied.</h4>*@
+        <div class="col-md-4 mx-auto">
+            <br />
+        </div>
+        @Html.HiddenFor(m => m.programSelection.ApplicantId)
+        @Html.HiddenFor(m => m.programSelection.id)
+        @Html.HiddenFor(m => m.programSelection.ProgramId)
+        <!-- Personal Form Fields -->
+        <div class="row text-center">
+            <div class="col-md-4 mx-auto">
+                <h4>Department</h4>
+                @Html.DropDownListFor(m => m.programSelection.DepartmentId, new SelectList(Model.Departments, "id", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                @Html.ValidationMessageFor(m => m.programSelection.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-2 text-center">
+            <div class="col-md-4 mx-auto">
+                <br />
+               <input type="submit" value="TRANSFER" class="btn btn-sm btn-primary"/>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+

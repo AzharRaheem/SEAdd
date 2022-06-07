@@ -47,7 +47,7 @@ namespace SEAdd.Controllers
                 };
                 return View(vm);
             }
-            var alreadyExist = db.Programs.Where(p => p.ProgramName == model.program.ProgramName).FirstOrDefault();
+            var alreadyExist = db.Programs.Where(p => p.ProgramName.ToLower() == model.program.ProgramName.ToLower()).FirstOrDefault();
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Program already exist.";

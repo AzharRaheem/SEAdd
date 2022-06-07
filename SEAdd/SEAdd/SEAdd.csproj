@@ -46,6 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -217,17 +220,30 @@
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\CampusController.cs" />
+    <Compile Include="Controllers\CategoryPercentageController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CustomErrorController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentSettingController.cs" />
+    <Compile Include="Controllers\EntryTestController.cs" />
+    <Compile Include="Controllers\EntryTestSettingController.cs" />
     <Compile Include="Controllers\FeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HostelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MeritCriteriaController.cs" />
+    <Compile Include="Controllers\MeritListsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\ProvienceController.cs" />
     <Compile Include="Controllers\QotaController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\RollNumberController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\TestCategoryController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TransportRouteController.cs" />
     <Compile Include="CustomValidations\CheckValidDOB.cs" />
     <Compile Include="CustomValidations\CheckValidObtainedMarks.cs" />
@@ -347,48 +363,212 @@
     <Compile Include="Migrations\202202270957159_ProgramSelectionModelUpdated.Designer.cs">
       <DependentUpon>202202270957159_ProgramSelectionModelUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203031607471_RejectionMessageModelAdded.cs" />
+    <Compile Include="Migrations\202203031607471_RejectionMessageModelAdded.Designer.cs">
+      <DependentUpon>202203031607471_RejectionMessageModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203052122209_ApplicantModelUpdated5.cs" />
+    <Compile Include="Migrations\202203052122209_ApplicantModelUpdated5.Designer.cs">
+      <DependentUpon>202203052122209_ApplicantModelUpdated5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203061058506_RejectionMessageModelUpdated.cs" />
+    <Compile Include="Migrations\202203061058506_RejectionMessageModelUpdated.Designer.cs">
+      <DependentUpon>202203061058506_RejectionMessageModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203071919139_RejectionMessageModelUpdated1.cs" />
+    <Compile Include="Migrations\202203071919139_RejectionMessageModelUpdated1.Designer.cs">
+      <DependentUpon>202203071919139_RejectionMessageModelUpdated1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203181018258_isApprovedAndRejectedPropAdded_Applicant.cs" />
+    <Compile Include="Migrations\202203181018258_isApprovedAndRejectedPropAdded_Applicant.Designer.cs">
+      <DependentUpon>202203181018258_isApprovedAndRejectedPropAdded_Applicant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203200910089_ApplicantDeptProgramPropAdded.cs" />
+    <Compile Include="Migrations\202203200910089_ApplicantDeptProgramPropAdded.Designer.cs">
+      <DependentUpon>202203200910089_ApplicantDeptProgramPropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203221309065_RejectionMessageModelUpdated2.cs" />
+    <Compile Include="Migrations\202203221309065_RejectionMessageModelUpdated2.Designer.cs">
+      <DependentUpon>202203221309065_RejectionMessageModelUpdated2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203232100596_TestCategoryModelAdded.cs" />
+    <Compile Include="Migrations\202203232100596_TestCategoryModelAdded.Designer.cs">
+      <DependentUpon>202203232100596_TestCategoryModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203232103349_TestTypeModelAdded.cs" />
+    <Compile Include="Migrations\202203232103349_TestTypeModelAdded.Designer.cs">
+      <DependentUpon>202203232103349_TestTypeModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203240843152_CategoryPercentageModelAdded.cs" />
+    <Compile Include="Migrations\202203240843152_CategoryPercentageModelAdded.Designer.cs">
+      <DependentUpon>202203240843152_CategoryPercentageModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203242036233_MeritCriteriaModelAdded.cs" />
+    <Compile Include="Migrations\202203242036233_MeritCriteriaModelAdded.Designer.cs">
+      <DependentUpon>202203242036233_MeritCriteriaModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203242040122_DepartmentPropAddedInMeritModel.cs" />
+    <Compile Include="Migrations\202203242040122_DepartmentPropAddedInMeritModel.Designer.cs">
+      <DependentUpon>202203242040122_DepartmentPropAddedInMeritModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203250848026_QuotaModelUpdated.cs" />
+    <Compile Include="Migrations\202203250848026_QuotaModelUpdated.Designer.cs">
+      <DependentUpon>202203250848026_QuotaModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203250918136_MeritListModelAdded.cs" />
+    <Compile Include="Migrations\202203250918136_MeritListModelAdded.Designer.cs">
+      <DependentUpon>202203250918136_MeritListModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203302034527_TestNameModelAdded.cs" />
+    <Compile Include="Migrations\202203302034527_TestNameModelAdded.Designer.cs">
+      <DependentUpon>202203302034527_TestNameModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203302036468_TestQuestionModelAdded.cs" />
+    <Compile Include="Migrations\202203302036468_TestQuestionModelAdded.Designer.cs">
+      <DependentUpon>202203302036468_TestQuestionModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203302038368_TestQuestionModelUpdated.cs" />
+    <Compile Include="Migrations\202203302038368_TestQuestionModelUpdated.Designer.cs">
+      <DependentUpon>202203302038368_TestQuestionModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203310856466_TestNameModelUpdated.cs" />
+    <Compile Include="Migrations\202203310856466_TestNameModelUpdated.Designer.cs">
+      <DependentUpon>202203310856466_TestNameModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203310933592_CategoryPercentageModelUpdated.cs" />
+    <Compile Include="Migrations\202203310933592_CategoryPercentageModelUpdated.Designer.cs">
+      <DependentUpon>202203310933592_CategoryPercentageModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204062018252_DepartmentSettingModelAdded.cs" />
+    <Compile Include="Migrations\202204062018252_DepartmentSettingModelAdded.Designer.cs">
+      <DependentUpon>202204062018252_DepartmentSettingModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204062040287_DepartmentSettingModelUpdated.cs" />
+    <Compile Include="Migrations\202204062040287_DepartmentSettingModelUpdated.Designer.cs">
+      <DependentUpon>202204062040287_DepartmentSettingModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204062052125_EntryTestSettingModelAdded.cs" />
+    <Compile Include="Migrations\202204062052125_EntryTestSettingModelAdded.Designer.cs">
+      <DependentUpon>202204062052125_EntryTestSettingModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204082114219_ApplicantRollNumberModelAdded.cs" />
+    <Compile Include="Migrations\202204082114219_ApplicantRollNumberModelAdded.Designer.cs">
+      <DependentUpon>202204082114219_ApplicantRollNumberModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204182036339_TransferApplicationFormModelAdded.cs" />
+    <Compile Include="Migrations\202204182036339_TransferApplicationFormModelAdded.Designer.cs">
+      <DependentUpon>202204182036339_TransferApplicationFormModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205081537125_ApplicantQualificationProgramsModelAdded.cs" />
+    <Compile Include="Migrations\202205081537125_ApplicantQualificationProgramsModelAdded.Designer.cs">
+      <DependentUpon>202205081537125_ApplicantQualificationProgramsModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205081944020_ApplicantQualificationProgramsModelUpdated.cs" />
+    <Compile Include="Migrations\202205081944020_ApplicantQualificationProgramsModelUpdated.Designer.cs">
+      <DependentUpon>202205081944020_ApplicantQualificationProgramsModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205161956574_TestNameModelUpdated1.cs" />
+    <Compile Include="Migrations\202205161956574_TestNameModelUpdated1.Designer.cs">
+      <DependentUpon>202205161956574_TestNameModelUpdated1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205261501505_EntryTestSettingModelUpdated.cs" />
+    <Compile Include="Migrations\202205261501505_EntryTestSettingModelUpdated.Designer.cs">
+      <DependentUpon>202205261501505_EntryTestSettingModelUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\Academic.cs" />
     <Compile Include="Models\DomainModels\AcademicDegree.cs" />
     <Compile Include="Models\DomainModels\AdmissionDate.cs" />
     <Compile Include="Models\DomainModels\Applicant.cs" />
+    <Compile Include="Models\DomainModels\ApplicantQualificationProgram.cs" />
     <Compile Include="Models\DomainModels\Bank.cs" />
     <Compile Include="Models\DomainModels\Board.cs" />
     <Compile Include="Models\DomainModels\Campus.cs" />
+    <Compile Include="Models\DomainModels\CategoryPercentage.cs" />
     <Compile Include="Models\DomainModels\Country.cs" />
     <Compile Include="Models\DomainModels\Department.cs" />
+    <Compile Include="Models\DomainModels\DepartmentSetting.cs" />
+    <Compile Include="Models\DomainModels\EntryTestSetting.cs" />
     <Compile Include="Models\DomainModels\Fee.cs" />
     <Compile Include="Models\DomainModels\Hostel.cs" />
+    <Compile Include="Models\DomainModels\MeritCriteria.cs" />
+    <Compile Include="Models\DomainModels\MeritList.cs" />
     <Compile Include="Models\DomainModels\Notification.cs" />
     <Compile Include="Models\DomainModels\Program.cs" />
     <Compile Include="Models\DomainModels\ProgramSelection.cs" />
     <Compile Include="Models\DomainModels\Provience.cs" />
     <Compile Include="Models\DomainModels\Qota.cs" />
+    <Compile Include="Models\DomainModels\RejectionMessage.cs" />
+    <Compile Include="Models\DomainModels\RollNumber.cs" />
     <Compile Include="Models\DomainModels\SendEmail.cs" />
     <Compile Include="Models\DomainModels\Setting.cs" />
+    <Compile Include="Models\DomainModels\TestCategory.cs" />
+    <Compile Include="Models\DomainModels\TestName.cs" />
+    <Compile Include="Models\DomainModels\TestQuestion.cs" />
+    <Compile Include="Models\DomainModels\TestType.cs" />
+    <Compile Include="Models\DomainModels\TransferApplicationForm.cs" />
     <Compile Include="Models\DomainModels\TransportRoute.cs" />
+    <Compile Include="Models\DomainModels\UserEntryTestResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
+    <Compile Include="Models\ViewModels\AdminFilterVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantDepartmentReviewVM.cs" />
     <Compile Include="Models\ViewModels\ApplicantPreviousQualificationVM.cs" />
     <Compile Include="Models\ViewModels\ApplicantProgramDepartVM.cs" />
     <Compile Include="Models\ViewModels\ApplicantRegistrationVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicantRollNumberVM.cs" />
+    <Compile Include="Models\ViewModels\ApplicatTransferredApplicationVM.cs" />
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
+    <Compile Include="Models\ViewModels\CategoryPercentageVM.cs" />
     <Compile Include="Models\ViewModels\DepartmentCampusVM.cs" />
+    <Compile Include="Models\ViewModels\EntryTestRoomVM.cs" />
+    <Compile Include="Models\ViewModels\EntryTestSettingVM.cs" />
     <Compile Include="Models\ViewModels\HostelCampusVM.cs" />
     <Compile Include="Models\ViewModels\HostelServiceVM.cs" />
+    <Compile Include="Models\ViewModels\MeritListVM.cs" />
     <Compile Include="Models\ViewModels\ProgramSelectionVM.cs" />
     <Compile Include="Models\ViewModels\ProgramTypeVM.cs" />
+    <Compile Include="Models\ViewModels\QuestionCategoryVM.cs" />
+    <Compile Include="Models\ViewModels\QuestionEntryTestVM.cs" />
     <Compile Include="Models\ViewModels\RegistrationConfirmationVM.cs" />
+    <Compile Include="Models\ViewModels\RollNumberDepartmentVM.cs" />
+    <Compile Include="Models\ViewModels\SuperAdminDeptVM.cs" />
+    <Compile Include="Models\ViewModels\SuperAdminFilterVM.cs" />
+    <Compile Include="Models\ViewModels\TransferApplicationFormVM.cs" />
     <Compile Include="Models\ViewModels\TransportServiceVM.cs" />
     <Compile Include="Models\ViewModels\UserDashboardVM.cs" />
     <Compile Include="Models\ViewModels\UserRoleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\AllApplicant.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllApplicant.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApprovedRejected.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApprovedRejected.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\Challan.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Challan.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MeritListWithoutETest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MeritListWithoutETest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegistrationForm.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegistrationForm.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
@@ -399,7 +579,9 @@
     <Content Include="assets\images\applicationForm.png" />
     <Content Include="assets\images\approved.png" />
     <Content Include="assets\images\calander.png" />
+    <Content Include="assets\images\campuses.png" />
     <Content Include="assets\images\comments.png" />
+    <Content Include="assets\images\hostel.png" />
     <Content Include="assets\images\nomination.png" />
     <Content Include="assets\images\filter.png" />
     <Content Include="assets\images\filterbyyear.png" />
@@ -595,12 +777,67 @@
     <Content Include="Views\Applicant\ViewDepartmentalApplicants.cshtml" />
     <Content Include="Views\Applicant\ViewDepartmentalNewApplicants.cshtml" />
     <Content Include="Views\Applicant\ReviewApplicant.cshtml" />
+    <Content Include="Views\Applicant\ReviewApplicantDetails.cshtml" />
+    <Content Include="Views\Applicant\ViewUnderGraduateApplicants.cshtml" />
+    <Content Include="Views\Shared\_ViewUnderGraduateApplicants.cshtml" />
+    <Content Include="Views\Shared\_ViewGraduateApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewGraduateApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewUnderGraduateApplicantsDept.cshtml" />
+    <Content Include="Views\Shared\_ViewDeptProgramApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewGraduateApplicantsDept.cshtml" />
+    <Content Include="Views\Shared\_AllApplicants.cshtml" />
+    <Content Include="Views\Shared\_AllApplicantsDepartmental.cshtml" />
+    <Content Include="Views\Applicant\FilterApplicantsSuperAdmin.cshtml" />
+    <Content Include="Views\Applicant\FilterApplicantsAdmin.cshtml" />
+    <Content Include="Views\Applicant\TodaysApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewTodaysApplicantsDept.cshtml" />
+    <Content Include="Views\Applicant\ViewLocalApplicants.cshtml" />
+    <Content Include="Views\Applicant\ViewLocalApplicantsDept.cshtml" />
+    <Content Include="Views\Applicant\TransferApplicationForm.cshtml" />
+    <Content Include="Views\Applicant\ViewApprovedApplicantsDept.cshtml" />
+    <Content Include="Views\Applicant\ViewApplicationsStatus.cshtml" />
+    <Content Include="Views\Shared\_AllDeptApplicants.cshtml" />
+    <Content Include="Views\Applicant\ReviewApplicantInfo.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Country\AddNewCountry.cshtml" />
+    <Content Include="Views\Country\EditCountry.cshtml" />
+    <Content Include="Views\Provience\Index.cshtml" />
+    <Content Include="Views\Provience\AddNewProvience.cshtml" />
+    <Content Include="Views\Provience\EditProvience.cshtml" />
+    <Content Include="Views\TestCategory\Index.cshtml" />
+    <Content Include="Views\TestCategory\AddNewCategory.cshtml" />
+    <Content Include="Views\TestCategory\EditCategory.cshtml" />
+    <Content Include="Views\TestType\Index.cshtml" />
+    <Content Include="Views\TestType\AddNewType.cshtml" />
+    <Content Include="Views\TestType\EditType.cshtml" />
+    <Content Include="Views\CategoryPercentage\Index.cshtml" />
+    <Content Include="Views\CategoryPercentage\AddNewCategoryPercentage.cshtml" />
+    <Content Include="Views\CategoryPercentage\EditCategoryPercentage.cshtml" />
+    <Content Include="Views\MeritCriteria\AddUpdateCriteria.cshtml" />
+    <Content Include="Views\Question\AddNewQuestion.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\AddNewTest.cshtml" />
+    <Content Include="Views\Test\EditTest.cshtml" />
+    <Content Include="Views\DepartmentSetting\Index.cshtml" />
+    <Content Include="Views\EntryTestSetting\Index.cshtml" />
+    <Content Include="Views\RollNumber\Index.cshtml" />
+    <Content Include="Views\RollNumber\GetRollNumber.cshtml" />
+    <Content Include="Views\MeritLists\GenerateMeritList.cshtml" />
+    <Content Include="Views\Applicant\ViewTransferredApplications.cshtml" />
+    <Content Include="Views\Question\ViewAllQuestions.cshtml" />
+    <Content Include="Views\EntryTest\CheckRollNumber.cshtml" />
+    <Content Include="Views\EntryTest\TestEnd.cshtml" />
+    <Content Include="Views\EntryTest\TestNotStarted.cshtml" />
+    <Content Include="Views\EntryTest\StartTest.cshtml" />
+    <Content Include="Views\Shared\_EntryTestQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\css\" />
     <Folder Include="assets\icons\" />
+    <Folder Include="assets\plugins\ckeditor\" />
     <Folder Include="assets\plugins\datatables\" />
+    <Folder Include="assets\plugins\tinymce\" />
     <Folder Include="fonts\Roboto\" />
   </ItemGroup>
   <ItemGroup>
@@ -689,9 +926,109 @@
     <EmbeddedResource Include="Migrations\202202270957159_ProgramSelectionModelUpdated.resx">
       <DependentUpon>202202270957159_ProgramSelectionModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203031607471_RejectionMessageModelAdded.resx">
+      <DependentUpon>202203031607471_RejectionMessageModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203052122209_ApplicantModelUpdated5.resx">
+      <DependentUpon>202203052122209_ApplicantModelUpdated5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203061058506_RejectionMessageModelUpdated.resx">
+      <DependentUpon>202203061058506_RejectionMessageModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203071919139_RejectionMessageModelUpdated1.resx">
+      <DependentUpon>202203071919139_RejectionMessageModelUpdated1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203181018258_isApprovedAndRejectedPropAdded_Applicant.resx">
+      <DependentUpon>202203181018258_isApprovedAndRejectedPropAdded_Applicant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203200910089_ApplicantDeptProgramPropAdded.resx">
+      <DependentUpon>202203200910089_ApplicantDeptProgramPropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203221309065_RejectionMessageModelUpdated2.resx">
+      <DependentUpon>202203221309065_RejectionMessageModelUpdated2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203232100596_TestCategoryModelAdded.resx">
+      <DependentUpon>202203232100596_TestCategoryModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203232103349_TestTypeModelAdded.resx">
+      <DependentUpon>202203232103349_TestTypeModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203240843152_CategoryPercentageModelAdded.resx">
+      <DependentUpon>202203240843152_CategoryPercentageModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203242036233_MeritCriteriaModelAdded.resx">
+      <DependentUpon>202203242036233_MeritCriteriaModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203242040122_DepartmentPropAddedInMeritModel.resx">
+      <DependentUpon>202203242040122_DepartmentPropAddedInMeritModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203250848026_QuotaModelUpdated.resx">
+      <DependentUpon>202203250848026_QuotaModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203250918136_MeritListModelAdded.resx">
+      <DependentUpon>202203250918136_MeritListModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203302034527_TestNameModelAdded.resx">
+      <DependentUpon>202203302034527_TestNameModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203302036468_TestQuestionModelAdded.resx">
+      <DependentUpon>202203302036468_TestQuestionModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203302038368_TestQuestionModelUpdated.resx">
+      <DependentUpon>202203302038368_TestQuestionModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203310856466_TestNameModelUpdated.resx">
+      <DependentUpon>202203310856466_TestNameModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203310933592_CategoryPercentageModelUpdated.resx">
+      <DependentUpon>202203310933592_CategoryPercentageModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204062018252_DepartmentSettingModelAdded.resx">
+      <DependentUpon>202204062018252_DepartmentSettingModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204062040287_DepartmentSettingModelUpdated.resx">
+      <DependentUpon>202204062040287_DepartmentSettingModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204062052125_EntryTestSettingModelAdded.resx">
+      <DependentUpon>202204062052125_EntryTestSettingModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204082114219_ApplicantRollNumberModelAdded.resx">
+      <DependentUpon>202204082114219_ApplicantRollNumberModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204182036339_TransferApplicationFormModelAdded.resx">
+      <DependentUpon>202204182036339_TransferApplicationFormModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081537125_ApplicantQualificationProgramsModelAdded.resx">
+      <DependentUpon>202205081537125_ApplicantQualificationProgramsModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081944020_ApplicantQualificationProgramsModelUpdated.resx">
+      <DependentUpon>202205081944020_ApplicantQualificationProgramsModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205161956574_TestNameModelUpdated1.resx">
+      <DependentUpon>202205161956574_TestNameModelUpdated1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205261501505_EntryTestSettingModelUpdated.resx">
+      <DependentUpon>202205261501505_EntryTestSettingModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AllApplicant.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AllApplicant.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApprovedRejected.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ApprovedRejected.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Challan.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MeritListWithoutETest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MeritListWithoutETest.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegistrationForm.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RegistrationForm.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
