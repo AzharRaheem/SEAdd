@@ -1,0 +1,145 @@
+﻿@model List<SEAdd.Models.DomainModels.MeritList>
+
+@{
+    ViewBag.Title = "All Applicants";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+
+@*@using (Html.BeginForm("ViewUserMeritList", "MeritLists", FormMethod.Post))
+    {
+        <div class="container p-4">
+            <h2 class="text-primary"><strong>View Merit List</strong></h2>
+            <hr />
+            <div class="row mb-2">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.departmentName)
+                        @Html.DropDownListFor(m => m.departmentName, new SelectList(Model.Departments, "name", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                        @Html.ValidationMessageFor(m => m.departmentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.programName)
+                        @Html.DropDownListFor(m => m.programName, new SelectList(Model.Programs, "programName", "programName"), "-Select Program-", new { @class = "default-select wide form-control" })
+                        @Html.ValidationMessageFor(m => m.programName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.year)
+                        @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year (20XX)", type = "number", min = 1000, max = 9999 })
+                        @Html.ValidationMessageFor(m => m.year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row float-end">
+                <input type="submit" value="View Merit List" name="generateMeritListBtn" id="generateMeritListBtn" class="btn btn-primary btn-sm mt-3" />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    }*@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3><strong class="bg-primary text-white p-1">University of Azad Jammu and Kashmir , Muzaffarabad</strong></h3>
+            <h3><em><strong class="bg-primary text-white p-1">Department of @Model[0].departmentName</strong></em></h3>
+            <h4><strong>All Applicants for BS-@Model[0].meritListYear</strong></h4>
+            <hr class="col-md-3 mx-auto" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="table-responsive">
+                <div class="card-header">
+                    <h4 class="card-title"></h4>
+                    <a href="~/Account/AddNewUser" class="btn btn-sm btn-primary"><i class="fa fa-user-plus" style="font-size:18px;"></i> Export</a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="card-body">
+                    <table class="display dataTable table table-bordered table-hover no-footer" role="grid" aria-describedby="example5_info" id="meritListTable">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Sno.</th>
+                                <th rowspan="2">Form #</th>
+                                <th rowspan="2">Full Name</th>
+                                <th rowspan="2">Father's Name</th>
+                                <th rowspan="2">Gender</th>
+                                <th rowspan="2">Quota</th>
+                                <th colspan="2" class="text-center">Matriculation</th>
+                                <th colspan="2" class="text-center">Intermediate</th>
+                                <th rowspan="2">Scores</th>
+                                <th rowspan="2">Nomination</th>
+                                <th rowspan="2">Domicile</th>
+                                <th rowspan="2">Visibility</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th>Total</th>
+                                <th>Obtained</th>
+                                <th>Total</th>
+                                <th>Obtained</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@Model[i].formNo</td>
+                                    <td>@Model[i].fullName</td>
+                                    <td>@Model[i].fatherName</td>
+                                    <td>@Model[i].gender</td>
+                                    <td>@Model[i].QuotaName</td>
+                                    <td>@Model[i].metricTotalMarks</td>
+                                    <td>@Model[i].metricObtainedMarks</td>
+                                    <td>@Model[i].intermediateTotalMarks</td>
+                                    <td>@Model[i].intermediateObtainedMarks</td>
+                                    <td>@Model[i].scores %</td>
+                                    <td>@Model[i].nominationFrom</td>
+                                    <td>@Model[i].domicile</td>
+                                    <td>
+                                        @if (Model[i].isVisible)
+                                        {
+                                            <a href="~/MeritLists/VisibilityOff/@Model[i].id" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/MeritLists/VisibilityOn/@Model[i].id" class="btn btn-primary"><i class="fa fa-eye-slash"></i></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $('#meritListTable').DataTable(
+	    {
+	        searching: true,
+	        paging: true,
+	        select: true,
+	        info: true,
+	        lengthChange: true,
+	        language: {
+	            paginate: {
+	                next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+	                previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+	            }
+	        }
+	    });
+    </script>
+}
+
+
+
+

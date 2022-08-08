@@ -2,10 +2,6 @@
 @{
     ViewBag.Title = "StartTest";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
-    AjaxOptions ajaxOptions = new AjaxOptions()
-    {
-        
-    };
 }
 @section styles{
     <style>
@@ -17,13 +13,14 @@
             font-size: 15px;
             font-weight: bold;
         }
-        p {
+        #QuestionHeading p {
             display:inline-block;
             font-size: 20px;
             font-weight: bold;
         }
     </style>
 }
+
 <div class="container" id="RenderTestEndPartialView">
     <table class="table table-responsive table-striped table-bordered">
         <tr class="bg-primary">
@@ -36,21 +33,23 @@
             <td><strong>@Model.entryTestSetting.testName</strong></td>
             <td><strong>@DateTime.Today.Date.Year</strong></td>
             <td><strong>@Model.entryTestSetting.TotalMarks</strong></td>
-            <td><strong><h4><span id="TestTimer"></span></h4></strong></td>
+            <td><strong><span id="TestTimer"></span></strong></td>
         </tr>
     </table>
+    <div class="row">
+        <h4><strong class="text-danger">Note/Instructions!</strong></h4>
+        <h5> >> Make sure you've stable internet connection.</h5>
+        <h5> >> Each question has four possible answer select one and press next button.</h5>
+        <h5> >> Please submit the quiz before the time gets up.</h5>
+    </div>
     <div id="RenderPartialView">
         @Html.Partial("_EntryTestQuestion", Model.Question)
     </div> 
 </div>
-<!-- Render Patial View for Question -->
-
-
 
 @section scripts{
     <script>
         // Set the date we're counting down to
-
         var countDownDate = new Date('@Model.entryTestSetting.TestEndDateTime.ToString("MM dd, yyyy HH:mm:ss")').getTime();
         console.log(countDownDate);
         // Update the count down every 1 second
@@ -74,8 +73,20 @@
             clearInterval(x);
             document.getElementById("TestTimer").innerHTML = "<p class='text-danger'>TIMES UP</p>";
             $("#TimesUpView").css("display", "block");
-            $("#partial").css("display", "none");
+            $("input[type='radio']").attr("disabled", "true");
+            $("#nextButton").attr("disabled", "true");
+            $("#RenderTestEndPartialView").html(
+                "<div class='row text-center'><div class='col-md-8 mx-auto'><img src='~/assets/images/tick.png' width='300' height='300' class='mb-2'/><h2 class='text-danger'><strong>TIMES UP!</strong></h2><h3>Sorry! Your entry test has not been submitted successfully.</h3><a href='~/Dashboard/UserDashboard' class='btn btn-primary px-4 py-2'><strong><i class='fa fa-angle-double-left'></i>Back to Dashboard</strong></a></div></div>"
+             );
           }
         }, 1000);
+
+        @*function CheckIsTestEnded() {
+            debugger;
+            if(@Convert.ToInt32(ViewBag.isSubmitted) == 1)
+            {
+                $("#RenderTestEndPartialView").html("<h2>Submitted.</h2>");
+            }
+        }*@
     </script>
 }

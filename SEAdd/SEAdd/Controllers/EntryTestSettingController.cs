@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
     public class EntryTestSettingController : Controller
     {
         ApplicationDbContext db;

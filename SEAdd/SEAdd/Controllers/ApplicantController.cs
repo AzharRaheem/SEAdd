@@ -18,6 +18,7 @@ using CrystalDecisions.Shared;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
     public class ApplicantController : Controller
     {
         ApplicationDbContext db;
@@ -913,7 +914,8 @@ namespace SEAdd.Controllers
                title = "Your Application for Admission in "+program.Department.name+" Department for "+program.Program.ProgramName+" Program has been rejected." , 
                message = model.RejectionMsg.message , 
                programId = program.id , 
-               departmentId = program.DepartmentId
+               departmentId = program.DepartmentId,
+               date = DateTime.Today.Date 
             };
             db.RejectionMessages.Add(rejectionMsg);
             db.SaveChanges();
@@ -1477,6 +1479,27 @@ namespace SEAdd.Controllers
                 TempData.Keep();
                 return RedirectToAction("AdminDashboard", "Dashboard");
             }
+        }
+        public ActionResult ViewAllMessages()
+        {
+            var loggedUserId = Session["UserId"].ToString();
+            var user = db.Users.Where(a => a.Id == loggedUserId).FirstOrDefault();
+            var applicant = db.Applicants.Where(a => a.userId == user.Id).FirstOrDefault();
+            var allMessages = db.RejectionMessages.Where(r => r.applicantId == applicant.id).ToList();
+            List<RejectionMessageVM> model = new List<RejectionMessageVM>();
+            foreach (var message in allMessages)
+            {
+                RejectionMessageVM vm = new RejectionMessageVM()
+                {
+                    rejectionMessage = message,
+                };
+                var department = db.Departments.Where(d => d.id == message.departmentId).FirstOrDefault();
+                vm.departmentName = department.name;
+                var program = db.ProgramSelections.Where(p => p.id == message.programId).FirstOrDefault();
+                vm.programName = program.Program.ProgramName;
+                model.Add(vm);
+            }
+            return View(model);
         }
         [NonAction]
         private string GetImageUrl(HttpPostedFileBase file)

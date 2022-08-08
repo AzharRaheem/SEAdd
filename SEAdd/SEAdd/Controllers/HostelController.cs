@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
     public class HostelController : Controller
     {
         ApplicationDbContext db;

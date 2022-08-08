@@ -83,7 +83,12 @@
                                         {
                                             <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
                                         }
-                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                        <div class="header-info mx-2">
+                                            <span> @Session["UserName"]</span>
+                                            <small> @Session["UserRole"] <i class="fa fa-caret-down" style="font-size:18px;"></i></small>
+                                            
+                                        </div>
+                                        @*<h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>*@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
@@ -245,7 +250,6 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="~/Admission/Index">Manage Date</a></li>
-                                <li><a href="app-calender.html">Create a Test</a></li>
                             </ul>
                         </li>
                         <li>
@@ -263,18 +267,26 @@
                                         <li><a href="~/TestCategory/AddNewCategory">Add New</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="~/TestType/Index">Question Types</a></li>
+                                <li>
+                                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Question Types</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="~/TestType/Index">View All Types</a></li>
+                                        <li><a href="~/TestType/AddNewType">Add New Type</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
-                        @*<li>
+                        <li>
                             <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fa fa-list"></i>
                                 <span class="nav-text">Merit Lists</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">Generate Merit List</a></li>
+                                <li><a href="~/MeritLists/GenerateUserMeritList">View Merit List</a></li>
                             </ul>
-                        </li>*@
+                        </li>
                         <li>
                             <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fas fa-money-bill-alt"></i>
@@ -286,10 +298,14 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="~/Account/AllUsers" class="" aria-expanded="false">
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fas fa-users"></i>
                                 <span class="nav-text">Users</span>
                             </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Account/AddNewUser">Add New User</a></li>
+                                <li><a href="~/Account/AllUsers">View All Users</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="~/Setting/Index" class="" aria-expanded="false">
@@ -350,7 +366,12 @@
                                         {
                                             <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
                                         }
-                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                        <div class="header-info mx-2">
+                                            <span> @Session["UserName"]</span>
+                                            <small> @Session["UserRole"] <i class="fa fa-caret-down" style="font-size:18px;"></i></small>
+
+                                        </div>
+                                        @*<h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>*@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
@@ -433,14 +454,23 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="~/MeritCriteria/AddUpdateCriteria">Set Criteria</a></li>
-                                <li><a href="~/MeritLists/GenerateMeritList">Generate Merit List</a></li>
+                                <li><a href="~/MeritLists/GenerateMeritList">View Selected Applicants</a></li>
+                                <li><a href="~/MeritLists/ViewAllMeritApplicants">View All Applicants</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="~/Account/AllUsers" class="" aria-expanded="false">
+                            @*<a href="~/Account/AllUsers" class="" aria-expanded="false">
+                                <i class="fas fa-users"></i>
+                                <span class="nav-text">Users</span>
+                            </a>*@
+                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <i class="fas fa-users"></i>
                                 <span class="nav-text">Users</span>
                             </a>
+                            <ul aria-expanded="false">
+                                <li><a href="~/Account/AddNewUser">Add New User</a></li>
+                                <li><a href="~/Account/AllUsers">View All Users</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="~/DepartmentSetting/Index" class="" aria-expanded="false">
@@ -544,20 +574,32 @@
                                             </ul>
                                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
                                         </div>
-                                        <a class="all-notification" href="javascript:void(0);">Messages <i class="ti-arrow-end"></i></a>
+                                        @if (Convert.ToInt32(Session["MessageCount"]) != 0)
+                                        {
+                                            <a class="all-notification" href="~/Applicant/ViewAllMessages">View all Messages<i class="ti-arrow-end"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a class="all-notification" href="#" onclick="NoMessageSweetAlert()">View all Messages<i class="ti-arrow-end"></i></a>
+                                        }
                                     </div>
                                 </li> <!-- This <li> is used for the Messages... -->
                                 <li class="nav-item dropdown  header-profile">
                                     <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                         @if (Session["UserProfileImage"] != null)
-                                                    {
+                                        {
                                             <img src="@Url.Content((string)Session["UserProfileImage"])" width="56" alt="User Image">
                                         }
                                         else
                                         {
                                             <img src="~/assets/images/userProfileAvatar.png" width="56" alt="User Image">
                                         }
-                                        <h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>
+                                        <div class="header-info mx-2">
+                                            <span> @Session["UserName"]</span>
+                                            <small> @Session["UserRole"] <i class="fa fa-caret-down" style="font-size:18px;"></i></small>
+
+                                        </div>
+                                        @*<h6 class="mx-2 my-auto">@Session["UserRole"] <i class="fa fa-caret-down" style="font-size:16px;"></i></h6>*@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a href="~/Account/UpdateUserProfile/@userId" class="dropdown-item ai-icon">
@@ -631,7 +673,7 @@
                                 <span class="nav-text">Merit Lists</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="app-calender.html">View List</a></li>
+                                <li><a href="~/MeritLists/GenerateUserMeritList">View Merit List</a></li>
                             </ul>
                         </li>
                         <li>
@@ -759,6 +801,14 @@
 		    swal({
 		        title: "Sorry!",
 		        text: "Admission for BS-Program has been closed.",
+		        icon: "error",
+		        button: "OK",
+		    });
+		}
+		function NoMessageSweetAlert() {
+		    swal({
+		        title: "Empty!",
+		        text: "Message box is empty.",
 		        icon: "error",
 		        button: "OK",
 		    });

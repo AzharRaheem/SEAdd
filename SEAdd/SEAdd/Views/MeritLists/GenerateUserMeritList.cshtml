@@ -1,0 +1,51 @@
+﻿@model SEAdd.Models.ViewModels.MeritListUserVM
+
+@{
+    ViewBag.Title = "ViewMeritList";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="container text-center">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <strong>Error!</strong> @TempData["ErrorMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("ViewUserMeritList", "MeritLists", FormMethod.Post))
+{
+    <div class="container p-4">
+        <h2 class="text-primary"><strong>View Merit List</strong></h2>
+        <hr />
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.departmentName)
+                    @Html.DropDownListFor(m => m.departmentName, new SelectList(Model.Departments, "name", "name"), "-Select Department-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.departmentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.programName)
+                    @Html.DropDownListFor(m => m.programName, new SelectList(Model.Programs, "programName", "programName"), "-Select Program-", new { @class = "default-select wide form-control" })
+                    @Html.ValidationMessageFor(m => m.programName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.year)
+                    @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year (20XX)", type = "number", min = 1000, max = 9999 })
+                    @Html.ValidationMessageFor(m => m.year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row float-end">
+            <input type="submit" value="View Merit List" name="generateMeritListBtn" id="generateMeritListBtn" class="btn btn-primary btn-sm mt-3" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

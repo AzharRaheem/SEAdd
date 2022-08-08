@@ -1,0 +1,21 @@
+﻿@model SEAdd.Models.ViewModels.EntryTestResultVM
+@{
+    ViewBag.Title = "ViewEntryTestResult";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class='row text-center'>
+    <div class='col-md-8 mx-auto'>
+        <img src='~/assets/images/score.png' width='300' height='300' class='mb-2' />
+        <h3><strong>Name :</strong> @Model.applicant.FullName</h3>
+        <h3><strong>Roll Number :</strong> @Model.entryTestResult.rollNumber</h3>
+        <h3><strong>Department :</strong> @Model.entryTestResult.departmentName</h3>
+        <h2 class='text-primary'><strong>SCORES</strong></h2>
+        <h3><strong>@Model.entryTestResult.obtainedScorePercentage / @Model.entryTestResult.totalScorePercentage</strong></h3>
+        @*<h3>Status : @(Model.entryTestResult.obtainedScorePercentage >= 50)?<strong class="text-success">PASSED</strong>:<strong class="text-danger">FAIL</strong>;</h3>*@
+        <a href='~/Dashboard/UserDashboard' class='btn btn-primary px-4 py-2'>
+            <strong><i class='fa fa-angle-double-left'></i> Back to Dashboard</strong>
+        </a>
+    </div>
+</div>
+

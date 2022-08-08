@@ -84,12 +84,16 @@ namespace SEAdd.Controllers
             }
             //This code is used to check either user confirmed his/her email address that's sent on his/her email address.
             #region CheckEitherUserConfirmedEmail
-            var userId = UserManager.FindByEmail(model.Email).Id;
-            if (!UserManager.IsEmailConfirmed(userId))
+            ApplicationUser CurrentUser = UserManager.Find(model.Email, model.Password);
+            //string userId = UserManager.FindByEmail(model.Email).Id;
+            if(CurrentUser != null)
             {
-                ModelState.AddModelError("", "Email not confirmed yet.");
-                return View(model);
-            }
+                if (!UserManager.IsEmailConfirmed(CurrentUser.Id))
+                {
+                    ModelState.AddModelError("", "Email not confirmed yet.");
+                    return View(model);
+                }
+            }            
             #endregion
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -100,6 +104,7 @@ namespace SEAdd.Controllers
                     ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
                     var roles = await UserManager.GetRolesAsync(user.Id);                    
                     Session["UserId"] = user.Id;//Store logged User Id...
+                    Session["UserName"] = user.FirstName+" "+user.LastName;
                     Session["UserProfileImage"] = user.profileImgUrl; //Store logged User Image...
                     if(db.Applicants.Where(a=>a.userId == user.Id && a.isRegistrationFinished == true).FirstOrDefault() != null)
                     {
@@ -175,6 +180,7 @@ namespace SEAdd.Controllers
                 var roles = await UserManager.GetRolesAsync(user.Id);
                 if (result.Succeeded)
                 {
+                    Session["UserName"] = user.FirstName + " " + user.LastName;
                     Session["UserProfileImage"] = user.profileImgUrl;//Store User Updated Image...
                     if (roles.Contains("User"))
                     {

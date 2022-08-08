@@ -51,6 +51,7 @@ namespace SEAdd.Controllers
             if (alreadyExist != null)
             {
                 ViewBag.ErrorMsg = "Program already exist.";
+                model.ProgramType = GetLists.GetProgramTypeList();
                 return View(model);
             }
             db.Programs.Add(model.program);

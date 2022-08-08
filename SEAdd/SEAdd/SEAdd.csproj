@@ -475,6 +475,42 @@
     <Compile Include="Migrations\202205261501505_EntryTestSettingModelUpdated.Designer.cs">
       <DependentUpon>202205261501505_EntryTestSettingModelUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206081719290_UserQuestionResultModelAdded.cs" />
+    <Compile Include="Migrations\202206081719290_UserQuestionResultModelAdded.Designer.cs">
+      <DependentUpon>202206081719290_UserQuestionResultModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206260528344_RejectionMessageDatePropAdded.cs" />
+    <Compile Include="Migrations\202206260528344_RejectionMessageDatePropAdded.Designer.cs">
+      <DependentUpon>202206260528344_RejectionMessageDatePropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207160420534_EntryTestResultModelAdded.cs" />
+    <Compile Include="Migrations\202207160420534_EntryTestResultModelAdded.Designer.cs">
+      <DependentUpon>202207160420534_EntryTestResultModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207161604416_EntryTestResultModelPropUpdated.cs" />
+    <Compile Include="Migrations\202207161604416_EntryTestResultModelPropUpdated.Designer.cs">
+      <DependentUpon>202207161604416_EntryTestResultModelPropUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207180953065_EntryTestResultModelUpdated.cs" />
+    <Compile Include="Migrations\202207180953065_EntryTestResultModelUpdated.Designer.cs">
+      <DependentUpon>202207180953065_EntryTestResultModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207202019400_MeritListModelUpdated.cs" />
+    <Compile Include="Migrations\202207202019400_MeritListModelUpdated.Designer.cs">
+      <DependentUpon>202207202019400_MeritListModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207210937006_MeritListModelGenderPropAdded.cs" />
+    <Compile Include="Migrations\202207210937006_MeritListModelGenderPropAdded.Designer.cs">
+      <DependentUpon>202207210937006_MeritListModelGenderPropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207211959311_MeritListModelDomicilePropAdded.cs" />
+    <Compile Include="Migrations\202207211959311_MeritListModelDomicilePropAdded.Designer.cs">
+      <DependentUpon>202207211959311_MeritListModelDomicilePropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207231951145_isVisiblePropAddedInMeritListModel.cs" />
+    <Compile Include="Migrations\202207231951145_isVisiblePropAddedInMeritListModel.Designer.cs">
+      <DependentUpon>202207231951145_isVisiblePropAddedInMeritListModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DomainModels\Academic.cs" />
@@ -489,6 +525,7 @@
     <Compile Include="Models\DomainModels\Country.cs" />
     <Compile Include="Models\DomainModels\Department.cs" />
     <Compile Include="Models\DomainModels\DepartmentSetting.cs" />
+    <Compile Include="Models\DomainModels\EntryTestResult.cs" />
     <Compile Include="Models\DomainModels\EntryTestSetting.cs" />
     <Compile Include="Models\DomainModels\Fee.cs" />
     <Compile Include="Models\DomainModels\Hostel.cs" />
@@ -509,7 +546,7 @@
     <Compile Include="Models\DomainModels\TestType.cs" />
     <Compile Include="Models\DomainModels\TransferApplicationForm.cs" />
     <Compile Include="Models\DomainModels\TransportRoute.cs" />
-    <Compile Include="Models\DomainModels\UserEntryTestResult.cs" />
+    <Compile Include="Models\DomainModels\UserQuestionResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminDashboardVM.cs" />
@@ -523,16 +560,19 @@
     <Compile Include="Models\ViewModels\BankFeeVM.cs" />
     <Compile Include="Models\ViewModels\CategoryPercentageVM.cs" />
     <Compile Include="Models\ViewModels\DepartmentCampusVM.cs" />
+    <Compile Include="Models\ViewModels\EntryTestResultVM.cs" />
     <Compile Include="Models\ViewModels\EntryTestRoomVM.cs" />
     <Compile Include="Models\ViewModels\EntryTestSettingVM.cs" />
     <Compile Include="Models\ViewModels\HostelCampusVM.cs" />
     <Compile Include="Models\ViewModels\HostelServiceVM.cs" />
+    <Compile Include="Models\ViewModels\MeritListUserVM.cs" />
     <Compile Include="Models\ViewModels\MeritListVM.cs" />
     <Compile Include="Models\ViewModels\ProgramSelectionVM.cs" />
     <Compile Include="Models\ViewModels\ProgramTypeVM.cs" />
     <Compile Include="Models\ViewModels\QuestionCategoryVM.cs" />
     <Compile Include="Models\ViewModels\QuestionEntryTestVM.cs" />
     <Compile Include="Models\ViewModels\RegistrationConfirmationVM.cs" />
+    <Compile Include="Models\ViewModels\RejectionMessageVM.cs" />
     <Compile Include="Models\ViewModels\RollNumberDepartmentVM.cs" />
     <Compile Include="Models\ViewModels\SuperAdminDeptVM.cs" />
     <Compile Include="Models\ViewModels\SuperAdminFilterVM.cs" />
@@ -559,6 +599,12 @@
       <DependentUpon>Challan.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\MeritList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MeritList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\MeritListWithoutETest.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -581,6 +627,9 @@
     <Content Include="assets\images\calander.png" />
     <Content Include="assets\images\campuses.png" />
     <Content Include="assets\images\comments.png" />
+    <Content Include="assets\images\confirm.png" />
+    <Content Include="assets\images\email.png" />
+    <Content Include="assets\images\ended.png" />
     <Content Include="assets\images\hostel.png" />
     <Content Include="assets\images\nomination.png" />
     <Content Include="assets\images\filter.png" />
@@ -593,10 +642,14 @@
     <Content Include="assets\images\applicationStatus.png" />
     <Content Include="assets\images\PortalLogo.png" />
     <Content Include="assets\images\rejected.png" />
+    <Content Include="assets\images\score.png" />
+    <Content Include="assets\images\scoreBadge.png" />
     <Content Include="assets\images\selective.png" />
+    <Content Include="assets\images\testSubmitted.png" />
     <Content Include="assets\images\tick.png" />
     <Content Include="assets\images\UniversityLogo.png" />
     <Content Include="assets\images\userProfileAvatar.PNG" />
+    <Content Include="assets\images\welcome-back.png" />
     <Content Include="assets\js\datatables.init.js" />
     <Content Include="Content\bootstrap-custom.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -830,6 +883,16 @@
     <Content Include="Views\EntryTest\TestNotStarted.cshtml" />
     <Content Include="Views\EntryTest\StartTest.cshtml" />
     <Content Include="Views\Shared\_EntryTestQuestion.cshtml" />
+    <Content Include="Views\Applicant\ViewAllMessages.cshtml" />
+    <Content Include="Views\Shared\_EntryTestEnded.cshtml" />
+    <Content Include="Views\Shared\_EntryTestSubmitted.cshtml" />
+    <Content Include="Views\EntryTest\ViewEntryTestResult.cshtml" />
+    <Content Include="Views\MeritLists\ViewMeritList.cshtml" />
+    <Content Include="Views\MeritLists\GenerateUserMeritList.cshtml" />
+    <Content Include="Views\MeritLists\ViewUserMeritList.cshtml" />
+    <Content Include="Views\MeritLists\ViewAllMeritApplicants.cshtml" />
+    <Content Include="Views\MeritLists\ViewAllMeritsApplicants.cshtml" />
+    <Content Include="Views\MeritLists\ViewAllApplicantsMerit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1010,6 +1073,33 @@
     <EmbeddedResource Include="Migrations\202205261501505_EntryTestSettingModelUpdated.resx">
       <DependentUpon>202205261501505_EntryTestSettingModelUpdated.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206081719290_UserQuestionResultModelAdded.resx">
+      <DependentUpon>202206081719290_UserQuestionResultModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206260528344_RejectionMessageDatePropAdded.resx">
+      <DependentUpon>202206260528344_RejectionMessageDatePropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207160420534_EntryTestResultModelAdded.resx">
+      <DependentUpon>202207160420534_EntryTestResultModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207161604416_EntryTestResultModelPropUpdated.resx">
+      <DependentUpon>202207161604416_EntryTestResultModelPropUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207180953065_EntryTestResultModelUpdated.resx">
+      <DependentUpon>202207180953065_EntryTestResultModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207202019400_MeritListModelUpdated.resx">
+      <DependentUpon>202207202019400_MeritListModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207210937006_MeritListModelGenderPropAdded.resx">
+      <DependentUpon>202207210937006_MeritListModelGenderPropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207211959311_MeritListModelDomicilePropAdded.resx">
+      <DependentUpon>202207211959311_MeritListModelDomicilePropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207231951145_isVisiblePropAddedInMeritListModel.resx">
+      <DependentUpon>202207231951145_isVisiblePropAddedInMeritListModel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AllApplicant.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllApplicant.cs</LastGenOutput>
@@ -1021,6 +1111,10 @@
     <EmbeddedResource Include="Reports\Challan.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Challan.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MeritList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MeritList.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MeritListWithoutETest.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

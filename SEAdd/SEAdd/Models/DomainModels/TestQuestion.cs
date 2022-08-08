@@ -17,18 +17,23 @@ namespace SEAdd.Models.DomainModels
         [AllowHtml]
         public string QuestionText { get; set; }
         [Required]
+        [AllowHtml]
         [Display(Name = "Option A")]
         public string OptionA { get; set; }
         [Required]
+        [AllowHtml]
         [Display(Name = "Option B")]
         public string OptionB { get; set; }
         [Required]
+        [AllowHtml]
         [Display(Name = "Option C")]
         public string OptionC { get; set; }
         [Required]
+        [AllowHtml]
         [Display(Name = "Option D")]
         public string OptionD { get; set; }
         [Required]
+        [AllowHtml]
         [Display(Name = "Correct Answer")]
         public string CorrectAns { get; set; }
         [Display(Name = "Hint!")]
@@ -53,5 +58,9 @@ namespace SEAdd.Models.DomainModels
         [Display(Name = "Question Type")]
         [ForeignKey("TestType")]
         public int testTypeId { get; set; }
+
+
+
+        public virtual ICollection<UserQuestionResult> UsertQuestionsResults { get; set; }
     }
 }

@@ -72,6 +72,8 @@ namespace SEAdd.Models
         public DbSet<RollNumber> RollNumbers { get; set; }
         public DbSet<TransferApplicationForm> TransferApplicationForms { get; set; }
         public DbSet<ApplicantQualificationProgram> ApplicantQualificationPrograms { get; set; }
+        public DbSet<UserQuestionResult> UserQuestionResults { get; set; }
+        public DbSet<EntryTestResult> EntryTestResults { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -4,12 +4,31 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 @section styles{
-    <style>
-        body{
-            background-color:rgb(136, 108, 192) !important;
-        }
-    </style>
+<link rel="stylesheet" href="~/Content/forgotPassword.css" />
  }
+   
+
+<div class="card login-form p-2">
+    <div class="card-body">
+        <div class="text-center mb-4">
+            <img src="~/assets/images/email.png" width="120" height="120" />
+        </div>
+
+        <div class="card-text text-center">
+            <h5><strong>Email Confirmation</strong></h5>
+            <div>
+                <p>
+                    We have sent an email to your registered email address to confirm the validity of your email address. After receiving the email follow the link provided to complete your registration.
+                </p>
+                <a href="~/Account/Login" class="btn btn-primary px-5"><strong>LOGIN</strong></a>
+            </div>
+        </div>
+    </div>
+</div>
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 
 <div class="container bg-light mt-3 p-3">
     <hgroup class="title">
@@ -21,7 +40,7 @@
         </p>
     </div>
     <hr />
-    <p>&copy; @DateTime.Now.Year - Online Admission Portal (DSE)</p>
-</div>
+    <p>&copy; @DateTime.Now.Year - UAJK Admission Portal</p>
+</div>*@
 
 

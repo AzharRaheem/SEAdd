@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
     public class CountryController : Controller
     {
         ApplicationDbContext db;

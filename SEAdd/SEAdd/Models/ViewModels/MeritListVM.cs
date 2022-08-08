@@ -12,7 +12,7 @@ namespace SEAdd.Models.ViewModels
         [Required][Display(Name ="Program")]
         public string program { get; set; }
         [Required][Display(Name = "Year")]
-        public int year { get; set; }
+        public string year { get; set; }
         public List<Program> Programs { get; set; }
     }
 }

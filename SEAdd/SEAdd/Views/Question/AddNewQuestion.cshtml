@@ -84,14 +84,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             @Html.LabelFor(m => m.Question.OptionA)
-                            @Html.TextBoxFor(m => m.Question.OptionA, new { @class = "form-control", placeholder = "Enter Option A" })
+                            @Html.TextBoxFor(m => m.Question.OptionA, new { @class = "form-control", id = "HtmlEditor",  placeholder = "Enter Option A" })
                             @Html.ValidationMessageFor(m => m.Question.OptionA, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             @Html.LabelFor(m => m.Question.OptionB)
-                            @Html.TextBoxFor(m => m.Question.OptionB, new { @class = "form-control", placeholder = "Enter Option B" })
+                            @Html.TextBoxFor(m => m.Question.OptionB, new { @class = "form-control", id = "HtmlEditor", placeholder = "Enter Option B" })
                             @Html.ValidationMessageFor(m => m.Question.OptionB, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -100,14 +100,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             @Html.LabelFor(m => m.Question.OptionC)
-                            @Html.TextBoxFor(m => m.Question.OptionC, new { @class = "form-control", placeholder = "Enter Option C" })
+                            @Html.TextBoxFor(m => m.Question.OptionC, new { @class = "form-control", id = "HtmlEditor", placeholder = "Enter Option C" })
                             @Html.ValidationMessageFor(m => m.Question.OptionC, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             @Html.LabelFor(m => m.Question.OptionD)
-                            @Html.TextBoxFor(m => m.Question.OptionD, new { @class = "form-control", placeholder = "Enter Option D" })
+                            @Html.TextBoxFor(m => m.Question.OptionD, new { @class = "form-control", id = "HtmlEditor", placeholder = "Enter Option D" })
                             @Html.ValidationMessageFor(m => m.Question.OptionD, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             @Html.LabelFor(m => m.Question.CorrectAns)
-                            @Html.TextBoxFor(m => m.Question.CorrectAns, new { @class = "form-control", placeholder = "Enter Correct Answer" })
+                            @Html.TextBoxFor(m => m.Question.CorrectAns, new { @class = "form-control", id = "HtmlEditor", placeholder = "Enter Correct Answer" })
                             @Html.ValidationMessageFor(m => m.Question.CorrectAns, "", new { @class = "text-danger" })
                         </div>
                     </div>

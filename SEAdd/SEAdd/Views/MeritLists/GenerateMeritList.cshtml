@@ -30,7 +30,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(m => m.year)
-                        @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year (20XX)" , type="number"})
+                        @Html.TextBoxFor(m => m.year, new { @class = "form-control", placeholder = "Enter Year (20XX)" , type="number" , min=1000 , max=9999})
                         @Html.ValidationMessageFor(m => m.year, "", new { @class = "text-danger" })
                     </div>
                 </div>

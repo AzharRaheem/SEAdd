@@ -39,11 +39,11 @@
                             <tr>
                                 <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.QuestionText))</td>
                                 <td>@item.Category.categoryName</td>
-                                <td>@item.OptionA</td>
-                                <td>@item.OptionB</td>
-                                <td>@item.OptionC</td>
-                                <td>@item.OptionD</td>
-                                <td>@item.CorrectAns</td>
+                                <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.OptionA))</td>
+                                <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.OptionB))</td>
+                                <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.OptionC))</td>
+                                <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.OptionD))</td>
+                                <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.CorrectAns))</td>
                                 <td>@item.Hint</td>
                                 <td>@item.marks</td>
                                 <td>@item.TestName.testName</td>

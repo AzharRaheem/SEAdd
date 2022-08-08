@@ -3,18 +3,38 @@
     ViewBag.Title = "Confirm Email";
 }
 
-<div class="container bg-light p-3">
-    <hgroup class="title">
-        <h5>Email Confirmed</h5>
-    </hgroup>
-    <div>
-        <p>
-            Press login button to login.
-        </p>
-        <div>
-            <a href="~/Account/Login" class="btn btn-primary">Login</a>
+@section styles{
+    <link rel="stylesheet" href="~/Content/forgotPassword.css" />
+}
+<div class="card login-form p-2">
+    <div class="card-body">
+        <div class="text-center mb-4">
+            <img src="~/assets/images/confirm.png" width="120" height="120" />
+        </div>
+
+        <div class="card-text text-center">
+            <h5><strong>Congratulations!</strong></h5>
+            <div>
+                <p>
+                    Your email has been confirmed. You can now login to the application.
+                </p>
+                <a href="~/Account/Login" class="btn btn-primary px-5"><strong>LOGIN</strong></a>
+            </div>
         </div>
     </div>
-    <hr />
-    <p>&copy; @DateTime.Now.Year - Online Admission Portal (DSE)</p>
 </div>
+
+@*<div class="card login-form p-2">
+    <div class="card-body">
+        <img src="~/assets/images/approved.png" class="text-center" width="100" height="100" />
+        <div class="card-text text-center">
+            <h2>Welcome</h2>
+            <div>
+                <p>
+                    Press Login button to Login in the Application.
+                </p>
+                <a href="~/Account/Login" class="btn btn-primary px-5"><strong>LOGIN</strong></a>
+            </div>
+        </div>
+    </div>
+</div>*@

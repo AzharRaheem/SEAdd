@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SEAdd.Controllers
 {
+    [HandleError]
     public class DepartmentSettingController : Controller
     {
         ApplicationDbContext db;

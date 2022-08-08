@@ -10,7 +10,7 @@ namespace SEAdd.Models.DomainModels
     {
         [Key]
         public int id { get; set; }
-        [Required]
+        [Required][Display(Name ="Route")]
         public string route { get; set; }
     }
 }

@@ -96,6 +96,8 @@ namespace SEAdd.Models.DomainModels
 
         public virtual ICollection<ProgramSelection> ProgramsSelection { get; set; }
         public virtual ICollection<Academic> Academics { get; set; }
+        public virtual ICollection<UserQuestionResult> UsertQuestionsResults { get; set; }
+
 
     }
 }

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace SEAdd.Controllers
 {
     [Authorize(Roles ="SuperAdmin")]
+    [HandleError]
     public class AdmissionController : Controller
     {
         private readonly ApplicationDbContext db;

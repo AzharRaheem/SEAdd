@@ -5,10 +5,11 @@
     HttpMethod = "POST",
     UpdateTargetId = "RenderPartialView",
     InsertionMode = InsertionMode.Replace,
-    LoadingElementId = "Loader"
+    LoadingElementId = "Loader" , 
+    OnComplete = "CheckIsTestEnded"
 }))
 {
-    <div class="container">
+    <div class="container" style="margin-bottom:-35px;">
         <div class="row float-end">
             <h4><em>Question @Convert.ToInt32(Session["CurrentQuestionCount"]) of @Convert.ToInt32(Session["TotalQuestions"])</em></h4>
         </div>
@@ -21,43 +22,24 @@
         <input type="hidden" name="rollNumber" value="@Convert.ToString( Session["RollNumber"])" />
         <input type="hidden" name="department" value="@Model.departmentName" />
         @Html.HiddenFor(m => m.id)
-        <div class="row bg-primary p-2 mb-2">
-            <h3 class="text-white"><strong>Q : </strong>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.QuestionText))?</h3>
+        <div class="row bg-success p-2 mb-2">
+            <h3 id="QuestionHeading" class="text-white"><strong>Q @Convert.ToInt32(Session["CurrentQuestionCount"]) : </strong>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.QuestionText))?</h3>
         </div>
-        <span class="option"><input type="radio" value="@Model.OptionA" name="userAns" class="OptionA form-check-input" required/> @Model.OptionA</span>
-        <span class="option"><input type="radio" value="@Model.OptionB" name="userAns" class="OptionA form-check-input" required/> @Model.OptionB</span>
-        <span class="option"><input type="radio" value="@Model.OptionC" name="userAns" class="OptionA form-check-input" required/> @Model.OptionC</span>
-        <span class="option"><input type="radio" value="@Model.OptionD" name="userAns" class="OptionA form-check-input" required/> @Model.OptionD</span>
+        <span class="option"><input type="radio" value="@Model.OptionA" name="userAnswer" class="OptionA form-check-input" required/> @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.OptionA))</span>
+        <span class="option"><input type="radio" value="@Model.OptionB" name="userAnswer" class="OptionA form-check-input" required/> @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.OptionB))</span>
+        <span class="option"><input type="radio" value="@Model.OptionC" name="userAnswer" class="OptionA form-check-input" required/> @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.OptionC))</span>
+        <span class="option"><input type="radio" value="@Model.OptionD" name="userAnswer" class="OptionA form-check-input" required/> @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.OptionD))</span>
         <input type="hidden" name="correctAns" value="@Model.CorrectAns"/>
+        <input type="hidden" name="totalMarksOfThisQuestion" value=@Convert.ToInt32(Session["MarksOfSingleQuestion"]) />
+
         <div class="row float-end">
-            <input type="submit" value="NEXT" name="nextBtn" class="btn btn-success mb-1" />
+            <input type="submit" value="NEXT" name="nextBtn" class="btn btn-success mb-1" id="nextButton" />
         </div>
         <div class="clearfix"></div>
     </div>
 }
 
-@*<div class="container">
-    <div class="row float-end">
-        <h4><em>Question 3 of 10</em></h4>
-    </div>
-    <div class="clearfix"></div>
-</div>
-<div class="container" style="background-color:#f3eded;">
-    <div class="text-center" id="Loader" style="display:none;">
-        <img src="~/assets/images/ajaxpreloader.gif" width="50" height="50" />
-    </div>
-    <div class="row bg-primary p-2 mb-2">
-        <h3 class="text-white"><strong>Q : </strong>What is a Machine?</h3>
-    </div>
-    <span class="option"><input type="radio" value="Hello" name="userAns" class="OptionA form-check-input" /> Option A</span>
-    <span class="option"><input type="radio" value="Hello" name="userAns" class="OptionA form-check-input" /> Option B</span>
-    <span class="option"><input type="radio" value="Hello" name="userAns" class="OptionA form-check-input" /> Option C</span>
-    <span class="option"><input type="radio" value="Hello" name="userAns" class="OptionA form-check-input" /> Option D</span>
-    <div class="row float-end">
-        <input type="submit" value="NEXT" name="nextBtn" class="btn btn-success mb-1" />
-    </div>
-    <div class="clearfix"></div>
-</div>*@
+
 
 
 
