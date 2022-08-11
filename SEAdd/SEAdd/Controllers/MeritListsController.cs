@@ -199,6 +199,7 @@ namespace SEAdd.Controllers
                     }
                 }
             }
+            Session["MeritList"] = vm;
             return View(vm);
         }
         public ActionResult GenerateUserMeritList()
@@ -249,7 +250,8 @@ namespace SEAdd.Controllers
                 }
             }
             meritListUserVM.meritList = meritLst;
-            if(meritListUserVM.meritList.Count() == 0)
+            Session["MeritList"] = meritLst;
+            if (meritListUserVM.meritList.Count() == 0)
             {
                 TempData["ErrorMsg"] = "Merit list has not been created for department of "+model.departmentName+" "+model.programName+"-"+model.year+".";
                 TempData.Keep();
@@ -310,6 +312,34 @@ namespace SEAdd.Controllers
         {
             var model = Session["AllMeritApplicants"] as List<MeritList>;
             return View(model);
+        }
+        public ActionResult PrintSelectedApplicants()
+        {
+            //Load the EntryTestMerit Report List...
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "MeritList.rpt"));
+            List<MeritList> model = Session["MeritList"] as List<MeritList>;
+            rd.SetDataSource(model);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", model[0].departmentName + "-" + "MeritList.pdf");
+        }
+        public ActionResult PrintAllApplicants()
+        {
+            //Load the EntryTestMerit Report List...
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/"), "MeritList.rpt"));
+            List<MeritList> model = Session["AllMeritApplicants"] as List<MeritList>;
+            rd.SetDataSource(model);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", model[0].departmentName + "-" + "MeritList.pdf");
         }
     }
 }
